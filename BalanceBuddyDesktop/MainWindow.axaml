@@ -4,6 +4,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BalanceBuddyDesktop.MainWindow"
-        Title="BalanceBuddyDesktop">
-    Welcome to Avalonia!
+        Title="BalanceBuddyDesktop"
+		Background="#E8ECDD">
+
+		<Window.Styles>
+			<Style Selector="Button">
+				<Setter Property="Background" Value="#80D465"/>
+				<Setter Property="BorderBrush" Value="#4DA557"/>
+				<Setter Property="BorderThickness" Value="2"/>
+				<Setter Property="CornerRadius" Value="10"/>
+				<Setter Property="Padding" Value="10"/>
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="FontSize" Value="16"/>
+			</Style>
+		</Window.Styles>
+
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+			<TextBlock Text="BalanceBuddy"
+                       FontWeight="Bold"
+                       FontSize="24"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"/>
+			
+			<Image Source="/Assets/BalanceBuddyLogo.jpg"
+                   Width="200"
+                   Height="200"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center">
+				<TextBlock Text="Track Spending" HorizontalAlignment="Center"/>
+			</Button>
+
+			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center">
+				<TextBlock Text="View Spending" HorizontalAlignment="Center"/>
+			</Button>
+			
+		</StackPanel>
 </Window>
