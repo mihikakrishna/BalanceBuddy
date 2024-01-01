@@ -32,13 +32,13 @@
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
-			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center">
+			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center" Click="TrackSpending_Click">
 				<TextBlock Text="Track Spending" HorizontalAlignment="Center"/>
 			</Button>
 
-			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center">
+			<Button Width="200" Margin="0,0,0,10" HorizontalAlignment="Center" Click="ViewSpending_Click">
 				<TextBlock Text="View Spending" HorizontalAlignment="Center"/>
 			</Button>
-			
+
 		</StackPanel>
 </Window>

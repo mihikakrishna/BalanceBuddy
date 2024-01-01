@@ -8,5 +8,15 @@ namespace BalanceBuddyDesktop
         {
             InitializeComponent();
         }
+
+        private void TrackSpending_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            this.Content = new TrackSpendingPage();
+        }
+
+        private void ViewSpending_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            this.Content = new ViewSpendingPage();
+        }
     }
 }
