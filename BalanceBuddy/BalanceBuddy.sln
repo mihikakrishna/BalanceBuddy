@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalanceBuddy", "BalanceBuddy.csproj", "{B26BC6A8-E907-4DBC-8841-AC8E28387BCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B26BC6A8-E907-4DBC-8841-AC8E28387BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26BC6A8-E907-4DBC-8841-AC8E28387BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26BC6A8-E907-4DBC-8841-AC8E28387BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26BC6A8-E907-4DBC-8841-AC8E28387BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A3BEF7B-2BD0-428B-A94C-C324367491C5}
+	EndGlobalSection
+EndGlobal
