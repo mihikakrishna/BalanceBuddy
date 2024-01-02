@@ -3,12 +3,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.IncomeSourcesPage">
+             x:Class="BalanceBuddyDesktop.IncomeSourcesPage"
+			 xmlns:models="clr-namespace:BalanceBuddyDesktop">
 
 	<DockPanel>
 		<Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
 			<TextBlock Text="← Back" FontSize="16" />
 		</Button>
+
+		<ScrollViewer DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
 
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 			<TextBlock Text="IncomeSourcesPage"
@@ -16,8 +27,10 @@
 					   FontSize="24"
 					   Margin="0,0,0,20"
 					   HorizontalAlignment="Center"/>
-
+			
+			<TextBox x:Name="IncomeSourceNameTextBox" Width="200" Watermark="Enter income source name" Margin="0,0,0,20"/>
+			
+			<Button Content="Add Income Source" Click="AddIncomeSource_Click" Width="200" Margin="0,0,0,20"/>
 		</StackPanel>
 	</DockPanel>
 </UserControl>
-

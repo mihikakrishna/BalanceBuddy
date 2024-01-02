@@ -6,6 +6,8 @@ namespace BalanceBuddyDesktop
 {
     public partial class App : Application
     {
+        public static UserData? UserDataInstance { get; private set; }
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -18,6 +20,7 @@ namespace BalanceBuddyDesktop
                 desktop.MainWindow = new MainWindow();
             }
 
+            UserDataInstance = new UserData();
             base.OnFrameworkInitializationCompleted();
         }
     }
