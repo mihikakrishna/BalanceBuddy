@@ -1,22 +1,18 @@
 using Avalonia.Controls;
+namespace BalanceBuddyDesktop;
 
-namespace BalanceBuddyDesktop
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        var homePage = new HomePage();
+        homePage.RequestNavigate += NavigateTo;
+        MainContent.Content = homePage;
+    }
 
-        private void TrackSpending_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            this.Content = new TrackSpendingPage();
-        }
-
-        private void ViewSpending_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            this.Content = new ViewSpendingPage();
-        }
+    private void NavigateTo(UserControl newPage)
+    {
+        MainContent.Content = newPage;
     }
 }
