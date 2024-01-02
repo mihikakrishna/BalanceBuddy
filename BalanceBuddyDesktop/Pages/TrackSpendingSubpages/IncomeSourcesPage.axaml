@@ -11,25 +11,36 @@
 			<TextBlock Text="← Back" FontSize="16" />
 		</Button>
 
-		<ScrollViewer DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </ScrollViewer>
-
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBlock Text="IncomeSourcesPage"
+		<TextBlock Text="IncomeSourcesPage"
 					   FontWeight="Bold"
 					   FontSize="24"
 					   Margin="0,0,0,20"
-					   HorizontalAlignment="Center"/>
-			
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Top"
+					   DockPanel.Dock="Top"/>
+
+		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
+			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="5">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" />
+								<TextBlock Text="{Binding Balance, StringFormat='{}{0:C}'}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="10,0" />
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+
+
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 			<TextBox x:Name="IncomeSourceNameTextBox" Width="200" Watermark="Enter income source name" Margin="0,0,0,20"/>
-			
 			<Button Content="Add Income Source" Click="AddIncomeSource_Click" Width="200" Margin="0,0,0,20"/>
 		</StackPanel>
 	</DockPanel>
