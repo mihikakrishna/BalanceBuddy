@@ -40,9 +40,14 @@
 
 
 
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBox x:Name="IncomeSourceNameTextBox" Width="200" Watermark="Enter income source name" Margin="0,0,0,20"/>
-			<Button Content="Add Income Source" Click="AddIncomeSource_Click" Width="200" Margin="0,0,0,20"/>
-		</StackPanel>
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Button Click="ShowAddIncomeSource_Click" Width="50" Height="50" CornerRadius="25">
+					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				</Button>
+				<TextBox x:Name="IncomeSourceNameTextBox" Width="200" Watermark="Enter income source name" Margin="0,0,0,20" IsVisible="False" KeyDown="IncomeSourceNameTextBox_KeyDown"/>
+			</StackPanel>
+		</Grid>
+
 	</DockPanel>
 </UserControl>

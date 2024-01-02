@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 namespace BalanceBuddyDesktop;
 
@@ -13,8 +14,10 @@ public partial class IncomeSourcesPage : UserControl, INavigable
         InitializeComponent();
         DataContext = App.UserDataInstance ?? throw new InvalidOperationException("UserDataInstance is not initialized.");
     }
-    private void AddIncomeSource_Click(object sender, RoutedEventArgs e)
+    private void AddIncomeSource()
     {
+
+        IncomeSourceNameTextBox.IsVisible = false;
 
         if (App.UserDataInstance == null)
         {
@@ -35,6 +38,18 @@ public partial class IncomeSourcesPage : UserControl, INavigable
         }
     }
 
+    private void IncomeSourceNameTextBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter && IncomeSourceNameTextBox.IsVisible)
+        {
+            AddIncomeSource();
+        }
+    }
+
+    private void ShowAddIncomeSource_Click(object sender, RoutedEventArgs e)
+    {
+        IncomeSourceNameTextBox.IsVisible = true;
+    }
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
