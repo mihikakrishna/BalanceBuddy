@@ -16,6 +16,18 @@
 					   FontSize="24"
 					   Margin="0,0,0,20"
 					   HorizontalAlignment="Center"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+				<Button Width="50" Height="50" CornerRadius="25">
+					<Image Source="resm:BalanceBuddyDesktop.Assets.AddIncomeSource.png"/>
+				</Button>
+				<Button Width="50" Height="50" CornerRadius="25">
+					<Image Source="resm:BalanceBuddyDesktop.Assets.AddExpense.png"/>
+				</Button>
+				<Button Width="50" Height="50" CornerRadius="25">
+					<Image Source="resm:BalanceBuddyDesktop.Assets.AddAccount.png"/>
+				</Button>
+			</StackPanel>
+
 		</StackPanel>
 	</DockPanel>
 </UserControl>

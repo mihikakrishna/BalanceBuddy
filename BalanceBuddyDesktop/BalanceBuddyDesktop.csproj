@@ -11,7 +11,13 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\AddAccount.png" />
+    <EmbeddedResource Include="Assets\AddExpense.png" />
+    <EmbeddedResource Include="Assets\AddIncomeSource.png" />
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.6" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.6" />
