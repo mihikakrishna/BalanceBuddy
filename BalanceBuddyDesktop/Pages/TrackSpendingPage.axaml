@@ -18,13 +18,13 @@
 					   HorizontalAlignment="Center"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
 				<Button Width="50" Height="50" CornerRadius="25" Click="AddIncomeSource_Click">
-					<Image Source="resm:BalanceBuddyDesktop.Assets.AddIncomeSource.png"/>
+					<Image Source="resm:BalanceBuddyDesktop.Assets.EditIncomeSources.png"/>
 				</Button>
 				<Button Width="50" Height="50" CornerRadius="25">
-					<Image Source="resm:BalanceBuddyDesktop.Assets.AddExpense.png"/>
+					<Image Source="resm:BalanceBuddyDesktop.Assets.EditExpenses.png"/>
 				</Button>
 				<Button Width="50" Height="50" CornerRadius="25">
-					<Image Source="resm:BalanceBuddyDesktop.Assets.AddAccount.png"/>
+					<Image Source="resm:BalanceBuddyDesktop.Assets.EditAccounts.png"/>
 				</Button>
 			</StackPanel>
 

@@ -13,9 +13,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="Assets\AddAccount.png" />
-    <EmbeddedResource Include="Assets\AddExpense.png" />
-    <EmbeddedResource Include="Assets\AddIncomeSource.png" />
+    <EmbeddedResource Include="Assets\EditAccounts.png" />
+    <EmbeddedResource Include="Assets\EditExpenses.png" />
+    <EmbeddedResource Include="Assets\EditIncomeSources.png" />
   </ItemGroup>
   
   <ItemGroup>
