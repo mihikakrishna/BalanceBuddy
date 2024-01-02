@@ -7,12 +7,22 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var homePage = new HomePage();
-        homePage.RequestNavigate += NavigateTo;
+        homePage.RequestNavigate += OnRequestNavigate;
         MainContent.Content = homePage;
     }
 
-    private void NavigateTo(UserControl newPage)
+    private void OnRequestNavigate(UserControl newPage)
     {
+        if (MainContent.Content is INavigable currentNavigablePage)
+        {
+            currentNavigablePage.RequestNavigate -= OnRequestNavigate;
+        }
+
         MainContent.Content = newPage;
+
+        if (newPage is INavigable newNavigablePage)
+        {
+            newNavigablePage.RequestNavigate += OnRequestNavigate;
+        }
     }
 }
