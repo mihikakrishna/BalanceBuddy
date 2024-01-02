@@ -3,11 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 namespace BalanceBuddyDesktop;
 
-public partial class AddIncomeSourcePage : UserControl, INavigable
+public partial class IncomeSourcesPage : UserControl, INavigable
 {
     public event Action<UserControl>? RequestNavigate;
 
-    public AddIncomeSourcePage()
+    public IncomeSourcesPage()
     {
         InitializeComponent();
     }
