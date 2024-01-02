@@ -19,11 +19,11 @@
 					   VerticalAlignment="Top"
 					   DockPanel.Dock="Top"/>
 
-		<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
-			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData">
+		<ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
+			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData" Background="#E8ECDD">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="5">
+						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="3">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
@@ -37,6 +37,7 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</ScrollViewer>
+
 
 
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
