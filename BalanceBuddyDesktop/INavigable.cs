@@ -1,10 +1,8 @@
 ﻿using System;
 using Avalonia.Controls;
+namespace BalanceBuddyDesktop;
 
-namespace BalanceBuddyDesktop
+public interface INavigable
 {
-    public interface INavigable
-    {
-        event Action<UserControl> RequestNavigate;
-    }
+    event Action<UserControl> RequestNavigate;
 }
