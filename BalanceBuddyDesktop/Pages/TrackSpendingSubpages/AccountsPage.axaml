@@ -39,7 +39,7 @@
 
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button ToolTip.Tip="Add Income Source" Click="AddAccount_Click" Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Add Account" Click="AddAccount_Click" Width="50" Height="50" CornerRadius="25">
 					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Button>
 			</StackPanel>
