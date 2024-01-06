@@ -1,9 +1,9 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.IncomeSourcesPage"
+             x:Class="BalanceBuddyDesktop.AccountsPage"
 			 xmlns:models="clr-namespace:BalanceBuddyDesktop">
 
 	<DockPanel>
@@ -11,7 +11,7 @@
 			<TextBlock Text="← Back" FontSize="16" />
 		</Button>
 
-		<TextBlock Text="IncomeSourcesPage"
+		<TextBlock Text="AccountsPage"
 					   FontWeight="Bold"
 					   FontSize="24"
 					   Margin="0,0,0,20"
@@ -20,14 +20,14 @@
 					   DockPanel.Dock="Top"/>
 
 		<ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
-			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData" Background="#E8ECDD">
+			<ListBox x:Name="AccountsListBox" ItemsSource="{Binding Accounts}" x:DataType="models:UserData" Background="#E8ECDD">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="3">
 							<StackPanel Orientation="Horizontal">
 								<TextBox x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5"/>
 								<TextBox x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5"/>
-								<Button Content="✔" Width="50" Click="SaveIncomeSource_Click"/>
+								<Button Content="✔" Width="50" Click="SaveAccount_Click"/>
 							</StackPanel>
 						</Border>
 					</DataTemplate>
@@ -39,7 +39,7 @@
 
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button ToolTip.Tip="Add Income Source" Click="AddIncomeSource_Click" Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Add Income Source" Click="AddAccount_Click" Width="50" Height="50" CornerRadius="25">
 					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Button>
 			</StackPanel>

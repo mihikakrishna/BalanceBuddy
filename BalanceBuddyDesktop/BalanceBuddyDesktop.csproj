@@ -31,5 +31,8 @@
     <Compile Update="Pages\TrackSpendingSubpages\IncomeSourcesPage.axaml.cs">
       <DependentUpon>IncomeSourcesPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\TrackSpendingSubpages\AccountsPage.axaml.cs">
+      <DependentUpon>AccountsPage.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

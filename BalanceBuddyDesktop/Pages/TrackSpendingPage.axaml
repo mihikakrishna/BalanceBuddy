@@ -17,13 +17,13 @@
 					   Margin="0,0,0,20"
 					   HorizontalAlignment="Center"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-				<Button Width="50" Height="50" CornerRadius="25" Click="IncomeSources_Click">
+				<Button ToolTip.Tip="Edit Income Sources" Width="50" Height="50" CornerRadius="25" Click="IncomeSources_Click">
 					<Image Source="resm:BalanceBuddyDesktop.Assets.EditIncomeSources.png"/>
 				</Button>
-				<Button Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Edit Expenses" Width="50" Height="50" CornerRadius="25">
 					<Image Source="resm:BalanceBuddyDesktop.Assets.EditExpenses.png"/>
 				</Button>
-				<Button Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Edit Accounts" Width="50" Height="50" CornerRadius="25" Click="Accounts_Click">
 					<Image Source="resm:BalanceBuddyDesktop.Assets.EditAccounts.png"/>
 				</Button>
 			</StackPanel>
