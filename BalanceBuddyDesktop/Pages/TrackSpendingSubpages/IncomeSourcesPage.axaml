@@ -24,14 +24,11 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="3">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" />
-								<TextBlock Text="{Binding Balance, StringFormat='{}{0:C}'}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="10,0" />
-							</Grid>
+							<StackPanel Orientation="Horizontal">
+								<TextBox x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5"/>
+								<TextBox x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5"/>
+								<Button Content="Save" Width="50" Click="SaveIncomeSource_Click"/>
+							</StackPanel>
 						</Border>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
@@ -42,10 +39,9 @@
 
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button Click="ShowAddIncomeSource_Click" Width="50" Height="50" CornerRadius="25">
+				<Button Click="AddIncomeSource_Click" Width="50" Height="50" CornerRadius="25">
 					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Button>
-				<TextBox x:Name="IncomeSourceNameTextBox" Width="200" Watermark="Enter income source name" Margin="0,0,0,20" IsVisible="False" KeyDown="IncomeSourceNameTextBox_KeyDown"/>
 			</StackPanel>
 		</Grid>
 

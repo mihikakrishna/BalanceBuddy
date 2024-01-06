@@ -1,7 +1,7 @@
 using System;
-using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 namespace BalanceBuddyDesktop;
 
@@ -14,42 +14,55 @@ public partial class IncomeSourcesPage : UserControl, INavigable
         InitializeComponent();
         DataContext = App.UserDataInstance ?? throw new InvalidOperationException("UserDataInstance is not initialized.");
     }
-    private void AddIncomeSource()
+
+    private void SaveIncomeSource_Click(object sender, RoutedEventArgs e)
     {
+        var saveButton = (Button)sender;
+        var incomeSource = (IncomeSource)saveButton.DataContext;
 
-        IncomeSourceNameTextBox.IsVisible = false;
+        var nameTextBox = FindNameTextBox(saveButton);
+        var balanceTextBox = FindBalanceTextBox(saveButton);
 
-        if (App.UserDataInstance == null)
+
+        var newName = nameTextBox.Text;
+        incomeSource.Name = newName;
+
+        if (decimal.TryParse(balanceTextBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
         {
-            throw new InvalidOperationException("UserDataInstance is not initialized.");
+            incomeSource.Balance = newBalance;
+        }
+        else
+        {
+            // handle parse error
+            return;
         }
 
-        if (this.FindControl<TextBox>("IncomeSourceNameTextBox")?.Text is { } incomeSourceName && !string.IsNullOrWhiteSpace(incomeSourceName))
+        if (incomeSource.Name.Equals(""))
         {
-            try
-            {
-                App.UserDataInstance!.AddIncomeSource(incomeSourceName, 10000);
-                this.FindControl<TextBox>("IncomeSourceNameTextBox").Text = string.Empty;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+            App.UserDataInstance.RemoveIncomeSource(incomeSource);
+            return;
         }
+
+        App.UserDataInstance.UpdateIncomeSource(incomeSource.Id, incomeSource.Name, incomeSource.Balance);
     }
 
-    private void IncomeSourceNameTextBox_KeyDown(object sender, KeyEventArgs e)
+    private TextBox FindNameTextBox(Button saveButton)
     {
-        if (e.Key == Key.Enter && IncomeSourceNameTextBox.IsVisible)
-        {
-            AddIncomeSource();
-        }
+        var container = saveButton.Parent as StackPanel;
+        return container.Children.OfType<TextBox>().First(t => t.Name == "NameTextBox");
     }
 
-    private void ShowAddIncomeSource_Click(object sender, RoutedEventArgs e)
+    private TextBox FindBalanceTextBox(Button saveButton)
     {
-        IncomeSourceNameTextBox.IsVisible = true;
+        var container = saveButton.Parent as StackPanel;
+        return container.Children.OfType<TextBox>().First(t => t.Name == "BalanceTextBox");
     }
+
+    private void AddIncomeSource_Click(object sender, RoutedEventArgs e)
+    {
+        App.UserDataInstance.AddIncomeSource("", 0);
+    }
+
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
