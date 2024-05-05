@@ -3,69 +3,53 @@ using System.Globalization;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-namespace BalanceBuddyDesktop;
 
-public partial class AccountsPage : UserControl, INavigable
+namespace BalanceBuddyDesktop
 {
-    public event Action<UserControl>? RequestNavigate;
-
-    public AccountsPage()
+    public partial class AccountsPage : UserControl, INavigable
     {
-        InitializeComponent();
-        DataContext = App.UserDataInstance ?? throw new InvalidOperationException("UserDataInstance is not initialized.");
-    }
+        public event Action<UserControl>? RequestNavigate;
 
-    private void SaveAccount_Click(object sender, RoutedEventArgs e)
-    {
-        var saveButton = (Button)sender;
-        var account = (Account)saveButton.DataContext;
-
-        var nameTextBox = FindNameTextBox(saveButton);
-        var balanceTextBox = FindBalanceTextBox(saveButton);
-
-
-        var newName = nameTextBox.Text;
-        account.Name = newName;
-
-        if (decimal.TryParse(balanceTextBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
+        public AccountsPage()
         {
-            account.Balance = newBalance;
-        }
-        else
-        {
-            // handle parse error
-            return;
+            InitializeComponent();
+            DataContext = App.UserDataInstance ?? throw new InvalidOperationException("UserDataInstance is not initialized.");
         }
 
-        if (account.Name.Equals(""))
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            App.UserDataInstance.RemoveAccount(account);
-            return;
+            if (sender is TextBox textBox)
+            {
+                var account = textBox.DataContext as Account;
+
+                // Update the property based on which TextBox lost focus
+                if (textBox.Name == "NameTextBox")
+                {
+                    account.Name = textBox.Text;
+                }
+                else if (textBox.Name == "BalanceTextBox" && decimal.TryParse(textBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
+                {
+                    account.Balance = newBalance;
+                }
+                else
+                {
+                    // Handle parse error for BalanceTextBox
+                    return;
+                }
+
+                // Save changes to the UserData instance
+                App.UserDataInstance.UpdateAccount(account.Id, account.Name, account.Balance);
+            }
         }
 
-        App.UserDataInstance.UpdateAccount(account.Id, account.Name, account.Balance);
-    }
+        private void AddAccount_Click(object sender, RoutedEventArgs e)
+        {
+            App.UserDataInstance.AddAccount("", 0);
+        }
 
-    private TextBox FindNameTextBox(Button saveButton)
-    {
-        var container = saveButton.Parent as StackPanel;
-        return container.Children.OfType<TextBox>().First(t => t.Name == "NameTextBox");
-    }
-
-    private TextBox FindBalanceTextBox(Button saveButton)
-    {
-        var container = saveButton.Parent as StackPanel;
-        return container.Children.OfType<TextBox>().First(t => t.Name == "BalanceTextBox");
-    }
-
-    private void AddAccount_Click(object sender, RoutedEventArgs e)
-    {
-        App.UserDataInstance.AddAccount("", 0);
-    }
-
-
-    private void BackButton_Click(object sender, RoutedEventArgs e)
-    {
-        RequestNavigate?.Invoke(new TrackSpendingPage());
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestNavigate?.Invoke(new TrackSpendingPage());
+        }
     }
 }

@@ -23,12 +23,20 @@
 			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData" Background="#E8ECDD">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<Border Background="#80D465" CornerRadius="20" Padding="10" Margin="3">
-							<StackPanel Orientation="Horizontal">
-								<TextBox x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5"/>
-								<TextBox x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5"/>
-								<Button Content="✔" Width="50" Click="SaveIncomeSource_Click"/>
-							</StackPanel>
+						<Border Background="#80D465" CornerRadius="30" Padding="5" Margin="3">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+
+								<!-- NameTextBox at the leftmost end -->
+								<TextBox Grid.Column="0" x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+
+								<!-- BalanceTextBox at the rightmost end -->
+								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+							</Grid>
 						</Border>
 					</DataTemplate>
 				</ListBox.ItemTemplate>

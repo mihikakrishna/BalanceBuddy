@@ -15,36 +15,32 @@ public partial class IncomeSourcesPage : UserControl, INavigable
         DataContext = App.UserDataInstance ?? throw new InvalidOperationException("UserDataInstance is not initialized.");
     }
 
-    private void SaveIncomeSource_Click(object sender, RoutedEventArgs e)
+    private void TextBox_LostFocus(object sender, RoutedEventArgs e)
     {
-        var saveButton = (Button)sender;
-        var incomeSource = (IncomeSource)saveButton.DataContext;
-
-        var nameTextBox = FindNameTextBox(saveButton);
-        var balanceTextBox = FindBalanceTextBox(saveButton);
-
-
-        var newName = nameTextBox.Text;
-        incomeSource.Name = newName;
-
-        if (decimal.TryParse(balanceTextBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
+        if (sender is TextBox textBox)
         {
-            incomeSource.Balance = newBalance;
-        }
-        else
-        {
-            // handle parse error
-            return;
-        }
+            var incomeSource = (IncomeSource)textBox.DataContext;
 
-        if (incomeSource.Name.Equals(""))
-        {
-            App.UserDataInstance.RemoveIncomeSource(incomeSource);
-            return;
-        }
+            // Update the property based on which TextBox lost focus
+            if (textBox.Name == "NameTextBox")
+            {
+                incomeSource.Name = textBox.Text;
+            }
+            else if (textBox.Name == "BalanceTextBox" && decimal.TryParse(textBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
+            {
+                incomeSource.Balance = newBalance;
+            }
+            else
+            {
+                // Handle parse error for BalanceTextBox
+                return;
+            }
 
-        App.UserDataInstance.UpdateIncomeSource(incomeSource.Id, incomeSource.Name, incomeSource.Balance);
+            // Save changes to the UserData instance
+            App.UserDataInstance.UpdateIncomeSource(incomeSource.Id, incomeSource.Name, incomeSource.Balance);
+        }
     }
+
 
     private TextBox FindNameTextBox(Button saveButton)
     {

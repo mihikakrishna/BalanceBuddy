@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 namespace BalanceBuddyDesktop;
 public class UserData
@@ -76,5 +77,7 @@ public class UserData
 
         account.Name = newName;
         account.Balance = newBalance;
+
+        Debug.Print(Accounts.ToString());
     }
 }
