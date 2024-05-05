@@ -46,7 +46,7 @@ public class UserData
 
     public void AddAccount(string name, decimal balance)
     {
-        Account newAccount = new Account(name, balance);
+        Account newAccount = new(name, balance);
 
         if (Accounts.Contains(newAccount))
         {
@@ -69,11 +69,6 @@ public class UserData
     public void UpdateAccount(Guid id, string newName, decimal newBalance)
     {
         var account = Accounts.FirstOrDefault(source => source.Id == id) ?? throw new InvalidOperationException("Income source not found.");
-
-        if (Accounts.Any(source => source.Name == newName && source.Id != id))
-        {
-            throw new InvalidOperationException($"The account '{newName}' is already in use.");
-        }
 
         account.Name = newName;
         account.Balance = newBalance;

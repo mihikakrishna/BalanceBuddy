@@ -6,12 +6,12 @@
              x:Class="BalanceBuddyDesktop.AccountsPage"
              xmlns:models="clr-namespace:BalanceBuddyDesktop">
 
-	<DockPanel>
-		<Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
-			<TextBlock Text="← Back" FontSize="16" />
-		</Button>
+    <DockPanel>
+        <Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
+            <TextBlock Text="← Back" FontSize="16" />
+        </Button>
 
-		<TextBlock Text="AccountsPage"
+        <TextBlock Text="AccountsPage"
                    FontWeight="Bold"
                    FontSize="24"
                    Margin="0,0,0,20"
@@ -19,39 +19,39 @@
                    VerticalAlignment="Top"
                    DockPanel.Dock="Top"/>
 
-		<ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
-			<ListBox x:Name="AccountsListBox" ItemsSource="{Binding Accounts}" x:DataType="models:UserData" Background="#E8ECDD">
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<Border Background="#80D465" CornerRadius="30" Padding="5" Margin="3">
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
-								</Grid.ColumnDefinitions>
+        <ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
+            <ListBox x:Name="AccountsListBox" ItemsSource="{Binding Accounts}" x:DataType="models:UserData" Background="#E8ECDD">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#80D465" CornerRadius="30" Padding="5" Margin="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-								<!-- NameTextBox at the leftmost end -->
-								<TextBox Grid.Column="0" x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+                                <!-- NameTextBox at the leftmost end -->
+                                <TextBox Grid.Column="0" x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
 
-								<!-- Dollar sign before the BalanceTextBox -->
-								<TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+                                <!-- Dollar sign before the BalanceTextBox -->
+                                <TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
-								<!-- BalanceTextBox at the rightmost end -->
-								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
-							</Grid>
-						</Border>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-		</ScrollViewer>
+                                <!-- BalanceTextBox at the rightmost end -->
+                                <TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
 
-		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button ToolTip.Tip="Add Account" Click="AddAccount_Click" Width="50" Height="50" CornerRadius="25">
-					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-				</Button>
-			</StackPanel>
-		</Grid>
-	</DockPanel>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button ToolTip.Tip="Add Account" Click="AddAccount_Click" Width="50" Height="50" CornerRadius="25">
+                    <TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </UserControl>

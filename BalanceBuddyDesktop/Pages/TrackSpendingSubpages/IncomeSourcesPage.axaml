@@ -34,6 +34,9 @@
 								<!-- NameTextBox at the leftmost end -->
 								<TextBox Grid.Column="0" x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
 
+								<!-- Dollar sign before the BalanceTextBox -->
+								<TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
+
 								<!-- BalanceTextBox at the rightmost end -->
 								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
 							</Grid>

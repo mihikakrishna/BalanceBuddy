@@ -9,6 +9,7 @@ namespace BalanceBuddyDesktop
     public partial class AccountsPage : UserControl, INavigable
     {
         public event Action<UserControl>? RequestNavigate;
+        private string defaultAccountName = "New Account";
 
         public AccountsPage()
         {
@@ -25,26 +26,40 @@ namespace BalanceBuddyDesktop
                 // Update the property based on which TextBox lost focus
                 if (textBox.Name == "NameTextBox")
                 {
-                    account.Name = textBox.Text;
+                    var newName = textBox.Text?.Trim();
+
+                    // Check if the name is left blank or is a duplicate
+                    if (string.IsNullOrWhiteSpace(newName) || newName.Equals("New Account") || App.UserDataInstance.Accounts.Any(a => a.Name == newName && a.Id != account.Id))
+                    {
+                        // Remove the account if left blank or duplicate
+                        App.UserDataInstance.RemoveAccount(account);
+                    }
+                    else
+                    {
+                        account.Name = newName;
+                        App.UserDataInstance.UpdateAccount(account.Id, account.Name, account.Balance);
+                    }
                 }
                 else if (textBox.Name == "BalanceTextBox" && decimal.TryParse(textBox.Text, NumberStyles.Currency, CultureInfo.CurrentCulture, out decimal newBalance))
                 {
                     account.Balance = newBalance;
+                    App.UserDataInstance.UpdateAccount(account.Id, account.Name, account.Balance);
                 }
                 else
                 {
                     // Handle parse error for BalanceTextBox
                     return;
                 }
-
-                // Save changes to the UserData instance
-                App.UserDataInstance.UpdateAccount(account.Id, account.Name, account.Balance);
             }
         }
 
         private void AddAccount_Click(object sender, RoutedEventArgs e)
         {
-            App.UserDataInstance.AddAccount("", 0);
+            // Add account with placeholder name
+            if (App.UserDataInstance.Accounts.Any(a => a.Name == defaultAccountName))
+                return;
+
+            App.UserDataInstance.AddAccount(defaultAccountName, 0);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

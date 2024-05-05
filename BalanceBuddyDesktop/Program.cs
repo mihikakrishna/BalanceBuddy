@@ -9,14 +9,43 @@ namespace BalanceBuddyDesktop
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            try
+            {
+                BuildAvaloniaApp()
+                    .StartWithClassicDesktopLifetime(args);
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine($"NullReferenceException: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected exception: {ex.Message}");
+            }
+        }
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .WithInterFont()
-                .LogToTrace();
+        {
+            try
+            {
+                return AppBuilder.Configure<App>()
+                    .UsePlatformDetect()
+                    .WithInterFont()
+                    .LogToTrace();
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine($"NullReferenceException: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected exception: {ex.Message}");
+                throw;
+            }
+        }
     }
 }
