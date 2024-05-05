@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.EditExpensesPage"
+             xmlns:models="clr-namespace:BalanceBuddyDesktop">
+
+	<DockPanel>
+		<Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
+			<TextBlock Text="← Back" FontSize="16" />
+		</Button>
+
+		<TextBlock Text="Edit Expenses"
+                   FontWeight="Bold"
+                   FontSize="24"
+                   Margin="0,0,0,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   DockPanel.Dock="Top"/>
+
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Button Width="300" Margin="0,0,0,10" HorizontalAlignment="Center" Click="ManageExpenseCategories_Click">
+				<TextBlock Text="Manage Expense Categories" HorizontalAlignment="Center"/>
+			</Button>
+
+			<Button Width="300" Margin="0,0,0,10" HorizontalAlignment="Center" Click="AddExpense_Click">
+				<TextBlock Text="Add Expense" HorizontalAlignment="Center"/>
+			</Button>
+
+		</StackPanel>
+
+	</DockPanel>
+</UserControl>

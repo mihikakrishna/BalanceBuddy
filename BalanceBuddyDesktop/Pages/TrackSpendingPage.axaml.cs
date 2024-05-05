@@ -17,6 +17,11 @@ public partial class TrackSpendingPage : UserControl, INavigable
         RequestNavigate?.Invoke(new IncomeSourcesPage());
     }
 
+    private void EditExpenses_Click(object sender, RoutedEventArgs e)
+    {
+        RequestNavigate?.Invoke(new EditExpensesPage());
+    }
+
     private void Accounts_Click(object sender, RoutedEventArgs e)
     {
         RequestNavigate?.Invoke(new AccountsPage());

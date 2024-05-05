@@ -34,5 +34,14 @@
     <Compile Update="Pages\TrackSpendingSubpages\AccountsPage.axaml.cs">
       <DependentUpon>AccountsPage.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\TrackSpendingSubpages\AddExpensePage.axaml.cs">
+      <DependentUpon>AddExpensePage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\TrackSpendingSubpages\EditExpensesPage.axaml.cs">
+      <DependentUpon>EditExpensesPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\TrackSpendingSubpages\ManageExpenseCategoriesPage.axaml.cs">
+      <DependentUpon>ManageExpenseCategoriesPage.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

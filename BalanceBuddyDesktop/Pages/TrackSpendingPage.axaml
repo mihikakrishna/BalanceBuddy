@@ -20,7 +20,7 @@
 				<Button ToolTip.Tip="Edit Income Sources" Width="50" Height="50" CornerRadius="25" Click="IncomeSources_Click">
 					<Image Source="resm:BalanceBuddyDesktop.Assets.EditIncomeSources.png"/>
 				</Button>
-				<Button ToolTip.Tip="Edit Expenses" Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Edit Expenses" Width="50" Height="50" CornerRadius="25" Click="EditExpenses_Click">
 					<Image Source="resm:BalanceBuddyDesktop.Assets.EditExpenses.png"/>
 				</Button>
 				<Button ToolTip.Tip="Edit Accounts" Width="50" Height="50" CornerRadius="25" Click="Accounts_Click">

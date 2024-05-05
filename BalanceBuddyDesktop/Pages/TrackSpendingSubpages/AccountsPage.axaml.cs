@@ -9,7 +9,7 @@ namespace BalanceBuddyDesktop
     public partial class AccountsPage : UserControl, INavigable
     {
         public event Action<UserControl>? RequestNavigate;
-        private string defaultAccountName = "New Account";
+        private readonly string defaultAccountName = "New Account";
 
         public AccountsPage()
         {
