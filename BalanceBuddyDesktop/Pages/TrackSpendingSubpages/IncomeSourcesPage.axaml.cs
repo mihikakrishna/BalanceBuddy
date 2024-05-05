@@ -59,7 +59,7 @@ public partial class IncomeSourcesPage : UserControl, INavigable
         if (App.UserDataInstance.IncomeSources.Any(a => a.Name == defaultIncomeSourceName))
             return;
 
-        App.UserDataInstance.AddAccount(defaultIncomeSourceName, 0);
+        App.UserDataInstance.AddIncomeSource(defaultIncomeSourceName, 0);
     }
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
