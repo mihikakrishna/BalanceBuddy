@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.AddExpensesPage"
+             xmlns:models="clr-namespace:BalanceBuddyDesktop"
+             x:DataType="models:UserData">
+
+    <DockPanel>
+        <Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
+            <TextBlock Text="← Back" FontSize="16" />
+        </Button>
+
+        <TextBlock Text="Add Expense"
+                   FontWeight="Bold"
+                   FontSize="24"
+                   Margin="0,0,0,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   DockPanel.Dock="Top"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Amount input -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Amount" VerticalAlignment="Center" Margin="10"/>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Text="$" VerticalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="AmountTextBox" Width="100" Margin="5" Text="0"/>
+                <Button Content="✔" Margin="5" Width="30" Click="ClearAmount_Click"/>
+            </StackPanel>
+
+            <!-- Category input -->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" VerticalAlignment="Center" Margin="10"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="CategoryComboBox" Margin="5" SelectedIndex="0"
+                      ItemsSource="{Binding Categories}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="models:ExpenseCategory">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- Date input -->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Date" VerticalAlignment="Center" Margin="10"/>
+            <DatePicker Grid.Row="2" Grid.Column="1" x:Name="DateInput" Margin="5"/>
+
+            <!-- Submit button -->
+            <Button Grid.Row="3" Grid.Column="1" Content="Submit" HorizontalAlignment="Right" Margin="5" Click="SubmitExpense_Click"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

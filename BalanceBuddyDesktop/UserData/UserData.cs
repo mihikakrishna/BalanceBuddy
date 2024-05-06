@@ -11,6 +11,15 @@ namespace BalanceBuddyDesktop
         public ObservableCollection<Account> Accounts { get; } = new ObservableCollection<Account>();
         public ObservableCollection<ExpenseCategory> ExpenseCategories { get; } = new ObservableCollection<ExpenseCategory>();
 
+        public ObservableCollection<ExpenseCategory> Categories { get; } = new ObservableCollection<ExpenseCategory>
+        {
+            new ExpenseCategory("Food"),
+            new ExpenseCategory("Transport"),
+            new ExpenseCategory("Entertainment"),
+            new ExpenseCategory("Rent"),
+            new ExpenseCategory("Utilities")
+        };
+
         public void AddIncomeSource(string name, decimal balance)
         {
             var newIncomeSource = new IncomeSource(name, balance);
