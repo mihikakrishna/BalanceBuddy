@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BalanceBuddyDesktop.IncomeSourcesPage"
-			 xmlns:models="clr-namespace:BalanceBuddyDesktop">
+             xmlns:models="clr-namespace:BalanceBuddyDesktop">
 
 	<DockPanel>
 		<Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
@@ -12,12 +12,12 @@
 		</Button>
 
 		<TextBlock Text="IncomeSourcesPage"
-					   FontWeight="Bold"
-					   FontSize="24"
-					   Margin="0,0,0,20"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Top"
-					   DockPanel.Dock="Top"/>
+                   FontWeight="Bold"
+                   FontSize="24"
+                   Margin="0,0,0,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   DockPanel.Dock="Top"/>
 
 		<ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
 			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData" Background="#E8ECDD">
@@ -29,6 +29,7 @@
 									<ColumnDefinition Width="Auto"/>
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
 
 								<!-- NameTextBox at the leftmost end -->
@@ -38,15 +39,16 @@
 								<TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
 								<!-- BalanceTextBox at the rightmost end -->
-								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="3" LostFocus="TextBox_LostFocus"/>
+
+								<!-- Delete Button -->
+								<Button Grid.Column="3" Content="✘" Margin="5" Click="DeleteIncomeSource_Click"/>
 							</Grid>
 						</Border>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
 		</ScrollViewer>
-
-
 
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

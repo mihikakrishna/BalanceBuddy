@@ -6,8 +6,9 @@ using System.Linq;
 
 namespace BalanceBuddyDesktop
 {
-    public partial class ManageExpenseCategoriesPage : UserControl
+    public partial class ManageExpenseCategoriesPage : UserControl, INavigable
     {
+        public event Action<UserControl>? RequestNavigate;
         public ManageExpenseCategoriesPage()
         {
             InitializeComponent();
@@ -16,7 +17,7 @@ namespace BalanceBuddyDesktop
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle back button click (navigate to previous page)
+            RequestNavigate?.Invoke(new EditExpensesPage());
         }
 
         private void AddCategory_Click(object sender, RoutedEventArgs e)

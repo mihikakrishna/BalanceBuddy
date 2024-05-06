@@ -40,9 +40,9 @@
 								<TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
 								<!-- BudgetTextBox -->
-								<TextBox Grid.Column="2" x:Name="BudgetTextBox" Text="{Binding Budget}" Watermark="Budget" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+								<TextBox Grid.Column="2" x:Name="BudgetTextBox" Text="{Binding Budget}" Watermark="Budget" Width="100" VerticalAlignment="Center" Margin="3" LostFocus="TextBox_LostFocus"/>
 
-								<Button Grid.Column="3" Content="Delete" Click="DeleteCategory_Click"/>
+								<Button Grid.Column="3" Content="✘" Margin="5" Click="DeleteCategory_Click"/>
 							</Grid>
 						</Border>
 					</DataTemplate>

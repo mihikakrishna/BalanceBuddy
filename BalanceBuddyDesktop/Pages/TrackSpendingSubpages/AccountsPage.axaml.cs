@@ -28,7 +28,7 @@ namespace BalanceBuddyDesktop
                 {
                     var newName = textBox.Text?.Trim();
 
-                    // Check if the name is left blank or is a duplicate
+                    // Check if the name is left blank, is "New Account", or is a duplicate
                     if (string.IsNullOrWhiteSpace(newName) || newName.Equals("New Account") || App.UserDataInstance.Accounts.Any(a => a.Name == newName && a.Id != account.Id))
                     {
                         // Remove the account if left blank or duplicate
@@ -60,6 +60,14 @@ namespace BalanceBuddyDesktop
                 return;
 
             App.UserDataInstance.AddAccount(defaultAccountName, 0);
+        }
+
+        private void DeleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Account account)
+            {
+                App.UserDataInstance.RemoveAccount(account);
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
