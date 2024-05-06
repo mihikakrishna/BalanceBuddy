@@ -20,7 +20,7 @@ namespace BalanceBuddyDesktop
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestNavigate?.Invoke(new ManageExpenseCategoriesPage());
+            RequestNavigate?.Invoke(new EditExpensesPage());
         }
 
         private void ClearAmount_Click(object sender, RoutedEventArgs e)
