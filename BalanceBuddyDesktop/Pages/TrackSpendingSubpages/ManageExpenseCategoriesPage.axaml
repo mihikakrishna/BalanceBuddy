@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BalanceBuddyDesktop.ManageExpenseCategoriesPage"
-             xmlns:models="clr-namespace:BalanceBuddyDesktop">
+             xmlns:models="clr-namespace:BalanceBuddyDesktop"
+             x:DataType="models:UserData">
 
 	<DockPanel>
 		<Button DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="BackButton_Click">
@@ -20,7 +21,7 @@
                    DockPanel.Dock="Top"/>
 
 		<ScrollViewer DockPanel.Dock="Top" Height="300" VerticalScrollBarVisibility="Auto">
-			<ListBox x:Name="IncomeSourcesListBox" ItemsSource="{Binding IncomeSources}" x:DataType="models:UserData" Background="#E8ECDD">
+			<ListBox x:Name="CategoriesListBox" ItemsSource="{Binding ExpenseCategories}" Background="#E8ECDD">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Border Background="#80D465" CornerRadius="30" Padding="5" Margin="3">
@@ -29,16 +30,19 @@
 									<ColumnDefinition Width="Auto"/>
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
 
 								<!-- NameTextBox at the leftmost end -->
 								<TextBox Grid.Column="0" x:Name="NameTextBox" Text="{Binding Name}" Width="200" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
 
-								<!-- Dollar sign before the BalanceTextBox -->
+								<!-- Dollar sign before the BudgetTextBox -->
 								<TextBlock Grid.Column="1" Text="$" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"/>
 
-								<!-- BalanceTextBox at the rightmost end -->
-								<TextBox Grid.Column="2" x:Name="BalanceTextBox" Text="{Binding Balance}" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+								<!-- BudgetTextBox -->
+								<TextBox Grid.Column="2" x:Name="BudgetTextBox" Text="{Binding Budget}" Watermark="Budget" Width="100" VerticalAlignment="Center" Margin="5" LostFocus="TextBox_LostFocus"/>
+
+								<Button Grid.Column="3" Content="Delete" Click="DeleteCategory_Click"/>
 							</Grid>
 						</Border>
 					</DataTemplate>
@@ -48,7 +52,7 @@
 
 		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button ToolTip.Tip="Add Income Source" Click="AddIncomeSource_Click" Width="50" Height="50" CornerRadius="25">
+				<Button ToolTip.Tip="Add Category" Click="AddCategory_Click" Width="50" Height="50" CornerRadius="25">
 					<TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Button>
 			</StackPanel>
