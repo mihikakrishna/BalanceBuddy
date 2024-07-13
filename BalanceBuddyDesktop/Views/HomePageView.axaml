@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BalanceBuddyDesktop.Views.HomePageView">
-	<StackPanel>
-		<TextBlock>Homepage</TextBlock>
-	</StackPanel>
+	<Grid RowDefinitions="Auto, *" Margin="20">
+		<Border Grid.Row="1" CornerRadius="10">
+			<Image  Source="/Assets/Images/logo.png" Height="320" />
+		</Border>
+	</Grid>
 </UserControl>
