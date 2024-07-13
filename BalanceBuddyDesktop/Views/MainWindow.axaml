@@ -28,7 +28,8 @@
 				<Button Command="{Binding TriggerPaneCommand}">
 					-
 				</Button>
-				<ListBox ItemsSource="{Binding Items}">
+				<ListBox ItemsSource="{Binding Items}" 
+						 SelectedItem="{Binding SelectedListItem}">
 					<ListBox.ItemTemplate>
 						<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
 							<StackPanel Spacing="15" Orientation="Horizontal">

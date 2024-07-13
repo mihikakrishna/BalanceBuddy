@@ -1,6 +1,6 @@
 ﻿namespace BalanceBuddyDesktop.ViewModels
 {
-    public class HomePageViewModel : ViewModelBase
+    public class AddExpensePageViewModel : ViewModelBase
     {
     }
 }

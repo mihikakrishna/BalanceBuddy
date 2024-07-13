@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace BalanceBuddyDesktop.Views
 {
-    public partial class HomePageView : UserControl
+    public partial class AddExpensePageView : UserControl
     {
-        public HomePageView()
+        public AddExpensePageView()
         {
             InitializeComponent();
         }

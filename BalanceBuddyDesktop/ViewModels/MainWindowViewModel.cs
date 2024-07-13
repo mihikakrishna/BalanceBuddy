@@ -15,9 +15,22 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     [ObservableProperty]
     private ViewModelBase _currentPage = new HomePageViewModel();
 
+    [ObservableProperty]
+    private ListItemTemplate _selectedListItem;
+
+    partial void OnSelectedListItemChanged(ListItemTemplate? value)
+    {
+        if (value is null) return;
+        var instance = Activator.CreateInstance(value.ModelType);
+        if (instance == null) return;
+        CurrentPage = (ViewModelBase)instance;
+    }
+
     public ObservableCollection<ListItemTemplate> Items { get; } = new()
     {
-        new ListItemTemplate(typeof(HomePageViewModel))
+        new ListItemTemplate(typeof(HomePageViewModel)),
+        new ListItemTemplate(typeof(AddExpensePageViewModel))
+
     };
 
     [RelayCommand]
