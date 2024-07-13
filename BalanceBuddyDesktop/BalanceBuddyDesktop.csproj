@@ -17,6 +17,10 @@
     <AvaloniaXaml Remove="Assets\Icons.axaml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\Images\logo.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.6" />
