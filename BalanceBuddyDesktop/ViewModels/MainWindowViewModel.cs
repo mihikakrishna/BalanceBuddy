@@ -1,9 +1,22 @@
-﻿namespace BalanceBuddyDesktop.ViewModels
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+
+namespace BalanceBuddyDesktop.ViewModels
 {
-    public partial class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
-#pragma warning disable CA1822 // Mark members as static
-        public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+        [ObservableProperty]
+        private bool _isPaneOpen = true;
+
+        [ObservableProperty]
+        private ViewModelBase _currentPage = new HomePageViewModel();
+
+        [RelayCommand]
+        private void TriggerPane()
+        {
+            IsPaneOpen = !IsPaneOpen;
+        }
     }
 }
