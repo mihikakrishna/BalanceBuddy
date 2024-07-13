@@ -1,10 +1,55 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.AddExpensePageView">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="using:BalanceBuddyDesktop.ViewModels"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.Views.AddExpensePageView"
+			 x:DataType="vm:AddExpensePageViewModel">
+
 	<StackPanel>
-		<TextBlock> Add Expense Page</TextBlock>
+		<TextBlock Text="Add Expense Page" FontSize="20" FontWeight="Bold"/>
+		<Expander VerticalAlignment="Top">
+			<Expander.Header>
+				Add new expense
+			</Expander.Header>
+			<Grid>
+				<Grid ColumnDefinitions="Auto, *"
+					  RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+					Margin="20"
+					HorizontalAlignment="Center">
+					<TextBox Grid.Row="0"
+							 Text="{Binding NewExpense.Amount, Mode=TwoWay}"
+							 Watermark="Amount"
+							 HorizontalAlignment="Left" />
+					<ComboBox Grid.Row="1"
+							  ItemsSource="{Binding Categories}"
+							  SelectedItem="{Binding NewExpense.Category}"
+							  HorizontalAlignment="Left">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+					<StackPanel Grid.Row="2"
+								HorizontalAlignment="Left">
+						<Calendar x:Name="calendar" 
+								  SelectionMode="SingleDate"
+								  SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
+						<TextBlock Text="{Binding #calendar.SelectedDate}"/>
+					</StackPanel>
+					<TextBox Grid.Row="3"
+							 Text="{Binding NewExpense.Description, Mode=TwoWay}"
+							 Watermark="Description"
+							 HorizontalAlignment="Left"/>
+					<Button Grid.Row="4"
+							Content="Add Expense"
+							Command="{Binding AddExpenseCommand}"
+							HorizontalAlignment="Left"/>
+				</Grid>
+			</Grid>
+		</Expander>
 	</StackPanel>
+
 </UserControl>
