@@ -29,8 +29,9 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     public ObservableCollection<ListItemTemplate> Items { get; } = new()
     {
         new ListItemTemplate(typeof(HomePageViewModel)),
-        new ListItemTemplate(typeof(AddExpensePageViewModel))
-
+        new ListItemTemplate(typeof(AddExpensePageViewModel)),
+        new ListItemTemplate(typeof(ViewExpensesPageViewModel)),
+        new ListItemTemplate(typeof(ManageDataPageViewModel))
     };
 
     [RelayCommand]
