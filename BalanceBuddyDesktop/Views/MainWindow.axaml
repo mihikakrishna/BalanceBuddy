@@ -26,7 +26,7 @@
 			<StackPanel Spacing="5"
 						Margin="5">
 				<Button Command="{Binding TriggerPaneCommand}">
-					-
+					<PathIcon Data="{StaticResource line_horizontal_3_regular}"></PathIcon>
 				</Button>
 				<ListBox ItemsSource="{Binding Items}" 
 						 SelectedItem="{Binding SelectedListItem}">
