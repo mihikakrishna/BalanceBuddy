@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -28,10 +31,10 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 
     public ObservableCollection<ListItemTemplate> Items { get; } = new()
     {
-        new ListItemTemplate(typeof(HomePageViewModel)),
-        new ListItemTemplate(typeof(AddExpensePageViewModel)),
-        new ListItemTemplate(typeof(ViewExpensesPageViewModel)),
-        new ListItemTemplate(typeof(ManageDataPageViewModel))
+        new ListItemTemplate(typeof(HomePageViewModel), "home_regular"),
+        new ListItemTemplate(typeof(AddExpensePageViewModel), "add_circle_regular"),
+        new ListItemTemplate(typeof(ViewExpensesPageViewModel), "book_pulse_regular"),
+        new ListItemTemplate(typeof(ManageDataPageViewModel), "wrench_regular")
     };
 
     [RelayCommand]
@@ -43,11 +46,15 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
 
 public class ListItemTemplate
 {
-    public ListItemTemplate(Type type) 
+    public ListItemTemplate(Type type, string iconKey) 
     { 
         ModelType = type;
         Label = type.Name.Replace("PageViewModel", "");
+
+        Application.Current!.TryFindResource(iconKey, out var res);
+        ListItemIcon = (StreamGeometry)res;
     }   
     public string Label { get; }
     public Type ModelType { get; }
+    public StreamGeometry ListItemIcon { get; }
 }

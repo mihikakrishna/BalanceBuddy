@@ -23,8 +23,8 @@
 			   Background="#6a994e"
 			   PaneBackground="#6a994e">
 		<SplitView.Pane>
-			<StackPanel Spacing="5"
-						Margin="5">
+			<StackPanel Spacing="10"
+						Margin="1">
 				<Button Command="{Binding TriggerPaneCommand}">
 					<PathIcon Data="{StaticResource line_horizontal_3_regular}"></PathIcon>
 				</Button>
@@ -33,6 +33,7 @@
 					<ListBox.ItemTemplate>
 						<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
 							<StackPanel Spacing="15" Orientation="Horizontal">
+								<PathIcon Data="{Binding ListItemIcon}"></PathIcon>
 								<TextBlock Text="{Binding Label}"></TextBlock>
 							</StackPanel>
 						</DataTemplate>
