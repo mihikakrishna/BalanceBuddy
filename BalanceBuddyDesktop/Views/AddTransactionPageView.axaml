@@ -63,7 +63,7 @@
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<TreeDataGrid Source="{Binding Source, Mode=TwoWay}"/>
+					<TreeDataGrid Source="{Binding ExpenseDataGridSource, Mode=TwoWay}"/>
 				</StackPanel>
 			</TabItem>
 			<TabItem Header="Add Income">
@@ -86,7 +86,7 @@
 							</Grid.RowDefinitions>
 						</Grid>
 					</Expander>
-					<TreeDataGrid Source="{Binding Source, Mode=TwoWay}"/>
+					
 				</StackPanel>
 			</TabItem>
 		</TabControl>

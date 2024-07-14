@@ -21,11 +21,11 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<Expense> _expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
 
-        public FlatTreeDataGridSource<Expense> Source { get; }
+        public FlatTreeDataGridSource<Expense> ExpenseDataGridSource { get; }
 
         public AddTransactionPageViewModel()
         {
-            Source = new FlatTreeDataGridSource<Expense>(_expenses)
+            ExpenseDataGridSource = new FlatTreeDataGridSource<Expense>(_expenses)
             {
                 Columns =
                 {
