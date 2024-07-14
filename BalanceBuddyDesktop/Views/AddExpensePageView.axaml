@@ -1,10 +1,65 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BalanceBuddyDesktop.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.AddExpensePageView">
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.Views.AddExpensePageView"
+             x:DataType="vm:AddExpensePageViewModel">
+	<UserControl.DataContext>
+		<vm:AddExpensePageViewModel/>
+	</UserControl.DataContext>
 	<StackPanel>
-		<TextBlock> Add Expense Page</TextBlock>
+		<TextBlock Text="Add Expense Page" FontSize="20" FontWeight="Bold"/>
+		<Expander VerticalAlignment="Top">
+			<Expander.Header>
+				Add new expense
+			</Expander.Header>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<TextBox Grid.Row="0" Grid.Column="1"
+                         Text="{Binding NewExpense.Amount, Mode=TwoWay}"
+                         Watermark="Amount"
+                         HorizontalAlignment="Stretch" />
+				<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<ComboBox Grid.Row="1" Grid.Column="1"
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding NewExpense.Category}"
+                          HorizontalAlignment="Stretch">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<Calendar Grid.Row="2" Grid.Column="1"
+                          x:Name="calendar"
+                          SelectionMode="SingleDate"
+                          SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
+				<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<TextBox Grid.Row="3" Grid.Column="1"
+                         Text="{Binding NewExpense.Description, Mode=TwoWay}"
+                         Watermark="Description"
+                         HorizontalAlignment="Stretch"/>
+				<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="Add Expense"
+                        Command="{Binding AddExpenseCommand}"
+                        HorizontalAlignment="Left"/>
+			</Grid>
+		</Expander>
+		<TreeDataGrid Source="{Binding Source, Mode=TwoWay}"/>
 	</StackPanel>
 </UserControl>
