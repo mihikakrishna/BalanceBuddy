@@ -17,37 +17,47 @@
 				Add new expense
 			</Expander.Header>
 			<Grid>
-				<Grid ColumnDefinitions="Auto, *"
-                      RowDefinitions="Auto, Auto, Auto, Auto, Auto"
-                      Margin="20"
-                      HorizontalAlignment="Center">
-					<TextBox Grid.Row="0"
-							 Text="{Binding NewExpense.Amount, Mode=TwoWay}"
-							 Watermark="Amount"
-							 HorizontalAlignment="Left" />
-					<ComboBox Grid.Row="1"
-                              ItemsSource="{Binding Categories}"
-                              SelectedItem="{Binding NewExpense.Category}"
-                              HorizontalAlignment="Left">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Name, Mode=TwoWay}"/>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
-					<Calendar Grid.Row="2"
-							  x:Name="calendar"
-							  SelectionMode="SingleDate"
-							  SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
-					<TextBox Grid.Row="3"
-							 Text="{Binding NewExpense.Description, Mode=TwoWay}"
-							 Watermark="Description"
-							 HorizontalAlignment="Left"/>
-					<Button Grid.Row="4"
-                            Content="Add Expense"
-                            Command="{Binding AddExpenseCommand}"
-                            HorizontalAlignment="Left"/>
-				</Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<TextBox Grid.Row="0" Grid.Column="1"
+                         Text="{Binding NewExpense.Amount, Mode=TwoWay}"
+                         Watermark="Amount"
+                         HorizontalAlignment="Stretch" />
+				<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<ComboBox Grid.Row="1" Grid.Column="1"
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding NewExpense.Category}"
+                          HorizontalAlignment="Stretch">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<Calendar Grid.Row="2" Grid.Column="1"
+                          x:Name="calendar"
+                          SelectionMode="SingleDate"
+                          SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
+				<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+				<TextBox Grid.Row="3" Grid.Column="1"
+                         Text="{Binding NewExpense.Description, Mode=TwoWay}"
+                         Watermark="Description"
+                         HorizontalAlignment="Stretch"/>
+				<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="Add Expense"
+                        Command="{Binding AddExpenseCommand}"
+                        HorizontalAlignment="Left"/>
 			</Grid>
 		</Expander>
 		<TreeDataGrid Source="{Binding Source, Mode=TwoWay}"/>
