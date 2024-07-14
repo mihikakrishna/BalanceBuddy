@@ -32,7 +32,7 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     public ObservableCollection<ListItemTemplate> Items { get; } = new()
     {
         new ListItemTemplate(typeof(HomePageViewModel), "home_regular"),
-        new ListItemTemplate(typeof(AddExpensePageViewModel), "add_circle_regular"),
+        new ListItemTemplate(typeof(AddTransactionPageViewModel), "add_circle_regular"),
         new ListItemTemplate(typeof(ViewExpensesPageViewModel), "book_pulse_regular"),
         new ListItemTemplate(typeof(ManageDataPageViewModel), "wrench_regular")
     };

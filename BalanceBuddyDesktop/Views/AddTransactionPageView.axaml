@@ -5,13 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
              mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.AddExpensePageView"
-             x:DataType="vm:AddExpensePageViewModel">
+             x:Class="BalanceBuddyDesktop.Views.AddTransactionPageView"
+             x:DataType="vm:AddTransactionPageViewModel">
 	<UserControl.DataContext>
-		<vm:AddExpensePageViewModel/>
+		<vm:AddTransactionPageViewModel/>
 	</UserControl.DataContext>
 	<StackPanel>
-		<TextBlock Text="Add Expense Page" FontSize="20" FontWeight="Bold"/>
+		<TextBlock Text="Add Transaction Page" FontSize="20" FontWeight="Bold"/>
 		<Expander VerticalAlignment="Top">
 			<Expander.Header>
 				Add new expense
@@ -56,7 +56,7 @@
                          HorizontalAlignment="Stretch"/>
 				<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                         Content="Add Expense"
-                        Command="{Binding AddExpenseCommand}"
+                        Command="{Binding AddTransactionCommand}"
                         HorizontalAlignment="Left"/>
 			</Grid>
 		</Expander>
