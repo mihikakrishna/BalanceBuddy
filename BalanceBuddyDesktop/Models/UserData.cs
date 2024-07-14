@@ -14,12 +14,12 @@ public class UserData
         Expenses = new List<Expense>();
         ExpenseCategories = new List<ExpenseCategory>
         {
-            new ExpenseCategory { Id = 1, Name = "Housing" },
-            new ExpenseCategory { Id = 2, Name = "Food" },
-            new ExpenseCategory { Id = 3, Name = "Travel" },
-            new ExpenseCategory { Id = 4, Name = "Utilities" },
-            new ExpenseCategory { Id = 5, Name = "Healthcare" },
-            new ExpenseCategory { Id = 6, Name = "Entertainment" }
+            new ExpenseCategory {Name = "Housing" },
+            new ExpenseCategory {Name = "Food" },
+            new ExpenseCategory {Name = "Travel" },
+            new ExpenseCategory {Name = "Utilities" },
+            new ExpenseCategory {Name = "Healthcare" },
+            new ExpenseCategory {Name = "Entertainment" }
         };
     }
 }

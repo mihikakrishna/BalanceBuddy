@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using Avalonia.Controls.Models.TreeDataGrid;
 using Avalonia.Controls;
+using Avalonia.Controls.Models.TreeDataGrid;
 using BalanceBuddyDesktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -30,12 +29,10 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 Columns =
                 {
-                    new TextColumn<Expense, int>("Id", x => x.Id),
                     new TextColumn<Expense, decimal>("Amount", x => x.Amount),
                     new TextColumn<Expense, DateTime>("Date", x => x.Date),
                     new TextColumn<Expense, string>("Category", x => x.Category.Name),
-                    new TextColumn<Expense, string>("Description", x => x.Description),
-                    
+                    new TextColumn<Expense, string>("Description", x => x.Description), 
                 }
             };
         }
