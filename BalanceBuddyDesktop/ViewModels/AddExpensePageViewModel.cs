@@ -30,7 +30,7 @@ namespace BalanceBuddyDesktop.ViewModels
                 Columns =
                 {
                     new TextColumn<Expense, decimal>("Amount", x => x.Amount),
-                    new TextColumn<Expense, DateTime>("Date", x => x.Date),
+                    new TextColumn<Expense, string>("Date", x => x.FormattedDate),
                     new TextColumn<Expense, string>("Category", x => x.Category.Name),
                     new TextColumn<Expense, string>("Description", x => x.Description), 
                 }
