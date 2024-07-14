@@ -34,7 +34,8 @@ namespace BalanceBuddyDesktop.ViewModels
                     new TextColumn<Expense, decimal>("Amount", x => x.Amount),
                     new TextColumn<Expense, DateTime>("Date", x => x.Date),
                     new TextColumn<Expense, string>("Category", x => x.Category.Name),
-                    new TextColumn<Expense, string>("Description", x => x.Description)
+                    new TextColumn<Expense, string>("Description", x => x.Description),
+                    
                 }
             };
         }
@@ -47,8 +48,7 @@ namespace BalanceBuddyDesktop.ViewModels
             _expenses.Add(_newExpense);
             OnPropertyChanged(nameof(_expenses));
 
-            _newExpense = new Expense();
-            OnPropertyChanged(nameof(_newExpense));
+            NewExpense = new Expense();
         }
 
     }
