@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using BalanceBuddyDesktop.ViewModels;
 
 namespace BalanceBuddyDesktop.Views
 {

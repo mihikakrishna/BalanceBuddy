@@ -12,5 +12,7 @@
     <Application.Styles>
         <FluentTheme />
 		<StyleInclude Source="avares://BalanceBuddyDesktop/Assets/Icons.axaml"></StyleInclude>
-    </Application.Styles>
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml"></StyleInclude>
+		<StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml"/>
+	</Application.Styles>
 </Application>
