@@ -3,8 +3,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.ViewExpensesPageView">
-	<StackPanel>
-		<TextBlock> View Expenses Page</TextBlock>
-	</StackPanel>
+             x:Class="BalanceBuddyDesktop.Views.ViewExpensesPageView"
+			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+			 xmlns:vms="using:BalanceBuddyDesktop.ViewModels"
+			 x:DataType="vms:ViewExpensesPageViewModel">
+	<UserControl.DataContext>
+		<vms:ViewExpensesPageViewModel/>
+	</UserControl.DataContext>
+	<TabControl Margin="5">
+		<TabItem Header="Tab 1">
+			<TextBlock Margin="5">This is tab 1 content</TextBlock>
+		</TabItem>
+		<TabItem Header="Expenses By Category">
+			<lvc:PieChart
+				DataContext="{Binding ExpenseByCategoryChartViewModel}"
+				Series="{Binding Series}"
+				Title="{Binding Title}">
+			</lvc:PieChart>
+		</TabItem>
+		<TabItem Header="Tab 3">
+			<TextBlock Margin="5">This is tab 3 content</TextBlock>
+		</TabItem>
+	</TabControl>
 </UserControl>
