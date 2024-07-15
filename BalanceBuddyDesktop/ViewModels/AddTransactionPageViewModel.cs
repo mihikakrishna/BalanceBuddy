@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
-    public partial class AddExpensePageViewModel : ViewModelBase, INotifyPropertyChanged
+    public partial class AddTransactionPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         [ObservableProperty]
         private Expense _newExpense = new Expense();
@@ -21,11 +21,11 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<Expense> _expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
 
-        public FlatTreeDataGridSource<Expense> Source { get; }
+        public FlatTreeDataGridSource<Expense> ExpenseDataGridSource { get; }
 
-        public AddExpensePageViewModel()
+        public AddTransactionPageViewModel()
         {
-            Source = new FlatTreeDataGridSource<Expense>(_expenses)
+            ExpenseDataGridSource = new FlatTreeDataGridSource<Expense>(_expenses)
             {
                 Columns =
                 {
@@ -38,7 +38,7 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
-        private void AddExpense()
+        private void AddTransaction()
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
 

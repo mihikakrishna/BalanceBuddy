@@ -40,4 +40,11 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\AddTransactionPageView.axaml.cs">
+      <DependentUpon>AddTransactionPageView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

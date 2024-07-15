@@ -3,9 +3,9 @@ using BalanceBuddyDesktop.ViewModels;
 
 namespace BalanceBuddyDesktop.Views
 {
-    public partial class AddExpensePageView : UserControl
+    public partial class AddTransactionPageView : UserControl
     {
-        public AddExpensePageView()
+        public AddTransactionPageView()
         {
             InitializeComponent();
         }
