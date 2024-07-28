@@ -16,12 +16,23 @@ namespace BalanceBuddyDesktop.ViewModels
         private Expense _newExpense = new Expense();
 
         [ObservableProperty]
-        private List<ExpenseCategory> _categories = GlobalData.Instance.ExpenseCategories;
+        private Income _newIncome = new Income();
+
+        [ObservableProperty]
+        private List<ExpenseCategory> _expenseCategories = GlobalData.Instance.ExpenseCategories;
+
+        [ObservableProperty]
+        private List<IncomeCategory> _incomeCategories = GlobalData.Instance.IncomeCategories;
 
         [ObservableProperty]
         private ObservableCollection<Expense> _expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
 
+        [ObservableProperty]
+        private ObservableCollection<Income> _incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+
         public FlatTreeDataGridSource<Expense> ExpenseDataGridSource { get; }
+
+        public FlatTreeDataGridSource<Income> IncomeDataGridSource { get; }
 
         public AddTransactionPageViewModel()
         {
@@ -35,10 +46,21 @@ namespace BalanceBuddyDesktop.ViewModels
                     new TextColumn<Expense, string>("Description", x => x.Description), 
                 }
             };
+
+            IncomeDataGridSource = new FlatTreeDataGridSource<Income>(_incomes)
+            {
+                Columns =
+                {
+                    new TextColumn<Income, decimal>("Amount", x => x.Amount),
+                    new TextColumn<Income, string>("Date", x => x.FormattedDate),
+                    new TextColumn<Income, string>("Category", x => x.Category.Name),
+                    new TextColumn<Income, string>("Description", x => x.Description),
+                }
+            };
         }
 
         [RelayCommand]
-        private void AddTransaction()
+        private void AddExpense()
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
 
@@ -46,6 +68,17 @@ namespace BalanceBuddyDesktop.ViewModels
             OnPropertyChanged(nameof(_expenses));
 
             NewExpense = new Expense();
+        }
+
+        [RelayCommand]
+        private void AddIncome()
+        {
+            GlobalData.Instance.Incomes.Add(_newIncome);
+
+            _incomes.Add(_newIncome);
+            OnPropertyChanged(nameof(_incomes));
+
+            NewIncome = new Income();
         }
 
     }
