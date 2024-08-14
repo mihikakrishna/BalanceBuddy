@@ -24,9 +24,10 @@
 							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="ExpenseDataGrid">
 						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
@@ -67,9 +68,10 @@
 							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="IncomeDataGrid">
 						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
