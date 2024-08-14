@@ -67,7 +67,7 @@
 					<DataGrid Margin="20" ItemsSource="{Binding Expenses, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
-							  CanUserSortColumns="False"
+							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
 							  AutoGenerateColumns="False">
@@ -138,7 +138,7 @@
 					<DataGrid Margin="20" ItemsSource="{Binding Incomes, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
-							  CanUserSortColumns="False"
+							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
 							  AutoGenerateColumns="False">
