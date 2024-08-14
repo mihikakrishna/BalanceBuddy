@@ -28,6 +28,12 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<Income> _incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
 
+        [ObservableProperty]
+        private IList<Expense> _selectedExpenses;
+
+        [ObservableProperty]
+        private IList<Income> _selectedIncomes;
+
 
         public AddTransactionPageViewModel()
         {
@@ -78,8 +84,7 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenses()
         {
-            var selectedExpenses = _expenses.Where(x => x.IsSelected).ToList();
-            foreach (var expense in selectedExpenses)
+            foreach (var expense in _selectedExpenses)
             {
                 DeleteExpense(expense);
             }
@@ -88,8 +93,7 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedIncomes()
         {
-            var selectedIncomes = _incomes.Where(x => x.IsSelected).ToList();
-            foreach (var income in selectedIncomes)
+            foreach (var income in _selectedIncomes)
             {
                 DeleteIncome(income);
             }
