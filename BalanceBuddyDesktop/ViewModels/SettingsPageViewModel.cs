@@ -10,10 +10,10 @@ namespace BalanceBuddyDesktop.ViewModels
     public partial class SettingsPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         [ObservableProperty]
-        private Expense _newExpense = new Expense();
+        private ExpenseCategory _newExpenseCategory = new ExpenseCategory();
 
         [ObservableProperty]
-        private Income _newIncome = new Income();
+        private IncomeCategory _newIncomeCategory = new IncomeCategory();
 
         [ObservableProperty]
         private List<ExpenseCategory> _expenseCategories = GlobalData.Instance.ExpenseCategories;
@@ -25,6 +25,27 @@ namespace BalanceBuddyDesktop.ViewModels
         public SettingsPageViewModel()
         {
         }
+
+        [RelayCommand]
+        private void AddExpenseCategory()
+        {
+            if (!string.IsNullOrWhiteSpace(NewExpenseCategory.Name))
+            {
+                GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
+                NewExpenseCategory = new ExpenseCategory();
+            }
+        }
+
+        [RelayCommand]
+        private void AddIncomeCategory()
+        {
+            if (!string.IsNullOrWhiteSpace(NewIncomeCategory.Name))
+            {
+                GlobalData.Instance.IncomeCategories.Add(NewIncomeCategory);
+                NewIncomeCategory = new IncomeCategory();
+            }
+        }
+
 
         [RelayCommand]
         private void DeleteExpenseCategory(ExpenseCategory expenseCategory)
