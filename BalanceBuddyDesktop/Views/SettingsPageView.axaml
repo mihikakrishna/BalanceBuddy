@@ -11,7 +11,6 @@
 		<vm:SettingsPageViewModel/>
 	</UserControl.DataContext>
 	<StackPanel>
-		<TextBlock Text="Settings" FontSize="20" FontWeight="Bold"/>
 		<TabControl>
 			<TabItem Header="Edit Expense Categories">
 				<StackPanel>
