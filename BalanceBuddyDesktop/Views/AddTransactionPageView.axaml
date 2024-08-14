@@ -14,6 +14,27 @@
 		<TabControl>
 			<TabItem Header="Add Expense">
 				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						
+						<Button Content="Delete" Command="{Binding DeleteSelectedExpensesCommand}" Margin="10"
+								Grid.Column="1" Background="Red" Foreground="White"/>
+					</StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding Expenses, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="True"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="ExpenseDataGrid">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+						</DataGrid.Columns>
+					</DataGrid>
 					<Expander VerticalAlignment="Top">
 						<Expander.Header>
 							Add new expense
@@ -63,28 +84,30 @@
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<DataGrid Margin="20" ItemsSource="{Binding Expenses, Mode=TwoWay}"
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Add Income">
+				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button Content="Delete" Command="{Binding DeleteSelectedIncomesCommand}" Margin="10"
+								Grid.Column="1" Background="Red" Foreground="White"/>
+					</StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding Incomes, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
 							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="IncomeDataGrid">
 						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
 							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
 							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
 							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Button Content="Delete Selected Expenses" Command="{Binding DeleteSelectedExpensesCommand}" Margin="10"/>
-
-
-				</StackPanel>
-			</TabItem>
-			<TabItem Header="Add Income">
-				<StackPanel>
 					<Expander VerticalAlignment="Top">
 						<Expander.Header>
 							Add new income
@@ -134,22 +157,6 @@
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<DataGrid Margin="20" ItemsSource="{Binding Incomes, Mode=TwoWay}"
-							  CanUserReorderColumns="True"
-							  CanUserResizeColumns="True"
-							  CanUserSortColumns="True"
-							  GridLinesVisibility="All"
-							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
-							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
-							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
-						</DataGrid.Columns>
-					</DataGrid>
-					<Button Content="Delete Selected Incomes" Command="{Binding DeleteSelectedIncomesCommand}" Margin="10"/>
 				    </StackPanel>
 			</TabItem>
 		</TabControl>

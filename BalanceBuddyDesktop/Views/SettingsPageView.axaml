@@ -14,7 +14,24 @@
 		<TabControl>
 			<TabItem Header="Edit Expense Categories">
 				<StackPanel>
-					<Expander VerticalAlignment="Top">
+					<StackPanel Orientation="Horizontal">
+						<Button Content="Delete" Command="{Binding DeleteSelectedExpenseCategoriesCommand}"
+								Grid.Column="1" Background="Red" Foreground="White" Margin="10"/>
+					</StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="True"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="ExpenseDataGrid">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+					<Expander VerticalAlignment="Top" Margin="10,0,0,0">
 						<Expander.Header>
 							Add new expense category
 						</Expander.Header>
@@ -25,11 +42,8 @@
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="*"/>
+								<RowDefinition Height="Auto"/>
 							</Grid.RowDefinitions>
 							<TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
 							<TextBox Grid.Row="0" Grid.Column="1"
@@ -37,29 +51,33 @@
 									 Watermark="Name"
 									 HorizontalAlignment="Stretch"/>
 							<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-									Content="Add Expense Category"
+									Content="Add"
 									Command="{Binding AddExpenseCategoryCommand}"
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<DataGrid Margin="20" ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Edit Income Categories">
+				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button Content="Delete" Command="{Binding DeleteSelectedIncomeCategoriesCommand}"
+								Grid.Column="1" Background="Red" Foreground="White" Margin="10"/>
+					</StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
 							  CanUserSortColumns="True"
 							  GridLinesVisibility="All"
 							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
+							  AutoGenerateColumns="False"
+							  SelectionMode="Extended"
+							  Name="IncomeDataGrid">
 						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Button Content="Delete Selected Categories" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Margin="10"/>
-				</StackPanel>
-			</TabItem>
-			<TabItem Header="Edit Income Categories">
-				<StackPanel>
-					<Expander VerticalAlignment="Top">
+					<Expander VerticalAlignment="Top" Margin="10,0,0,0">
 						<Expander.Header>
 							Add new income category
 						</Expander.Header>
@@ -70,11 +88,8 @@
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="*"/>
+								<RowDefinition Height="Auto"/>
 							</Grid.RowDefinitions>
 							<TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
 							<TextBox Grid.Row="0" Grid.Column="1"
@@ -82,24 +97,11 @@
 									 Watermark="Name"
 									 HorizontalAlignment="Stretch"/>
 							<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-									Content="Add Income Category"
+									Content="Add"
 									Command="{Binding AddIncomeCategoryCommand}"
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<DataGrid Margin="20" ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
-							  CanUserReorderColumns="True"
-							  CanUserResizeColumns="True"
-							  CanUserSortColumns="True"
-							  GridLinesVisibility="All"
-							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
-							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-						</DataGrid.Columns>
-					</DataGrid>
-					<Button Content="Delete Selected Categories" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Margin="10"/>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

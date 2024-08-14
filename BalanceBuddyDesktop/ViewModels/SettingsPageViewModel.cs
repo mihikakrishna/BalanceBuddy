@@ -21,6 +21,12 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private List<IncomeCategory> _incomeCategories = GlobalData.Instance.IncomeCategories;
 
+        [ObservableProperty]
+        private IList<ExpenseCategory> _selectedExpenseCategories;
+
+        [ObservableProperty]
+        private IList<IncomeCategory> _selectedIncomeCategories;
+
 
         public SettingsPageViewModel()
         {
@@ -70,8 +76,7 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenseCategories()
         {
-            var selectedExpenseCategories = _expenseCategories.Where(x => x.IsSelected).ToList();
-            foreach (var expenseCategory in selectedExpenseCategories)
+            foreach (var expenseCategory in _selectedExpenseCategories)
             {
                 DeleteExpenseCategory(expenseCategory);
             }
@@ -80,8 +85,7 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedIncomeCategories()
         {
-            var selectedIncomeCategories = _incomeCategories.Where(x => x.IsSelected).ToList();
-            foreach (var incomeCategory in selectedIncomeCategories)
+            foreach (var incomeCategory in _selectedIncomeCategories)
             {
                 DeleteIncomeCategory(incomeCategory);
             }
