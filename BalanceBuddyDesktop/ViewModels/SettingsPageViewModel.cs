@@ -1,6 +1,6 @@
 ﻿namespace BalanceBuddyDesktop.ViewModels
 {
-    public class ManageDataPageViewModel : ViewModelBase
+    public class SettingsPageViewModel : ViewModelBase
     {
     }
 }

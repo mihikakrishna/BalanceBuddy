@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Models.TreeDataGrid;
 using BalanceBuddyDesktop.Models;
@@ -30,33 +31,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<Income> _incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
 
-        public FlatTreeDataGridSource<Expense> ExpenseDataGridSource { get; }
-
-        public FlatTreeDataGridSource<Income> IncomeDataGridSource { get; }
 
         public AddTransactionPageViewModel()
         {
-            ExpenseDataGridSource = new FlatTreeDataGridSource<Expense>(_expenses)
-            {
-                Columns =
-                {
-                    new TextColumn<Expense, decimal>("Amount", x => x.Amount),
-                    new TextColumn<Expense, string>("Date", x => x.FormattedDate),
-                    new TextColumn<Expense, string>("Category", x => x.Category.Name),
-                    new TextColumn<Expense, string>("Description", x => x.Description), 
-                }
-            };
-
-            IncomeDataGridSource = new FlatTreeDataGridSource<Income>(_incomes)
-            {
-                Columns =
-                {
-                    new TextColumn<Income, decimal>("Amount", x => x.Amount),
-                    new TextColumn<Income, string>("Date", x => x.FormattedDate),
-                    new TextColumn<Income, string>("Category", x => x.Category.Name),
-                    new TextColumn<Income, string>("Description", x => x.Description),
-                }
-            };
         }
 
         [RelayCommand]
@@ -79,6 +56,46 @@ namespace BalanceBuddyDesktop.ViewModels
             OnPropertyChanged(nameof(_incomes));
 
             NewIncome = new Income();
+        }
+
+        [RelayCommand]
+        private void DeleteExpense(Expense expense)
+        {
+            if (_expenses.Contains(expense))
+            {
+                _expenses.Remove(expense);
+                GlobalData.Instance.Expenses.Remove(expense);
+            }
+        }
+
+        [RelayCommand]
+        private void DeleteIncome(Income income)
+        {
+            if (_incomes.Contains(income))
+            {
+                _incomes.Remove(income);
+                GlobalData.Instance.Incomes.Remove(income);
+            }
+        }
+
+        [RelayCommand]
+        private void DeleteSelectedExpenses()
+        {
+            var selectedExpenses = _expenses.Where(x => x.IsSelected).ToList();
+            foreach (var expense in selectedExpenses)
+            {
+                DeleteExpense(expense);
+            }
+        }
+
+        [RelayCommand]
+        private void DeleteSelectedIncomes()
+        {
+            var selectedIncomes = _incomes.Where(x => x.IsSelected).ToList();
+            foreach (var income in selectedIncomes)
+            {
+                DeleteIncome(income);
+            }
         }
 
     }
