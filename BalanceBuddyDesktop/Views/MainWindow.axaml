@@ -44,7 +44,7 @@
 		</SplitView.Pane>
 		<SplitView.Content>
 			<Border CornerRadius="20 0 0 0"
-					Background="#dde5b6">
+					Background="#eff2e1">
 				<TransitioningContentControl Content="{Binding CurrentPage}">
 					
 				</TransitioningContentControl>
