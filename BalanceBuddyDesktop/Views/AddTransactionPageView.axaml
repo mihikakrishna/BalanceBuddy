@@ -30,6 +30,7 @@
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
 							<TextBox Grid.Row="0" Grid.Column="1"
@@ -63,8 +64,24 @@
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<TreeDataGrid Source="{Binding ExpenseDataGridSource, Mode=TwoWay}"
-								  AutoDragDropRows="True"/>
+					<DataGrid Margin="20" ItemsSource="{Binding Expenses, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="False"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False">
+						<DataGrid.Columns>
+							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
+							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+					<Button Content="Delete Selected Expenses" Command="{Binding DeleteSelectedExpensesCommand}" Margin="10"/>
+
+
 				</StackPanel>
 			</TabItem>
 			<TabItem Header="Add Income">
@@ -84,6 +101,7 @@
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
 							<TextBox Grid.Row="0" Grid.Column="1"
@@ -117,9 +135,23 @@
 									HorizontalAlignment="Left"/>
 						</Grid>
 					</Expander>
-					<TreeDataGrid Source="{Binding IncomeDataGridSource, Mode=TwoWay}"
-								  AutoDragDropRows="True"/>
-				</StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding Incomes, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="False"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False">
+						<DataGrid.Columns>
+							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
+							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+					<Button Content="Delete Selected Incomes" Command="{Binding DeleteSelectedIncomesCommand}" Margin="10"/>
+				    </StackPanel>
 			</TabItem>
 		</TabControl>
 	</StackPanel>
