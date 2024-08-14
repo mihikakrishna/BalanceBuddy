@@ -1,10 +1,52 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BalanceBuddyDesktop.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.SettingsPageView">
+             xmlns:dg="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.DataGrid"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.Views.SettingsPageView"
+             x:DataType="vm:SettingsPageViewModel">
+	<UserControl.DataContext>
+		<vm:SettingsPageViewModel/>
+	</UserControl.DataContext>
 	<StackPanel>
-		<TextBlock> Settings Page</TextBlock>
+		<TextBlock Text="Settings" FontSize="20" FontWeight="Bold"/>
+		<TabControl>
+			<TabItem Header="Edit Expense Categories">
+				<StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="True"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False">
+						<DataGrid.Columns>
+							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
+							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+					<Button Content="Delete Selected Categories" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Margin="10"/>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Edit Income Categories">
+				<StackPanel>
+					<DataGrid Margin="20" ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
+							  CanUserReorderColumns="True"
+							  CanUserResizeColumns="True"
+							  CanUserSortColumns="True"
+							  GridLinesVisibility="All"
+							  BorderThickness="1" BorderBrush="Gray"
+							  AutoGenerateColumns="False">
+						<DataGrid.Columns>
+							<DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay}" Header="Select"/>
+							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+						</DataGrid.Columns>
+					</DataGrid>
+					<Button Content="Delete Selected Categories" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Margin="10"/>
+				</StackPanel>
+			</TabItem>
+		</TabControl>
 	</StackPanel>
 </UserControl>
