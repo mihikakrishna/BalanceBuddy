@@ -14,9 +14,9 @@
 		<TabControl>
 			<TabItem Header="Edit Expense Categories">
 				<StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}" Background="SkyBlue" Foreground="White"/>
+					<StackPanel Orientation="Horizontal" Background="#eff2e1">
+						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 					</StackPanel>
 					<DataGrid ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
@@ -26,12 +26,13 @@
 							  BorderThickness="1" BorderBrush="Gray"
 							  AutoGenerateColumns="False"
 							  SelectionMode="Extended"
-							  Name="ExpenseDataGrid">
+							  Name="ExpenseDataGrid"
+							  Background="#eff2e1">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top">
+					<Expander VerticalAlignment="Top" Background="#eff2e1">
 						<Expander.Header>
 							Add new expense category
 						</Expander.Header>
@@ -60,9 +61,9 @@
 			</TabItem>
 			<TabItem Header="Edit Income Categories">
 				<StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}" Background="SkyBlue" Foreground="White"/>
+					<StackPanel Orientation="Horizontal" Background="#eff2e1">
+						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 					</StackPanel>
 					<DataGrid ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
@@ -72,12 +73,13 @@
 							  BorderThickness="1" BorderBrush="Gray"
 							  AutoGenerateColumns="False"
 							  SelectionMode="Extended"
-							  Name="IncomeDataGrid">
+							  Name="IncomeDataGrid"
+							  Background="#eff2e1">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top">
+					<Expander VerticalAlignment="Top" Background="#eff2e1">
 						<Expander.Header>
 							Add new income category
 						</Expander.Header>
