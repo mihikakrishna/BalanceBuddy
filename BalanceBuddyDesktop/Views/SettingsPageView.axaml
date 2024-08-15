@@ -16,7 +16,7 @@
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}"/>
+						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}" Background="SkyBlue" Foreground="White"/>
 					</StackPanel>
 					<DataGrid ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
@@ -62,7 +62,7 @@
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}"/>
+						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}" Background="SkyBlue" Foreground="White"/>
 					</StackPanel>
 					<DataGrid ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
