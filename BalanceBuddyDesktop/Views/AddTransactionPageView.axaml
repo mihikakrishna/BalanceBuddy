@@ -13,92 +13,101 @@
 	<StackPanel>
 		<TabControl>
 			<TabItem Header="Add Expense">
-				<StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="Tomato" Foreground="White"/>
-						<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="SkyBlue" Foreground="White"/>
-						<Button x:Name="exportExpensesButton" Content="EXPORT" Click="ExportExpensesButton_Clicked" Background="LightGreen" Foreground="White"/>
-					</StackPanel>
-					<DataGrid ItemsSource="{Binding Expenses, Mode=TwoWay}"
-							  CanUserReorderColumns="True"
-							  CanUserResizeColumns="True"
-							  CanUserSortColumns="True"
-							  GridLinesVisibility="All"
-							  BorderThickness="1" BorderBrush="Gray"
-							  AutoGenerateColumns="False"
-							  SelectionMode="Extended"
-							  Name="ExpenseDataGrid">
-						<DataGrid.Columns>
-							<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-							<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
-							<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
-						</DataGrid.Columns>
-					</DataGrid>
-					<StackPanel Orientation="Horizontal">
-						<Expander VerticalAlignment="Top">
-							<Expander.Header>
-								Add new expense
-							</Expander.Header>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
-									<ColumnDefinition Width="*"/>
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="*"/>
-								</Grid.RowDefinitions>
-								<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-								<TextBox Grid.Row="0" Grid.Column="1"
-										 Text="{Binding NewExpense.Amount, Mode=TwoWay}"
-										 Watermark="Amount"
-										 HorizontalAlignment="Stretch" />
-								<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-								<ComboBox Grid.Row="1" Grid.Column="1"
-										  ItemsSource="{Binding ExpenseCategories}"
-										  SelectedItem="{Binding NewExpense.Category}"
-										  HorizontalAlignment="Stretch">
-									<ComboBox.ItemTemplate>
-										<DataTemplate>
-											<TextBlock Text="{Binding Name}"/>
-										</DataTemplate>
-									</ComboBox.ItemTemplate>
-								</ComboBox>
-								<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-								<Calendar Grid.Row="2" Grid.Column="1"
-										  x:Name="expenseCalendar"
-										  SelectionMode="SingleDate"
-										  SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
-								<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-								<TextBox Grid.Row="3" Grid.Column="1"
-										 Text="{Binding NewExpense.Description, Mode=TwoWay}"
-										 Watermark="Description"
-										 HorizontalAlignment="Stretch"/>
-								<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-										Content="Add Expense"
-										Command="{Binding AddExpenseCommand}"
-										HorizontalAlignment="Left"/>
-							</Grid>
-						</Expander>
-						<Expander>
-							<Expander.Header>
-								Filter
-							</Expander.Header>
-							<StackPanel>
-								<Calendar x:Name="ExpenseFilterCalendar" SelectionMode="SingleRange"/>
-								<StackPanel Orientation="Horizontal">
-									<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
-									<Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
+				<SplitView IsPaneOpen="True"
+						   DisplayMode="Inline"
+						   OpenPaneLength="400">
+					<SplitView.Pane>
+						<StackPanel Orientation="Vertical" Background="#ffffff">
+							<Expander VerticalAlignment="Top" Width="400" Background="#eff2e1">
+								<Expander.Header>
+									Add new expense
+								</Expander.Header>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="*"/>
+									</Grid.RowDefinitions>
+									<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="0" Grid.Column="1"
+											 Text="{Binding NewExpense.Amount, Mode=TwoWay}"
+											 Watermark="Amount"
+											 HorizontalAlignment="Stretch" />
+									<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<ComboBox Grid.Row="1" Grid.Column="1"
+											  ItemsSource="{Binding ExpenseCategories}"
+											  SelectedItem="{Binding NewExpense.Category}"
+											  HorizontalAlignment="Stretch">
+										<ComboBox.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Name}"/>
+											</DataTemplate>
+										</ComboBox.ItemTemplate>
+									</ComboBox>
+									<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<Calendar Grid.Row="2" Grid.Column="1"
+											  x:Name="expenseCalendar"
+											  SelectionMode="SingleDate"
+											  SelectedDate="{Binding NewExpense.Date, Mode=TwoWay}"/>
+									<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="3" Grid.Column="1"
+											 Text="{Binding NewExpense.Description, Mode=TwoWay}"
+											 Watermark="Description"
+											 HorizontalAlignment="Stretch"/>
+									<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+											Content="Add Expense"
+											Command="{Binding AddExpenseCommand}"
+											HorizontalAlignment="Left"/>
+								</Grid>
+							</Expander>
+							<Expander  Width="400" Background="#eff2e1">
+								<Expander.Header>
+									Filter
+								</Expander.Header>
+								<StackPanel>
+									<Calendar x:Name="ExpenseFilterCalendar" SelectionMode="SingleRange"/>
+									<StackPanel Orientation="Horizontal">
+										<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
+										<Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
+									</StackPanel>
 								</StackPanel>
+							</Expander>
+						</StackPanel>
+					</SplitView.Pane>
+					<SplitView.Content>
+						<StackPanel Width="700" HorizontalAlignment="Left">
+							<StackPanel Orientation="Horizontal" Background="#eff2e1">
+								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button x:Name="exportExpensesButton" Content="EXPORT" Click="ExportExpensesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
-						</Expander>
-					</StackPanel>
-				</StackPanel>
+							<DataGrid ItemsSource="{Binding Expenses, Mode=TwoWay}"
+									  CanUserReorderColumns="True"
+									  CanUserResizeColumns="True"
+									  CanUserSortColumns="True"
+									  GridLinesVisibility="All"
+									  BorderThickness="1" BorderBrush="Gray"
+									  AutoGenerateColumns="False"
+									  SelectionMode="Extended"
+									  Name="ExpenseDataGrid"
+									  Background="#eff2e1">
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+									<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+								</DataGrid.Columns>
+							</DataGrid>
+						</StackPanel>
+					</SplitView.Content>
+				</SplitView>
 			</TabItem>
 			<TabItem Header="Add Income">
 				<StackPanel>
