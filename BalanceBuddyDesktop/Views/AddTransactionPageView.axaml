@@ -91,7 +91,7 @@
 								Filter
 							</Expander.Header>
 							<StackPanel>
-								<Calendar x:Name="expenseFilterCalendar" SelectionMode="SingleRange"/>
+								<Calendar x:Name="ExpenseFilterCalendar" SelectionMode="SingleRange"/>
 								<StackPanel Orientation="Horizontal">
 									<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
 									<Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
@@ -125,55 +125,69 @@
 							<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top">
-						<Expander.Header>
-							Add new income
-						</Expander.Header>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-							<TextBox Grid.Row="0" Grid.Column="1"
-									 Text="{Binding NewIncome.Amount, Mode=TwoWay}"
-									 Watermark="Amount"
-									 HorizontalAlignment="Stretch" />
-							<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-							<ComboBox Grid.Row="1" Grid.Column="1"
-									  ItemsSource="{Binding IncomeCategories}"
-									  SelectedItem="{Binding NewIncome.Category}"
-									  HorizontalAlignment="Stretch">
-								<ComboBox.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Name}"/>
-									</DataTemplate>
-								</ComboBox.ItemTemplate>
-							</ComboBox>
-							<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-							<Calendar Grid.Row="2" Grid.Column="1"
-									  x:Name="incomeCalendar"
-									  SelectionMode="SingleDate"
-									  SelectedDate="{Binding NewIncome.Date, Mode=TwoWay}"/>
-							<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
-							<TextBox Grid.Row="3" Grid.Column="1"
-									 Text="{Binding NewIncome.Description, Mode=TwoWay}"
-									 Watermark="Description"
-									 HorizontalAlignment="Stretch"/>
-							<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-									Content="Add Income"
-									Command="{Binding AddIncomeCommand}"
-									HorizontalAlignment="Left"/>
-						</Grid>
-					</Expander>
+					<StackPanel Orientation="Horizontal">
+						<Expander VerticalAlignment="Top">
+							<Expander.Header>
+								Add new income
+							</Expander.Header>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<TextBlock Text="Amount:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+								<TextBox Grid.Row="0" Grid.Column="1"
+										 Text="{Binding NewIncome.Amount, Mode=TwoWay}"
+										 Watermark="Amount"
+										 HorizontalAlignment="Stretch" />
+								<TextBlock Text="Category:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+								<ComboBox Grid.Row="1" Grid.Column="1"
+										  ItemsSource="{Binding IncomeCategories}"
+										  SelectedItem="{Binding NewIncome.Category}"
+										  HorizontalAlignment="Stretch">
+									<ComboBox.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Name}"/>
+										</DataTemplate>
+									</ComboBox.ItemTemplate>
+								</ComboBox>
+								<TextBlock Text="Date:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+								<Calendar Grid.Row="2" Grid.Column="1"
+										  x:Name="incomeCalendar"
+										  SelectionMode="SingleDate"
+										  SelectedDate="{Binding NewIncome.Date, Mode=TwoWay}"/>
+								<TextBlock Text="Description:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+								<TextBox Grid.Row="3" Grid.Column="1"
+										 Text="{Binding NewIncome.Description, Mode=TwoWay}"
+										 Watermark="Description"
+										 HorizontalAlignment="Stretch"/>
+								<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+										Content="Add Income"
+										Command="{Binding AddIncomeCommand}"
+										HorizontalAlignment="Left"/>
+							</Grid>
+						</Expander>
+						<Expander>
+							<Expander.Header>
+								Filter
+							</Expander.Header>
+							<StackPanel>
+								<Calendar x:Name="IncomeFilterCalendar" SelectionMode="SingleRange"/>
+								<StackPanel Orientation="Horizontal">
+									<Button Content="Filter" Command="{Binding FilterIncomesCommand}"/>
+									<Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
+								</StackPanel>
+							</StackPanel>
+						</Expander>
+					</StackPanel>
 				    </StackPanel>
 			</TabItem>
 		</TabControl>

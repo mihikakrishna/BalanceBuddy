@@ -39,6 +39,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<DateTime> _selectedExpenseDates = new ObservableCollection<DateTime>();
 
+        [ObservableProperty]
+        private ObservableCollection<DateTime> _selectedIncomeDates = new ObservableCollection<DateTime>();
+
 
         public AddTransactionPageViewModel()
         {
@@ -135,10 +138,29 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
+        public void FilterIncomes()
+        {
+            if (SelectedIncomeDates.Count > 0)
+            {
+                DateTime minDate = SelectedIncomeDates.Min();
+                DateTime maxDate = SelectedIncomeDates.Max();
+
+                Incomes = new ObservableCollection<Income>(
+                    GlobalData.Instance.Incomes.Where(income => income.Date >= minDate && income.Date <= maxDate));
+            }
+            else
+            {
+                Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+            }
+        }
+
+        [RelayCommand]
         public void ClearFilters()
         {
             SelectedExpenseDates.Clear();
+            SelectedIncomeDates.Clear();
             FilterExpenses();
+            FilterIncomes();
         }
     }
 }

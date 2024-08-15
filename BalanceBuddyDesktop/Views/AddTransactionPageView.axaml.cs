@@ -13,7 +13,8 @@ namespace BalanceBuddyDesktop.Views
             InitializeComponent();
             ExpenseDataGrid.SelectionChanged += ExpenseDataGrid_SelectionChanged;
             IncomeDataGrid.SelectionChanged += IncomeDataGrid_SelectionChanged;
-            expenseFilterCalendar.SelectedDatesChanged += OnSelectedExpenseDatesChanged;
+            ExpenseFilterCalendar.SelectedDatesChanged += OnSelectedExpenseDatesChanged;
+            IncomeFilterCalendar.SelectedDatesChanged += OnSelectedIncomeDatesChanged;
         }
 
         private void ExpenseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,9 +40,23 @@ namespace BalanceBuddyDesktop.Views
             {
                 viewModel.SelectedExpenseDates.Clear();
 
-                foreach (DateTime date in expenseFilterCalendar.SelectedDates)
+                foreach (DateTime date in ExpenseFilterCalendar.SelectedDates)
                 {
                     viewModel.SelectedExpenseDates.Add(date);
+                }
+            }
+        }
+
+        private void OnSelectedIncomeDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var viewModel = DataContext as AddTransactionPageViewModel;
+            if (viewModel != null)
+            {
+                viewModel.SelectedIncomeDates.Clear();
+
+                foreach (DateTime date in IncomeFilterCalendar.SelectedDates)
+                {
+                    viewModel.SelectedIncomeDates.Add(date);
                 }
             }
         }
