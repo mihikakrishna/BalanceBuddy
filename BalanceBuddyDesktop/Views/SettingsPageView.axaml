@@ -18,7 +18,7 @@
 						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="Red" Foreground="White"/>
 						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}"/>
 					</StackPanel>
-					<DataGrid Margin="20" ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
+					<DataGrid ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
 							  CanUserSortColumns="True"
@@ -31,7 +31,7 @@
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top" Margin="10,0,0,0">
+					<Expander VerticalAlignment="Top">
 						<Expander.Header>
 							Add new expense category
 						</Expander.Header>
@@ -64,7 +64,7 @@
 						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="Red" Foreground="White"/>
 						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}"/>
 					</StackPanel>
-					<DataGrid Margin="20" ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
+					<DataGrid ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
 							  CanUserResizeColumns="True"
 							  CanUserSortColumns="True"
@@ -77,7 +77,7 @@
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top" Margin="10,0,0,0">
+					<Expander VerticalAlignment="Top">
 						<Expander.Header>
 							Add new income category
 						</Expander.Header>
