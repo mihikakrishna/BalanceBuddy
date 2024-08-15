@@ -17,10 +17,10 @@ namespace BalanceBuddyDesktop.ViewModels
         private IncomeCategory _newIncomeCategory = new IncomeCategory();
 
         [ObservableProperty]
-        private List<ExpenseCategory> _expenseCategories = GlobalData.Instance.ExpenseCategories;
+        private ObservableCollection<ExpenseCategory> _expenseCategories = new ObservableCollection<ExpenseCategory>(GlobalData.Instance.ExpenseCategories);
 
         [ObservableProperty]
-        private List<IncomeCategory> _incomeCategories = GlobalData.Instance.IncomeCategories;
+        private ObservableCollection<IncomeCategory> _incomeCategories = new ObservableCollection<IncomeCategory>(GlobalData.Instance.IncomeCategories);
 
         [ObservableProperty]
         private IList<ExpenseCategory> _selectedExpenseCategories;
@@ -39,6 +39,7 @@ namespace BalanceBuddyDesktop.ViewModels
             if (!string.IsNullOrWhiteSpace(NewExpenseCategory.Name))
             {
                 GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
+                ExpenseCategories.Add(NewExpenseCategory);
                 NewExpenseCategory = new ExpenseCategory();
             }
         }
@@ -49,6 +50,7 @@ namespace BalanceBuddyDesktop.ViewModels
             if (!string.IsNullOrWhiteSpace(NewIncomeCategory.Name))
             {
                 GlobalData.Instance.IncomeCategories.Add(NewIncomeCategory);
+                IncomeCategories.Add(new IncomeCategory());
                 NewIncomeCategory = new IncomeCategory();
             }
         }
@@ -57,9 +59,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteExpenseCategory(ExpenseCategory expenseCategory)
         {
-            if (_expenseCategories.Contains(expenseCategory))
+            if (ExpenseCategories.Contains(expenseCategory))
             {
-                _expenseCategories.Remove(expenseCategory);
+                ExpenseCategories.Remove(expenseCategory);
                 GlobalData.Instance.ExpenseCategories.Remove(expenseCategory);
             }
         }
@@ -67,9 +69,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteIncomeCategory(IncomeCategory incomeCategory)
         {
-            if (_incomeCategories.Contains(incomeCategory))
+            if (IncomeCategories.Contains(incomeCategory))
             {
-                _incomeCategories.Remove(incomeCategory);
+                IncomeCategories.Remove(incomeCategory);
                 GlobalData.Instance.IncomeCategories.Remove(incomeCategory);
             }
         }
@@ -95,14 +97,14 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         public void RefreshExpenseCategories()
         {
-            ExpenseCategories = new List<ExpenseCategory>(GlobalData.Instance.ExpenseCategories);
+            ExpenseCategories = new ObservableCollection<ExpenseCategory>(GlobalData.Instance.ExpenseCategories);
         }
 
         [RelayCommand]
         public void RefreshIncomeCategories()
         {
 
-            IncomeCategories = new List<IncomeCategory>(GlobalData.Instance.IncomeCategories);
+            IncomeCategories = new ObservableCollection<IncomeCategory>(GlobalData.Instance.IncomeCategories);
         }
     }
 }
