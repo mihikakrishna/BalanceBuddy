@@ -16,7 +16,7 @@
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshExpensesButton" Content="REFRESH"/>
+						<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}"/>
 						<Button x:Name="filterExpensesButton" Content="FILTERS"/>
 						<Button x:Name="exportExpensesButton" Content="EXPORT"/>
 					</StackPanel>
@@ -91,7 +91,7 @@
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Background="Red" Foreground="White"/>
-						<Button x:Name="refreshIncomesButton" Content="REFRESH"/>
+						<Button x:Name="refreshIncomesButton" Content="REFRESH" Command="{Binding RefreshIncomesCommand}"/>
 						<Button x:Name="filterIncomesButton" Content="FILTERS"/>
 						<Button x:Name="exportIncomesButton" Content="EXPORT"/>
 					</StackPanel>

@@ -15,8 +15,8 @@
 			<TabItem Header="Edit Expense Categories">
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<Button Content="Delete" Command="{Binding DeleteSelectedExpenseCategoriesCommand}"
-								Grid.Column="1" Background="Red" Foreground="White" Margin="10"/>
+						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="Red" Foreground="White"/>
+						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}"/>
 					</StackPanel>
 					<DataGrid Margin="20" ItemsSource="{Binding ExpenseCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
@@ -61,8 +61,8 @@
 			<TabItem Header="Edit Income Categories">
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<Button Content="Delete" Command="{Binding DeleteSelectedIncomeCategoriesCommand}"
-								Grid.Column="1" Background="Red" Foreground="White" Margin="10"/>
+						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="Red" Foreground="White"/>
+						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}"/>
 					</StackPanel>
 					<DataGrid Margin="20" ItemsSource="{Binding IncomeCategories, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
