@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.ViewModels;
 
@@ -60,5 +64,39 @@ namespace BalanceBuddyDesktop.Views
                 }
             }
         }
+
+        private async void ExportExpensesButton_Clicked(object sender, RoutedEventArgs args)
+        {
+            var viewModel = DataContext as AddTransactionPageViewModel;
+
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "Save Expenses as CSV",
+                SuggestedFileName = "Expenses.csv",
+                DefaultExtension = ".csv"
+            });
+
+            if (file is not null)
+            {
+                await using var stream = await file.OpenWriteAsync();
+                using var streamWriter = new StreamWriter(stream);
+
+                await streamWriter.WriteLineAsync("Date,Category,Amount,Description");
+
+                foreach (var expense in viewModel.Expenses)
+                {
+                    var date = expense.Date.ToString("yyyy-MM-dd");
+                    var category = expense.Category;
+                    var amount = expense.Amount.ToString("F2");
+                    var description = expense.Description.Replace(",", ";");
+
+                    var line = $"{date},{category},{amount},{description}";
+                    await streamWriter.WriteLineAsync(line);
+                }
+            }
+        }
+
     }
 }
