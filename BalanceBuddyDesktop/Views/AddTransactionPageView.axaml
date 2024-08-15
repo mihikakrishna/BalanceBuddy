@@ -105,7 +105,7 @@
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Background="Red" Foreground="White"/>
 						<Button x:Name="refreshIncomesButton" Content="REFRESH" Command="{Binding RefreshIncomesCommand}" Background="SkyBlue" Foreground="White"/>
-						<Button x:Name="exportIncomesButton" Content="EXPORT"/>
+						<Button x:Name="exportIncomesButton" Content="EXPORT" Click="ExportIncomesButton_Clicked"/>
 					</StackPanel>
 					<DataGrid ItemsSource="{Binding Incomes, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
