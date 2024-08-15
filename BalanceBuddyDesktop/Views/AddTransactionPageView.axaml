@@ -92,7 +92,10 @@
 							</Expander.Header>
 							<StackPanel>
 								<Calendar x:Name="expenseFilterCalendar" SelectionMode="SingleRange"/>
-								<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
+								<StackPanel Orientation="Horizontal">
+									<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
+									<Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
+								</StackPanel>
 							</StackPanel>
 						</Expander>
 					</StackPanel>

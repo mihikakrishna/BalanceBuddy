@@ -134,5 +134,11 @@ namespace BalanceBuddyDesktop.ViewModels
             }
         }
 
+        [RelayCommand]
+        public void ClearFilters()
+        {
+            SelectedDates.Clear();
+            FilterExpenses();
+        }
     }
 }
