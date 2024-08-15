@@ -14,7 +14,7 @@
 		<TabControl>
 			<TabItem Header="Edit Expense Categories">
 				<StackPanel>
-					<StackPanel Orientation="Horizontal" Background="#eff2e1">
+					<StackPanel Orientation="Horizontal" Background="#eff2e1" Width="500" HorizontalAlignment="Left">
 						<Button x:Name="deleteExpenseCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedExpenseCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 						<Button x:Name="refreshExpenseCategoriesButton" Content="REFRESH" Command="{Binding RefreshExpenseCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 					</StackPanel>
@@ -27,12 +27,14 @@
 							  AutoGenerateColumns="False"
 							  SelectionMode="Extended"
 							  Name="ExpenseDataGrid"
-							  Background="#eff2e1">
+							  Background="#eff2e1"
+							  Width="500"
+							  HorizontalAlignment="Left">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top" Background="#eff2e1">
+					<Expander VerticalAlignment="Top" Background="#eff2e1" Width="500" HorizontalAlignment="Left">
 						<Expander.Header>
 							Add new expense category
 						</Expander.Header>
@@ -61,7 +63,7 @@
 			</TabItem>
 			<TabItem Header="Edit Income Categories">
 				<StackPanel>
-					<StackPanel Orientation="Horizontal" Background="#eff2e1">
+					<StackPanel Orientation="Horizontal" Background="#eff2e1" Width="500" HorizontalAlignment="Left">
 						<Button x:Name="deleteIncomeCategoriesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomeCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 						<Button x:Name="refreshIncomeCategoriesButton" Content="REFRESH" Command="{Binding RefreshIncomeCategoriesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 					</StackPanel>
@@ -74,12 +76,14 @@
 							  AutoGenerateColumns="False"
 							  SelectionMode="Extended"
 							  Name="IncomeDataGrid"
-							  Background="#eff2e1">
+							  Background="#eff2e1"
+							  Width="500"
+							  HorizontalAlignment="Left">
 						<DataGrid.Columns>
 							<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
 						</DataGrid.Columns>
 					</DataGrid>
-					<Expander VerticalAlignment="Top" Background="#eff2e1">
+					<Expander VerticalAlignment="Top" Background="#eff2e1" Width="500" HorizontalAlignment="Left">
 						<Expander.Header>
 							Add new income category
 						</Expander.Header>
