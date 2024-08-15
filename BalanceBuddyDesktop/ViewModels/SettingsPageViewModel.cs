@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using BalanceBuddyDesktop.Models;
@@ -89,6 +90,19 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteIncomeCategory(incomeCategory);
             }
+        }
+
+        [RelayCommand]
+        public void RefreshExpenseCategories()
+        {
+            ExpenseCategories = new List<ExpenseCategory>(GlobalData.Instance.ExpenseCategories);
+        }
+
+        [RelayCommand]
+        public void RefreshIncomeCategories()
+        {
+
+            IncomeCategories = new List<IncomeCategory>(GlobalData.Instance.IncomeCategories);
         }
     }
 }

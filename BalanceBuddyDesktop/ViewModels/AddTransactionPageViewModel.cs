@@ -99,5 +99,17 @@ namespace BalanceBuddyDesktop.ViewModels
             }
         }
 
+        [RelayCommand]
+        public void RefreshExpenses()
+        {
+            Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
+        }
+
+        [RelayCommand]
+        public void RefreshIncomes()
+        {
+
+            Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+        }
     }
 }

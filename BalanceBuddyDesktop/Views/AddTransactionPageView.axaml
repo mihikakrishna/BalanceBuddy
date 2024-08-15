@@ -15,9 +15,10 @@
 			<TabItem Header="Add Expense">
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
-						
-						<Button Content="Delete" Command="{Binding DeleteSelectedExpensesCommand}" Margin="10"
-								Grid.Column="1" Background="Red" Foreground="White"/>
+						<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="Red" Foreground="White"/>
+						<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}"/>
+						<Button x:Name="filterExpensesButton" Content="FILTERS"/>
+						<Button x:Name="exportExpensesButton" Content="EXPORT"/>
 					</StackPanel>
 					<DataGrid Margin="20" ItemsSource="{Binding Expenses, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
@@ -89,8 +90,10 @@
 			<TabItem Header="Add Income">
 				<StackPanel>
 					<StackPanel Orientation="Horizontal">
-						<Button Content="Delete" Command="{Binding DeleteSelectedIncomesCommand}" Margin="10"
-								Grid.Column="1" Background="Red" Foreground="White"/>
+						<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Background="Red" Foreground="White"/>
+						<Button x:Name="refreshIncomesButton" Content="REFRESH" Command="{Binding RefreshIncomesCommand}"/>
+						<Button x:Name="filterIncomesButton" Content="FILTERS"/>
+						<Button x:Name="exportIncomesButton" Content="EXPORT"/>
 					</StackPanel>
 					<DataGrid Margin="20" ItemsSource="{Binding Incomes, Mode=TwoWay}"
 							  CanUserReorderColumns="True"
