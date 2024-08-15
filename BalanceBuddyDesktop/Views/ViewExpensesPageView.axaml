@@ -11,8 +11,10 @@
 		<vms:ViewExpensesPageViewModel/>
 	</UserControl.DataContext>
 	<TabControl Margin="5">
-		<TabItem Header="Tab 1">
-			<TextBlock Margin="5">This is tab 1 content</TextBlock>
+		<TabItem Header="Income vs Expenses">
+			<lvc:CartesianChart DataContext="{Binding StackedTransactionChartViewModel}"
+								Series="{Binding Series}">
+			</lvc:CartesianChart>
 		</TabItem>
 		<TabItem Header="Expenses By Category">
 			<lvc:PieChart
