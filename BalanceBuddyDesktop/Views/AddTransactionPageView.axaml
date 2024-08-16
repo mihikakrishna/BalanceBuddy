@@ -15,10 +15,12 @@
 			<TabItem Header="Add Expense">
 				<SplitView IsPaneOpen="True"
 						   DisplayMode="Inline"
-						   OpenPaneLength="400">
+						   OpenPaneLength="400"
+						   Background="#eff2e1"
+						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Background="#ffffff">
-							<Expander VerticalAlignment="Top" Width="400" Background="#eff2e1">
+						<StackPanel Orientation="Vertical" Height="700">
+							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new expense
 								</Expander.Header>
@@ -67,7 +69,7 @@
 											HorizontalAlignment="Left"/>
 								</Grid>
 							</Expander>
-							<Expander  Width="400" Background="#eff2e1">
+							<Expander  Width="400" Background="#ffffff">
 								<Expander.Header>
 									Filter
 								</Expander.Header>
@@ -112,10 +114,12 @@
 			<TabItem Header="Add Income">
 				<SplitView IsPaneOpen="True"
 						   DisplayMode="Inline"
-						   OpenPaneLength="400">
+						   OpenPaneLength="400"
+						   Background="#eff2e1"
+						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Background="#ffffff">
-							<Expander VerticalAlignment="Top" Width="400" Background="#eff2e1">
+						<StackPanel Orientation="Vertical" Height="700">
+							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new Income
 								</Expander.Header>
@@ -164,7 +168,7 @@
 											HorizontalAlignment="Left"/>
 								</Grid>
 							</Expander>
-							<Expander  Width="400" Background="#eff2e1">
+							<Expander  Width="400" Background="#ffffff">
 								<Expander.Header>
 									Filter
 								</Expander.Header>
