@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using BalanceBuddyDesktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -33,6 +35,12 @@ namespace BalanceBuddyDesktop.ViewModels
 
         [ObservableProperty]
         private IList<Income> _selectedIncomes;
+
+        [ObservableProperty]
+        private ObservableCollection<DateTime> _selectedExpenseDates = new ObservableCollection<DateTime>();
+
+        [ObservableProperty]
+        private ObservableCollection<DateTime> _selectedIncomeDates = new ObservableCollection<DateTime>();
 
 
         public AddTransactionPageViewModel()
@@ -110,6 +118,49 @@ namespace BalanceBuddyDesktop.ViewModels
         {
 
             Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+        }
+
+        [RelayCommand]
+        public void FilterExpenses()
+        {
+            if (SelectedExpenseDates.Count > 0)
+            {
+                DateTime minDate = SelectedExpenseDates.Min();
+                DateTime maxDate = SelectedExpenseDates.Max();
+
+                Expenses = new ObservableCollection<Expense>(
+                    GlobalData.Instance.Expenses.Where(expense => expense.Date >= minDate && expense.Date <= maxDate));
+            }
+            else
+            {
+                Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
+            }
+        }
+
+        [RelayCommand]
+        public void FilterIncomes()
+        {
+            if (SelectedIncomeDates.Count > 0)
+            {
+                DateTime minDate = SelectedIncomeDates.Min();
+                DateTime maxDate = SelectedIncomeDates.Max();
+
+                Incomes = new ObservableCollection<Income>(
+                    GlobalData.Instance.Incomes.Where(income => income.Date >= minDate && income.Date <= maxDate));
+            }
+            else
+            {
+                Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+            }
+        }
+
+        [RelayCommand]
+        public void ClearFilters()
+        {
+            SelectedExpenseDates.Clear();
+            SelectedIncomeDates.Clear();
+            FilterExpenses();
+            FilterIncomes();
         }
     }
 }
