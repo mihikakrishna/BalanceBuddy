@@ -40,6 +40,7 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
                 ExpenseCategories.Add(NewExpenseCategory);
+                RefreshExpenseCategories();
                 NewExpenseCategory = new ExpenseCategory();
             }
         }
@@ -51,6 +52,7 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 GlobalData.Instance.IncomeCategories.Add(NewIncomeCategory);
                 IncomeCategories.Add(new IncomeCategory());
+                RefreshIncomeCategories();
                 NewIncomeCategory = new IncomeCategory();
             }
         }
@@ -83,6 +85,8 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteExpenseCategory(expenseCategory);
             }
+
+            RefreshExpenseCategories();
         }
 
         [RelayCommand]
@@ -92,6 +96,8 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteIncomeCategory(incomeCategory);
             }
+
+            RefreshIncomeCategories();
         }
 
         [RelayCommand]

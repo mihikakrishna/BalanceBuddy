@@ -60,9 +60,8 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddExpense()
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
-
             Expenses.Add(_newExpense);
-
+            RefreshExpenses();
             NewExpense = new Expense();
         }
 
@@ -70,10 +69,8 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddIncome()
         {
             GlobalData.Instance.Incomes.Add(_newIncome);
-
             _incomes.Add(_newIncome);
-            OnPropertyChanged(nameof(_incomes));
-
+            RefreshIncomes();
             NewIncome = new Income();
         }
 
@@ -81,10 +78,8 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddBankAccount()
         {
             GlobalData.Instance.BankAccounts.Add(_newBankAccount);
-
             _bankAccounts.Add(_newBankAccount);
-            OnPropertyChanged(nameof(_bankAccounts));
-
+            RefreshBankAccounts();
             NewBankAccount = new BankAccount();
         }
 
@@ -125,6 +120,8 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteExpense(expense);
             }
+
+            RefreshExpenses();
         }
 
         [RelayCommand]
@@ -134,6 +131,8 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteIncome(income);
             }
+
+            RefreshIncomes();
         }
 
         [RelayCommand]
@@ -143,6 +142,8 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteBankAccount(bankAccount);
             }
+
+            RefreshBankAccounts();
         }
 
         [RelayCommand]
