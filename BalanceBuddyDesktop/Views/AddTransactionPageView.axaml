@@ -121,7 +121,7 @@
 						<StackPanel Orientation="Vertical" Height="700">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
-									Add new Income
+									Add new income
 								</Expander.Header>
 								<Grid>
 									<Grid.ColumnDefinitions>
@@ -203,6 +203,81 @@
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
 									<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+								</DataGrid.Columns>
+							</DataGrid>
+						</StackPanel>
+					</SplitView.Content>
+				</SplitView>
+			</TabItem>
+			<TabItem Header="Add Bank Account">
+				<SplitView IsPaneOpen="True"
+						   DisplayMode="Inline"
+						   OpenPaneLength="400"
+						   Background="#eff2e1"
+						   PaneBackground="#ffffff">
+					<SplitView.Pane>
+						<StackPanel Orientation="Vertical" Height="700">
+							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
+								<Expander.Header>
+									Add new bank account
+								</Expander.Header>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="*"/>
+									</Grid.RowDefinitions>
+									<TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="0" Grid.Column="1"
+											 Text="{Binding NewBankAccount.Name, Mode=TwoWay}"
+											 Watermark="Name"
+											 HorizontalAlignment="Stretch"/>
+									<TextBlock Text="Balance:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="1" Grid.Column="1"
+											 Text="{Binding NewBankAccount.Balance, Mode=TwoWay}"
+											 Watermark="Balance"
+											 HorizontalAlignment="Stretch" />
+									<TextBlock Text="Description:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="2" Grid.Column="1"
+											 Text="{Binding NewBankAccount.Description, Mode=TwoWay}"
+											 Watermark="Description"
+											 HorizontalAlignment="Stretch"/>
+									<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+											Content="Add Bank Account"
+											Command="{Binding AddBankAccountCommand}"
+											HorizontalAlignment="Left"/>
+								</Grid>
+							</Expander>
+						</StackPanel>
+					</SplitView.Pane>
+					<SplitView.Content>
+						<StackPanel Width="700" HorizontalAlignment="Left">
+							<StackPanel Orientation="Horizontal" Background="#eff2e1">
+								<Button x:Name="deleteBankAccountsButton" Content="DELETE" Command="{Binding DeleteSelectedBankAccountsCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button x:Name="refreshBankAccountsButton" Content="REFRESH" Command="{Binding RefreshBankAccountsCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button x:Name="exportBankAccountsButton" Content="EXPORT" Click="ExportBankAccountsButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+							</StackPanel>
+							<DataGrid ItemsSource="{Binding BankAccounts, Mode=TwoWay}"
+									  CanUserReorderColumns="True"
+									  CanUserResizeColumns="True"
+									  CanUserSortColumns="True"
+									  GridLinesVisibility="All"
+									  BorderThickness="1" BorderBrush="Gray"
+									  AutoGenerateColumns="False"
+									  SelectionMode="Extended"
+									  Name="BankAccountDataGrid"
+									  Background="#eff2e1">
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="Amount" Binding="{Binding Name}"/>
+									<DataGridTextColumn Header="Category" Binding="{Binding Balance}"/>
 									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
 								</DataGrid.Columns>
 							</DataGrid>

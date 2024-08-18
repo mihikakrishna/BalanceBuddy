@@ -19,6 +19,9 @@ namespace BalanceBuddyDesktop.ViewModels
         private Income _newIncome = new Income();
 
         [ObservableProperty]
+        private BankAccount _newBankAccount = new BankAccount();
+
+        [ObservableProperty]
         private List<ExpenseCategory> _expenseCategories = GlobalData.Instance.ExpenseCategories;
 
         [ObservableProperty]
@@ -31,10 +34,16 @@ namespace BalanceBuddyDesktop.ViewModels
         private ObservableCollection<Income> _incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
 
         [ObservableProperty]
+        private ObservableCollection<BankAccount> _bankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
+
+        [ObservableProperty]
         private IList<Expense> _selectedExpenses;
 
         [ObservableProperty]
         private IList<Income> _selectedIncomes;
+
+        [ObservableProperty]
+        private IList<BankAccount> _selectedBankAccounts;
 
         [ObservableProperty]
         private ObservableCollection<DateTime> _selectedExpenseDates = new ObservableCollection<DateTime>();
@@ -52,8 +61,7 @@ namespace BalanceBuddyDesktop.ViewModels
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
 
-            _expenses.Add(_newExpense);
-            OnPropertyChanged(nameof(_expenses));
+            Expenses.Add(_newExpense);
 
             NewExpense = new Expense();
         }
@@ -67,6 +75,17 @@ namespace BalanceBuddyDesktop.ViewModels
             OnPropertyChanged(nameof(_incomes));
 
             NewIncome = new Income();
+        }
+
+        [RelayCommand]
+        private void AddBankAccount()
+        {
+            GlobalData.Instance.BankAccounts.Add(_newBankAccount);
+
+            _bankAccounts.Add(_newBankAccount);
+            OnPropertyChanged(nameof(_bankAccounts));
+
+            NewBankAccount = new BankAccount();
         }
 
         [RelayCommand]
@@ -90,6 +109,16 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
+        private void DeleteBankAccount(BankAccount bankAccount)
+        {
+            if (_bankAccounts.Contains(bankAccount))
+            {
+                _bankAccounts.Remove(bankAccount);
+                GlobalData.Instance.BankAccounts.Remove(bankAccount);
+            }
+        }
+
+        [RelayCommand]
         private void DeleteSelectedExpenses()
         {
             foreach (var expense in _selectedExpenses)
@@ -108,6 +137,15 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
+        private void DeleteSelectedBankAccounts()
+        {
+            foreach (var bankAccount in _selectedBankAccounts)
+            {
+                DeleteBankAccount(bankAccount);
+            }
+        }
+
+        [RelayCommand]
         public void RefreshExpenses()
         {
             Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
@@ -116,8 +154,13 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         public void RefreshIncomes()
         {
-
             Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+        }
+
+        [RelayCommand]
+        public void RefreshBankAccounts()
+        {
+            BankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
         }
 
         [RelayCommand]
