@@ -50,4 +50,9 @@
       <DependentUpon>SettingsPageView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ParseStatementPageView.axaml" />
+  </ItemGroup>
 </Project>

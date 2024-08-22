@@ -84,7 +84,7 @@
 						</StackPanel>
 					</SplitView.Pane>
 					<SplitView.Content>
-						<StackPanel Width="700" HorizontalAlignment="Left">
+						<StackPanel Width="700" VerticalAlignment="Top" HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
 								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
