@@ -2,11 +2,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BalanceBuddyDesktop.Views.ParseStatementPageView">
-	<Grid RowDefinitions="Auto, *" Margin="20">
-		<Border Grid.Row="1" CornerRadius="10">
-			<Image  Source="/Assets/Images/logo.png" Height="320" />
-		</Border>
-	</Grid>
+
+	<StackPanel Margin="20">
+		<ComboBox SelectedIndex="0">
+			<ComboBoxItem>
+				<Panel>
+					<Image Source="/Assets/Images/WellsFargoLogo.png" Height="80" Width="80"/>
+				</Panel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<Panel>
+					<Image Source="/Assets/Images/AmericanExpressLogo.png" Height="80" Width="80"/>
+				</Panel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<Panel>
+					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="80" Width="80"/>
+				</Panel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<Panel>
+					<Image Source="/Assets/Images/BankOfAmericaLogo.png" Height="80" Width="80"/>
+				</Panel>
+			</ComboBoxItem>
+		</ComboBox>
+	</StackPanel>
 </UserControl>
