@@ -15,10 +15,10 @@ public class BankStatementRecord
     public DateTime Date { get; set; }
 
     [Index(1)]
-    public decimal Amount { get; set; }  // Assuming amount is always at index 2
+    public decimal Amount { get; set; }
 
     [Index(4)]
-    public string Description { get; set; }  // Assuming description starts from index 4
+    public string Description { get; set; }
 }
 
 public class WellsFargoParser : IBankStatementParser
@@ -36,24 +36,24 @@ public class WellsFargoParser : IBankStatementParser
         var records = csv.GetRecords<BankStatementRecord>();
         foreach (var record in records)
         {
-            if (record.Amount <= 0) // Check if it's an expense (withdrawal)
+            if (record.Amount <= 0)
             {
                 GlobalData.Instance.Expenses.Add(new Expense
                 {
                     Amount = -record.Amount, // Store as a positive value
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault() // Assigning default category
+                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()
                 });
             }
-            else // It's an income
+            else
             {
                 GlobalData.Instance.Incomes.Add(new Income
                 {
                     Amount = record.Amount,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault() // Assigning default category
+                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault()
                 });
             }
         }

@@ -59,17 +59,12 @@ public partial class ParseStatementPageView : UserControl
     {
         if (currentFileStream != null && !string.IsNullOrEmpty(selectedBank))
         {
-            // Create an instance of UserData or get it from somewhere if it needs to be shared
-            UserData userData = new UserData();
-
-            // Get the appropriate parser based on the selected bank
             IBankStatementParser parser = BankStatementParserFactory.GetParser(selectedBank);
             parser.ParseStatement(currentFileStream);
 
             // Logic after parsing: Possibly refresh UI, show success message, etc.
             Debug.WriteLine("File has been parsed successfully.");
 
-            // Close and dispose the file stream
             currentFileStream.Dispose();
             currentFileStream = null;
         }
