@@ -2,18 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:BalanceBuddyDesktop.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BalanceBuddyDesktop.Views.ParseStatementPageView">
+             x:Class="BalanceBuddyDesktop.Views.ParseStatementPageView"
+             x:DataType="vm:ParseStatementPageViewModel">
 
 	<StackPanel Margin="20">
-		<!-- Title for the page -->
 		<TextBlock Text="Bank Statement Parser" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
 
-		<!-- Subtitle/Instruction -->
-		<TextBlock Text="Please select your bank to proceed:" FontSize="18" Margin="10"/>
-
-		<!-- ComboBox for selecting the bank -->
+		<TextBlock Text="Step 1: Select your bank" FontSize="18" Margin="10"/>
 		<ComboBox SelectedIndex="0" Margin="10">
 			<ComboBoxItem>
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -47,7 +45,14 @@
 			</ComboBoxItem>
 		</ComboBox>
 
-		<!-- Button to confirm selection and proceed -->
-		<Button Content="Continue" FontSize="16" Padding="10,5" Margin="10" HorizontalAlignment="Right"/>
+		<Separator Margin="20,10"/>
+
+		<TextBlock Text="Step 2: Select your bank statement file" FontSize="18" Margin="10"/>
+		<Button Content="Select Bank Statement File" Click="OpenFileButton_Clicked" Margin="10" HorizontalAlignment="Left"/>
+		<TextBlock x:Name="SelectedFileName" Text="No file selected" Margin="10"/>
+
+		<Separator Margin="20,10"/>
+
+		<Button Content="Parse File" Click="ParseFileButton_Clicked" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
 	</StackPanel>
 </UserControl>
