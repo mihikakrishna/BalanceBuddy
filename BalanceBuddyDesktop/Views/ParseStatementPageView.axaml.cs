@@ -1,13 +1,19 @@
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using BalanceBuddyDesktop.Models;
+using BalanceBuddyDesktop.Parsers;
 
 namespace BalanceBuddyDesktop.Views;
 
 public partial class ParseStatementPageView : UserControl
 {
-    // Define the CSV file type statically if this is within the proper lifecycle scope of Avalonia
+    private Stream currentFileStream;
+    private string selectedBank;
+
     private static readonly FilePickerFileType CsvFileType = new FilePickerFileType("CSV Files (*.csv)")
     {
         Patterns = new[] { "*.csv" },
@@ -31,11 +37,17 @@ public partial class ParseStatementPageView : UserControl
 
         if (files.Count >= 1)
         {
-            await using var stream = await files[0].OpenReadAsync();
-            using var streamReader = new StreamReader(stream);
-            var fileContent = await streamReader.ReadToEndAsync();
+            currentFileStream = await files[0].OpenReadAsync(); // Store stream for later processing
             SelectedFileName.Text = files[0].Name;
             ParseFileButton.IsEnabled = true;
+
+            var comboBoxItem = BankComboBox.SelectedItem as ComboBoxItem;
+            if (comboBoxItem != null)
+            {
+                var stackPanel = comboBoxItem.Content as StackPanel;
+                var textBlock = stackPanel.Children.OfType<TextBlock>().FirstOrDefault();
+                selectedBank = textBlock?.Text.Trim();
+            }
         }
         else
         {
@@ -45,6 +57,21 @@ public partial class ParseStatementPageView : UserControl
 
     private void ParseFileButton_Clicked(object sender, RoutedEventArgs args)
     {
-        // Your logic to parse the selected file goes here
+        if (currentFileStream != null && !string.IsNullOrEmpty(selectedBank))
+        {
+            // Create an instance of UserData or get it from somewhere if it needs to be shared
+            UserData userData = new UserData();
+
+            // Get the appropriate parser based on the selected bank
+            IBankStatementParser parser = BankStatementParserFactory.GetParser(selectedBank);
+            parser.ParseStatement(currentFileStream);
+
+            // Logic after parsing: Possibly refresh UI, show success message, etc.
+            Debug.WriteLine("File has been parsed successfully.");
+
+            // Close and dispose the file stream
+            currentFileStream.Dispose();
+            currentFileStream = null;
+        }
     }
 }

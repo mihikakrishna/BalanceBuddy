@@ -1,0 +1,61 @@
+﻿using System;
+using System.Globalization;
+using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
+using BalanceBuddyDesktop.Models;
+using System.Linq;
+
+namespace BalanceBuddyDesktop.Parsers;
+
+public class BankStatementRecord
+{
+    [Index(0)]
+    public DateTime Date { get; set; }
+
+    [Index(1)]
+    public decimal Amount { get; set; }  // Assuming amount is always at index 2
+
+    [Index(4)]
+    public string Description { get; set; }  // Assuming description starts from index 4
+}
+
+public class WellsFargoParser : IBankStatementParser
+{
+    public void ParseStatement(Stream csvStream)
+    {
+        using var reader = new StreamReader(csvStream);
+        using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ",",
+            HasHeaderRecord = false,
+            IgnoreBlankLines = true
+        });
+
+        var records = csv.GetRecords<BankStatementRecord>();
+        foreach (var record in records)
+        {
+            if (record.Amount <= 0) // Check if it's an expense (withdrawal)
+            {
+                GlobalData.Instance.Expenses.Add(new Expense
+                {
+                    Amount = -record.Amount, // Store as a positive value
+                    Date = record.Date,
+                    Description = record.Description,
+                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault() // Assigning default category
+                });
+            }
+            else // It's an income
+            {
+                GlobalData.Instance.Incomes.Add(new Income
+                {
+                    Amount = record.Amount,
+                    Date = record.Date,
+                    Description = record.Description,
+                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault() // Assigning default category
+                });
+            }
+        }
+    }
+}
