@@ -7,32 +7,47 @@
              x:Class="BalanceBuddyDesktop.Views.ParseStatementPageView">
 
 	<StackPanel Margin="20">
-		<ComboBox SelectedIndex="0">
+		<!-- Title for the page -->
+		<TextBlock Text="Bank Statement Parser" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+
+		<!-- Subtitle/Instruction -->
+		<TextBlock Text="Please select your bank to proceed:" FontSize="18" Margin="10"/>
+
+		<!-- ComboBox for selecting the bank -->
+		<ComboBox SelectedIndex="0" Margin="10">
 			<ComboBoxItem>
-				<Panel>
-					<Image Source="/Assets/Images/WellsFargoLogo.png" Height="80" Width="80"/>
-				</Panel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/WellsFargoLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Wells Fargo" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>
-				<Panel>
-					<Image Source="/Assets/Images/AmericanExpressLogo.png" Height="80" Width="80"/>
-				</Panel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/AmericanExpressLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" American Express" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>
-				<Panel>
-					<Image Source="/Assets/Images/ChaseLogo.png" Height="80" Width="80"/>
-				</Panel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/ChaseLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Chase" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>
-				<Panel>
-					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="80" Width="80"/>
-				</Panel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="60" Width="60"/>
+					<TextBlock Text=" Capital One" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>
-				<Panel>
-					<Image Source="/Assets/Images/BankOfAmericaLogo.png" Height="80" Width="80"/>
-				</Panel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/BankOfAmericaLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Bank of America" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
 			</ComboBoxItem>
 		</ComboBox>
+
+		<!-- Button to confirm selection and proceed -->
+		<Button Content="Continue" FontSize="16" Padding="10,5" Margin="10" HorizontalAlignment="Right"/>
 	</StackPanel>
 </UserControl>
