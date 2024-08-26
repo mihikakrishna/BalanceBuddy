@@ -7,6 +7,13 @@ namespace BalanceBuddyDesktop.Views;
 
 public partial class ParseStatementPageView : UserControl
 {
+    // Define the CSV file type statically if this is within the proper lifecycle scope of Avalonia
+    private static readonly FilePickerFileType CsvFileType = new FilePickerFileType("CSV Files (*.csv)")
+    {
+        Patterns = new[] { "*.csv" },
+        MimeTypes = new[] { "text/csv" }
+    };
+
     public ParseStatementPageView()
     {
         InitializeComponent();
@@ -17,8 +24,9 @@ public partial class ParseStatementPageView : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Open Text File",
-            AllowMultiple = false
+            Title = "Open CSV File",
+            AllowMultiple = false,
+            FileTypeFilter = new[] { CsvFileType } 
         });
 
         if (files.Count >= 1)
@@ -26,7 +34,8 @@ public partial class ParseStatementPageView : UserControl
             await using var stream = await files[0].OpenReadAsync();
             using var streamReader = new StreamReader(stream);
             var fileContent = await streamReader.ReadToEndAsync();
-            SelectedFileName.Text = files[0].Name; // Update the label with the selected file's name
+            SelectedFileName.Text = files[0].Name;
+            ParseFileButton.IsEnabled = true;
         }
         else
         {
