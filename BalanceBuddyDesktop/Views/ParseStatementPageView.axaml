@@ -20,6 +20,11 @@
 			</ComboBoxItem>
 			<ComboBoxItem>
 				<Panel>
+					<Image Source="/Assets/Images/ChaseLogo.png" Height="80" Width="80"/>
+				</Panel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<Panel>
 					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="80" Width="80"/>
 				</Panel>
 			</ComboBoxItem>
