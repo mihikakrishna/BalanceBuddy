@@ -47,13 +47,13 @@
 
 		<Separator Margin="20,10"/>
 
-		<TextBlock Text="Step 2: Select your bank statement file (.csv)" FontSize="18" Margin="10"/>
-		<Button Content="Select Bank Statement File" Click="OpenFileButton_Clicked" Margin="10" HorizontalAlignment="Left"/>
-		<TextBlock x:Name="SelectedFileName" Text="No file selected" Margin="10"/>
+		<TextBlock Text="Step 2: Select your bank statement file(s) (.csv)" FontSize="18" Margin="10"/>
+		<Button Content="Select Bank Statement File(s)" Click="OpenFileButton_Clicked" Margin="10" HorizontalAlignment="Left"/>
+		<TextBlock x:Name="SelectedFiles" Text="No file selected" Margin="10"/>
 
 		<Separator Margin="20,10"/>
 
-		<Button x:Name="ParseFileButton" Content="Parse File" Click="ParseFileButton_Clicked" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+		<Button x:Name="ParseFileButton" Content="Parse File(s)" Click="ParseFileButton_Clicked" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
 		<TextBlock x:Name="MessageTextBlock" Margin="10" Foreground="Red"/>
 	</StackPanel>
 </UserControl>

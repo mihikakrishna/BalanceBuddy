@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
@@ -11,7 +12,7 @@ namespace BalanceBuddyDesktop.Views;
 
 public partial class ParseStatementPageView : UserControl
 {
-    private Stream currentFileStream;
+    private List<Stream> currentFileStreams = new List<Stream>();
     private string selectedBank;
 
     private static readonly FilePickerFileType CsvFileType = new FilePickerFileType("CSV Files (*.csv)")
@@ -30,15 +31,22 @@ public partial class ParseStatementPageView : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Open CSV File",
-            AllowMultiple = false,
-            FileTypeFilter = new[] { CsvFileType } 
+            Title = "Open CSV File(s)",
+            AllowMultiple = true,
+            FileTypeFilter = new[] { CsvFileType }
         });
 
         if (files.Count >= 1)
         {
-            currentFileStream = await files[0].OpenReadAsync(); // Store stream for later processing
-            SelectedFileName.Text = files[0].Name;
+            SelectedFiles.Text = string.Join(",", files.Select(file => file.Name));
+            currentFileStreams.Clear();
+
+            foreach (var file in files)
+            {
+                var fileStream = await file.OpenReadAsync();
+                currentFileStreams.Add(fileStream); // Store each stream for later processing
+            }
+
             ParseFileButton.IsEnabled = true;
 
             var comboBoxItem = BankComboBox.SelectedItem as ComboBoxItem;
@@ -51,34 +59,37 @@ public partial class ParseStatementPageView : UserControl
         }
         else
         {
-            SelectedFileName.Text = "No file selected";
+            SelectedFiles.Text = "No file selected";
         }
     }
 
     private void ParseFileButton_Clicked(object sender, RoutedEventArgs args)
     {
-        if (currentFileStream != null && !string.IsNullOrEmpty(selectedBank))
+        if (currentFileStreams.Any() && !string.IsNullOrEmpty(selectedBank))
         {
             try
             {
                 IBankStatementParser parser = BankStatementParserFactory.GetParser(selectedBank);
-                parser.ParseStatement(currentFileStream);
+
+                foreach (var fileStream in currentFileStreams)
+                {
+                    parser.ParseStatement(fileStream);
+                    fileStream.Dispose(); // Dispose each stream after processing
+                }
 
                 MessageTextBlock.Foreground = Brushes.Green;
-                MessageTextBlock.Text = "File has been parsed successfully.";
-
-                RefreshUI();
+                MessageTextBlock.Text = "Files have been parsed successfully.";
             }
             catch (Exception ex)
             {
                 MessageTextBlock.Foreground = Brushes.Red;
-                MessageTextBlock.Text = $"Error parsing file: {ex.Message}";
+                MessageTextBlock.Text = $"Error parsing files: {ex.Message}";
             }
             finally
             {
-                currentFileStream?.Dispose();
-                currentFileStream = null;
+                currentFileStreams.Clear();
                 ParseFileButton.IsEnabled = false;
+                RefreshUI();
             }
         }
         else
@@ -90,6 +101,6 @@ public partial class ParseStatementPageView : UserControl
 
     private void RefreshUI()
     {
-        SelectedFileName.Text = "No file selected";
+        SelectedFiles.Text = "No file selected";
     }
 }
