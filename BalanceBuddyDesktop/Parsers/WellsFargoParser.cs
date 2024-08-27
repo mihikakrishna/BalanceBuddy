@@ -40,7 +40,7 @@ public class WellsFargoParser : IBankStatementParser
             {
                 GlobalData.Instance.Expenses.Add(new Expense
                 {
-                    Amount = -record.Amount, // Store as a positive value
+                    Amount = -record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()

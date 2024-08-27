@@ -54,5 +54,6 @@
 		<Separator Margin="20,10"/>
 
 		<Button x:Name="ParseFileButton" Content="Parse File" Click="ParseFileButton_Clicked" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+		<TextBlock x:Name="MessageTextBlock" Margin="10" Foreground="Red"/>
 	</StackPanel>
 </UserControl>

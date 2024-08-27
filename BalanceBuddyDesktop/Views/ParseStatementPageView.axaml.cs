@@ -1,8 +1,10 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Parsers;
@@ -59,14 +61,37 @@ public partial class ParseStatementPageView : UserControl
     {
         if (currentFileStream != null && !string.IsNullOrEmpty(selectedBank))
         {
-            IBankStatementParser parser = BankStatementParserFactory.GetParser(selectedBank);
-            parser.ParseStatement(currentFileStream);
+            try
+            {
+                IBankStatementParser parser = BankStatementParserFactory.GetParser(selectedBank);
+                parser.ParseStatement(currentFileStream);
 
-            // Logic after parsing: Possibly refresh UI, show success message, etc.
-            Debug.WriteLine("File has been parsed successfully.");
+                MessageTextBlock.Foreground = Brushes.Green;
+                MessageTextBlock.Text = "File has been parsed successfully.";
 
-            currentFileStream.Dispose();
-            currentFileStream = null;
+                RefreshUI();
+            }
+            catch (Exception ex)
+            {
+                MessageTextBlock.Foreground = Brushes.Red;
+                MessageTextBlock.Text = $"Error parsing file: {ex.Message}";
+            }
+            finally
+            {
+                currentFileStream?.Dispose();
+                currentFileStream = null;
+                ParseFileButton.IsEnabled = false;
+            }
         }
+        else
+        {
+            MessageTextBlock.Foreground = Brushes.Red;
+            MessageTextBlock.Text = "No file selected or bank not specified.";
+        }
+    }
+
+    private void RefreshUI()
+    {
+        SelectedFileName.Text = "No file selected";
     }
 }
