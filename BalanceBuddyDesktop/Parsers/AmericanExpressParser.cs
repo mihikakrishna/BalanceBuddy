@@ -9,19 +9,19 @@ using System.Linq;
 
 namespace BalanceBuddyDesktop.Parsers;
 
-public class WellsFargoStatementRecord
+public class AmericanExpressStatementRecord
 {
     [Index(0)]
     public DateTime Date { get; set; }
 
     [Index(1)]
-    public decimal Amount { get; set; }
-
-    [Index(4)]
     public string Description { get; set; }
+
+    [Index(2)]
+    public decimal Amount { get; set; }
 }
 
-public class WellsFargoParser : IBankStatementParser
+public class AmericanExpressParser : IBankStatementParser
 {
     public void ParseStatement(Stream csvStream)
     {
@@ -29,18 +29,18 @@ public class WellsFargoParser : IBankStatementParser
         using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             Delimiter = ",",
-            HasHeaderRecord = false,
+            HasHeaderRecord = true,
             IgnoreBlankLines = true
         });
 
-        var records = csv.GetRecords<WellsFargoStatementRecord>();
+        var records = csv.GetRecords<AmericanExpressStatementRecord>();
         foreach (var record in records)
         {
-            if (record.Amount <= 0)
+            if (record.Amount >= 0)
             {
                 GlobalData.Instance.Expenses.Add(new Expense
                 {
-                    Amount = -record.Amount,
+                    Amount = record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()
@@ -50,7 +50,7 @@ public class WellsFargoParser : IBankStatementParser
             {
                 GlobalData.Instance.Incomes.Add(new Income
                 {
-                    Amount = record.Amount,
+                    Amount = -record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.IncomeCategories.FirstOrDefault()

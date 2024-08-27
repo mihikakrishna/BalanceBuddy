@@ -44,7 +44,7 @@ public partial class ParseStatementPageView : UserControl
             foreach (var file in files)
             {
                 var fileStream = await file.OpenReadAsync();
-                currentFileStreams.Add(fileStream); // Store each stream for later processing
+                currentFileStreams.Add(fileStream);
             }
 
             ParseFileButton.IsEnabled = true;
@@ -74,7 +74,7 @@ public partial class ParseStatementPageView : UserControl
                 foreach (var fileStream in currentFileStreams)
                 {
                     parser.ParseStatement(fileStream);
-                    fileStream.Dispose(); // Dispose each stream after processing
+                    fileStream.Dispose();
                 }
 
                 MessageTextBlock.Foreground = Brushes.Green;

@@ -10,6 +10,10 @@ namespace BalanceBuddyDesktop.Parsers
             {
                 case "Wells Fargo":
                     return new WellsFargoParser();
+                case "American Express":
+                    return new AmericanExpressParser();
+                case "Capital One":
+                    return new CapitalOneParser();
                 default:
                     throw new ArgumentException("Unsupported bank");
             }
