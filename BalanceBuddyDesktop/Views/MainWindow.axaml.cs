@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 
 namespace BalanceBuddyDesktop.Views
 {

@@ -1,12 +1,10 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Parsers;
 
 namespace BalanceBuddyDesktop.Views;
