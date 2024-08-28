@@ -15,6 +15,7 @@ public class UserData
         BankAccounts = [];Expenses = [];Incomes = [];
         ExpenseCategories =
         [
+            new ExpenseCategory {Name = "Miscellaneous" },
             new ExpenseCategory {Name = "Housing" },
             new ExpenseCategory {Name = "Food" },
             new ExpenseCategory {Name = "Travel" },
@@ -24,8 +25,8 @@ public class UserData
         ];
         IncomeCategories =
         [
-            new IncomeCategory {Name = "Job"},
-            new IncomeCategory {Name = "Other"}
+            new IncomeCategory {Name = "Other"},
+            new IncomeCategory {Name = "Job"}
         ];
     }
 }
