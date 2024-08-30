@@ -19,7 +19,7 @@
 						   Background="#eff2e1"
 						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Height="700">
+						<StackPanel Orientation="Vertical" Height="600">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new expense
@@ -69,7 +69,7 @@
 											HorizontalAlignment="Left"/>
 								</Grid>
 							</Expander>
-							<Expander  Width="400" Background="#ffffff">
+							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Filter
 								</Expander.Header>
@@ -99,7 +99,8 @@
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="ExpenseDataGrid"
-									  Background="#eff2e1">
+									  Background="#eff2e1"
+									  Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
@@ -118,7 +119,7 @@
 						   Background="#eff2e1"
 						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Height="700">
+						<StackPanel Orientation="Vertical" Height="600">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new income
@@ -198,7 +199,8 @@
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="IncomeDataGrid"
-									  Background="#eff2e1">
+									  Background="#eff2e1"
+									  Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
@@ -217,7 +219,7 @@
 						   Background="#eff2e1"
 						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Height="700">
+						<StackPanel Orientation="Vertical" Height="600">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new bank account
@@ -274,7 +276,8 @@
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="BankAccountDataGrid"
-									  Background="#eff2e1">
+									  Background="#eff2e1"
+									  Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Name}"/>
 									<DataGridTextColumn Header="Category" Binding="{Binding Balance}"/>
