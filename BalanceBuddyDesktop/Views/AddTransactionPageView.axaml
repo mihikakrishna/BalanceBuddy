@@ -19,7 +19,7 @@
 						   Background="#eff2e1"
 						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Height="600">
+						<StackPanel VerticalAlignment="Top" Orientation="Vertical" Height="600">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new expense
@@ -119,7 +119,7 @@
 						   Background="#eff2e1"
 						   PaneBackground="#ffffff">
 					<SplitView.Pane>
-						<StackPanel Orientation="Vertical" Height="600">
+						<StackPanel  VerticalAlignment="Top" Orientation="Vertical" Height="600">
 							<Expander VerticalAlignment="Top" Width="400" Background="#ffffff">
 								<Expander.Header>
 									Add new income
