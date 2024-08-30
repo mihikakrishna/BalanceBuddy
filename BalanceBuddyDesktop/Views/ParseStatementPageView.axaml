@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:BalanceBuddyDesktop.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BalanceBuddyDesktop.Views.ParseStatementPageView"
+             x:DataType="vm:ParseStatementPageViewModel">
+
+	<StackPanel Margin="20">
+		<TextBlock Text="Bank Statement Parser" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+
+		<TextBlock Text="Step 1: Select your bank" FontSize="18" Margin="10"/>
+		<ComboBox x:Name="BankComboBox" SelectedIndex="0" Margin="10">
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/WellsFargoLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Wells Fargo" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/AmericanExpressLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" American Express" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/ChaseLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Chase" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="60" Width="60"/>
+					<TextBlock Text=" Capital One" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/BankOfAmericaLogo.png" Height="60" Width="60"/>
+					<TextBlock Text=" Bank of America" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+		</ComboBox>
+
+		<Separator Margin="20,10"/>
+
+		<TextBlock Text="Step 2: Select your bank statement file(s) (.csv)" FontSize="18" Margin="10"/>
+		<Button Content="Select Bank Statement File(s)" Click="OpenFileButton_Clicked" Margin="10" HorizontalAlignment="Left"/>
+		<TextBlock x:Name="SelectedFiles" Text="No file selected" Margin="10"/>
+
+		<Separator Margin="20,10"/>
+
+		<Button x:Name="ParseFileButton" Content="Parse File(s)" Click="ParseFileButton_Clicked" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
+		<TextBlock x:Name="MessageTextBlock" Margin="10" Foreground="Red"/>
+	</StackPanel>
+</UserControl>

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Controls;
@@ -17,6 +16,7 @@ namespace BalanceBuddyDesktop.Views
             InitializeComponent();
             ExpenseDataGrid.SelectionChanged += ExpenseDataGrid_SelectionChanged;
             IncomeDataGrid.SelectionChanged += IncomeDataGrid_SelectionChanged;
+            BankAccountDataGrid.SelectionChanged += BankAccountDataGrid_SelectionChanged;
             ExpenseFilterCalendar.SelectedDatesChanged += OnSelectedExpenseDatesChanged;
             IncomeFilterCalendar.SelectedDatesChanged += OnSelectedIncomeDatesChanged;
         }
@@ -34,6 +34,14 @@ namespace BalanceBuddyDesktop.Views
             if (DataContext is AddTransactionPageViewModel viewModel)
             {
                 viewModel.SelectedIncomes = IncomeDataGrid.SelectedItems.Cast<Income>().ToList();
+            }
+        }
+
+        private void BankAccountDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is AddTransactionPageViewModel viewModel)
+            {
+                viewModel.SelectedBankAccounts = BankAccountDataGrid.SelectedItems.Cast<BankAccount>().ToList();
             }
         }
 
@@ -126,6 +134,38 @@ namespace BalanceBuddyDesktop.Views
                     var description = income.Description.Replace(",", ";");
 
                     var line = $"{date},{category},{amount},{description}";
+                    await streamWriter.WriteLineAsync(line);
+                }
+            }
+        }
+
+        private async void ExportBankAccountsButton_Clicked(object sender, RoutedEventArgs args)
+        {
+            var viewModel = DataContext as AddTransactionPageViewModel;
+
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "Save Bank Accounts as CSV",
+                SuggestedFileName = "BankAccounts.csv",
+                DefaultExtension = ".csv"
+            });
+
+            if (file is not null)
+            {
+                await using var stream = await file.OpenWriteAsync();
+                using var streamWriter = new StreamWriter(stream);
+
+                await streamWriter.WriteLineAsync("Name,Balance,Description");
+
+                foreach (var bankAccount in viewModel.BankAccounts)
+                {
+                    var name = bankAccount.Name;
+                    var balance = bankAccount.Balance.ToString("F2");
+                    var description = bankAccount.Description.Replace(",", ";");
+
+                    var line = $"{name},{balance},{description}";
                     await streamWriter.WriteLineAsync(line);
                 }
             }

@@ -23,8 +23,12 @@
 				Title="{Binding Title}">
 			</lvc:PieChart>
 		</TabItem>
-		<TabItem Header="Tab 3">
-			<TextBlock Margin="5">This is tab 3 content</TextBlock>
+		<TabItem Header="Bank Accounts By Balance">
+			<lvc:PieChart
+				DataContext="{Binding BankAccountBalanceChartViewModel}"
+				Series="{Binding Series}"
+				Title="{Binding Title}">
+			</lvc:PieChart>
 		</TabItem>
 	</TabControl>
 </UserControl>

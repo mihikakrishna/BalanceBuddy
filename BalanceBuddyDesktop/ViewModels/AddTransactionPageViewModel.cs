@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using BalanceBuddyDesktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,6 +18,9 @@ namespace BalanceBuddyDesktop.ViewModels
         private Income _newIncome = new Income();
 
         [ObservableProperty]
+        private BankAccount _newBankAccount = new BankAccount();
+
+        [ObservableProperty]
         private List<ExpenseCategory> _expenseCategories = GlobalData.Instance.ExpenseCategories;
 
         [ObservableProperty]
@@ -31,10 +33,16 @@ namespace BalanceBuddyDesktop.ViewModels
         private ObservableCollection<Income> _incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
 
         [ObservableProperty]
+        private ObservableCollection<BankAccount> _bankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
+
+        [ObservableProperty]
         private IList<Expense> _selectedExpenses;
 
         [ObservableProperty]
         private IList<Income> _selectedIncomes;
+
+        [ObservableProperty]
+        private IList<BankAccount> _selectedBankAccounts;
 
         [ObservableProperty]
         private ObservableCollection<DateTime> _selectedExpenseDates = new ObservableCollection<DateTime>();
@@ -51,10 +59,8 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddExpense()
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
-
-            _expenses.Add(_newExpense);
-            OnPropertyChanged(nameof(_expenses));
-
+            Expenses.Add(_newExpense);
+            RefreshExpenses();
             NewExpense = new Expense();
         }
 
@@ -62,11 +68,18 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddIncome()
         {
             GlobalData.Instance.Incomes.Add(_newIncome);
-
             _incomes.Add(_newIncome);
-            OnPropertyChanged(nameof(_incomes));
-
+            RefreshIncomes();
             NewIncome = new Income();
+        }
+
+        [RelayCommand]
+        private void AddBankAccount()
+        {
+            GlobalData.Instance.BankAccounts.Add(_newBankAccount);
+            _bankAccounts.Add(_newBankAccount);
+            RefreshBankAccounts();
+            NewBankAccount = new BankAccount();
         }
 
         [RelayCommand]
@@ -90,12 +103,24 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
+        private void DeleteBankAccount(BankAccount bankAccount)
+        {
+            if (_bankAccounts.Contains(bankAccount))
+            {
+                _bankAccounts.Remove(bankAccount);
+                GlobalData.Instance.BankAccounts.Remove(bankAccount);
+            }
+        }
+
+        [RelayCommand]
         private void DeleteSelectedExpenses()
         {
             foreach (var expense in _selectedExpenses)
             {
                 DeleteExpense(expense);
             }
+
+            RefreshExpenses();
         }
 
         [RelayCommand]
@@ -105,6 +130,19 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteIncome(income);
             }
+
+            RefreshIncomes();
+        }
+
+        [RelayCommand]
+        private void DeleteSelectedBankAccounts()
+        {
+            foreach (var bankAccount in _selectedBankAccounts)
+            {
+                DeleteBankAccount(bankAccount);
+            }
+
+            RefreshBankAccounts();
         }
 
         [RelayCommand]
@@ -116,8 +154,13 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         public void RefreshIncomes()
         {
-
             Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+        }
+
+        [RelayCommand]
+        public void RefreshBankAccounts()
+        {
+            BankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
         }
 
         [RelayCommand]

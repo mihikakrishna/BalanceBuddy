@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\BankOfAmericaLogo.png" />
     <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\WellsFargoLogo.png" />
   </ItemGroup>
 
 
@@ -31,6 +33,7 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.11" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc2" />
   </ItemGroup>
 
@@ -49,5 +52,10 @@
     <Compile Update="Views\SettingsPageView.axaml.cs">
       <DependentUpon>SettingsPageView.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\ParseStatementPageView.axaml" />
   </ItemGroup>
 </Project>
