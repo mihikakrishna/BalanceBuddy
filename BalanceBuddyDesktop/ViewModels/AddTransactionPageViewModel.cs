@@ -111,6 +111,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenses()
         {
+            if (SelectedExpenses == null)
+                { return; }
+
             foreach (var expense in SelectedExpenses.ToList())
             {
                 DeleteExpense(expense);
@@ -120,6 +123,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedIncomes()
         {
+            if (SelectedIncomes == null)
+            { return; }
+
             foreach (var income in SelectedIncomes.ToList())
             {
                 DeleteIncome(income);
@@ -129,6 +135,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedBankAccounts()
         {
+            if (SelectedBankAccounts == null)
+            { return; }
+
             foreach (var bankAccount in SelectedBankAccounts.ToList())
             {
                 DeleteBankAccount(bankAccount);

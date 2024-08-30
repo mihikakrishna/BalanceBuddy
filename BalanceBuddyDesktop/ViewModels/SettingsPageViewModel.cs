@@ -79,6 +79,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenseCategories()
         {
+            if (SelectedExpenseCategories == null)
+            { return; }
+
             foreach (var expenseCategory in SelectedExpenseCategories.ToList())
             {
                 DeleteExpenseCategory(expenseCategory);
@@ -88,6 +91,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedIncomeCategories()
         {
+            if (SelectedIncomeCategories == null)
+            { return; }
+
             foreach (var incomeCategory in SelectedIncomeCategories.ToList())
             {
                 DeleteIncomeCategory(incomeCategory);
