@@ -13,7 +13,8 @@
 	<TabControl Margin="5">
 		<TabItem Header="Income vs Expenses">
 			<lvc:CartesianChart DataContext="{Binding StackedTransactionChartViewModel}"
-								Series="{Binding Series}">
+								Series="{Binding Series}"
+								XAxes ="{Binding XAxes}">
 			</lvc:CartesianChart>
 		</TabItem>
 		<TabItem Header="Expenses By Category">
