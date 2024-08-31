@@ -50,7 +50,7 @@ namespace BalanceBuddyDesktop.ViewModels
             if (!string.IsNullOrWhiteSpace(NewIncomeCategory.Name))
             {
                 GlobalData.Instance.IncomeCategories.Add(NewIncomeCategory);
-                IncomeCategories.Add(new IncomeCategory());
+                IncomeCategories.Add(NewIncomeCategory);
                 NewIncomeCategory = new IncomeCategory();
             }
         }
