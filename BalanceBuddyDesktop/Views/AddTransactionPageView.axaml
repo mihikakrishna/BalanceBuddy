@@ -84,7 +84,7 @@
 						</StackPanel>
 					</SplitView.Pane>
 					<SplitView.Content>
-						<StackPanel Width="700" VerticalAlignment="Top" HorizontalAlignment="Left">
+						<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
 								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
@@ -103,9 +103,28 @@
 									  Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+									<DataGridTemplateColumn Header="Category">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Category.Name}" Padding="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+										<DataGridTemplateColumn.CellEditingTemplate>
+											<DataTemplate>
+												<ComboBox ItemsSource="{Binding $parent[UserControl].((vm:AddTransactionPageViewModel)DataContext).ExpenseCategories}"
+														  SelectedItem="{Binding Category, Mode=TwoWay}"
+														  HorizontalAlignment="Stretch">
+													<ComboBox.ItemTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+														</DataTemplate>
+													</ComboBox.ItemTemplate>
+												</ComboBox>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellEditingTemplate>
+									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
@@ -203,9 +222,31 @@
 									  Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-									<DataGridTextColumn Header="Category" Binding="{Binding Category.Name}"/>
+									<DataGridTemplateColumn Header="Category" Width="*">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Category.Name}" Padding="5,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+										<DataGridTemplateColumn.CellEditingTemplate>
+											<DataTemplate>
+												<ComboBox ItemsSource="{Binding $parent[UserControl].((vm:AddTransactionPageViewModel)DataContext).IncomeCategories}"
+														  SelectedItem="{Binding Category, Mode=TwoWay}"
+														  HorizontalAlignment="Stretch"
+														  HorizontalContentAlignment="Stretch"
+														  VerticalAlignment="Center"
+														  Padding="5,0">
+													<ComboBox.ItemTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+														</DataTemplate>
+													</ComboBox.ItemTemplate>
+												</ComboBox>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellEditingTemplate>
+									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-									<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
