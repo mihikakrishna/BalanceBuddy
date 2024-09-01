@@ -15,7 +15,7 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
 
         public Axis[] XAxes { get; set; } = new[]
         {
-            new DateTimeAxis(TimeSpan.FromDays(30), date => date.ToString("MMMM yyyy"))
+            new DateTimeAxis(TimeSpan.FromDays(30), date => date.ToString("MMM yyyy"))
             {
                 LabelsRotation = 15,
                 Name = "Month",
@@ -63,13 +63,12 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
                         Values = new [] { new DateTimePoint(DateTime.Now, 0) },
                         Name = "No data to show",
                         MaxBarWidth = 0,
-                        IsVisibleAtLegend = false // Hide from legend since it’s not actual data
+                        IsVisibleAtLegend = false
                     }
                 };
             }
             else
             {
-                // Populate Series with actual data if available
                 Series = new ISeries[]
                 {
                     new ColumnSeries<DateTimePoint>
