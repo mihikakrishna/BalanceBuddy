@@ -50,7 +50,6 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private ObservableCollection<DateTime> _selectedIncomeDates = new ObservableCollection<DateTime>();
 
-
         public AddTransactionPageViewModel()
         {
         }
@@ -60,7 +59,6 @@ namespace BalanceBuddyDesktop.ViewModels
         {
             GlobalData.Instance.Expenses.Add(_newExpense);
             Expenses.Add(_newExpense);
-            RefreshExpenses();
             NewExpense = new Expense();
         }
 
@@ -68,8 +66,7 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddIncome()
         {
             GlobalData.Instance.Incomes.Add(_newIncome);
-            _incomes.Add(_newIncome);
-            RefreshIncomes();
+            Incomes.Add(_newIncome);
             NewIncome = new Income();
         }
 
@@ -77,17 +74,16 @@ namespace BalanceBuddyDesktop.ViewModels
         private void AddBankAccount()
         {
             GlobalData.Instance.BankAccounts.Add(_newBankAccount);
-            _bankAccounts.Add(_newBankAccount);
-            RefreshBankAccounts();
+            BankAccounts.Add(_newBankAccount);
             NewBankAccount = new BankAccount();
         }
 
         [RelayCommand]
         private void DeleteExpense(Expense expense)
         {
-            if (_expenses.Contains(expense))
+            if (Expenses.Contains(expense))
             {
-                _expenses.Remove(expense);
+                Expenses.Remove(expense);
                 GlobalData.Instance.Expenses.Remove(expense);
             }
         }
@@ -95,9 +91,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteIncome(Income income)
         {
-            if (_incomes.Contains(income))
+            if (Incomes.Contains(income))
             {
-                _incomes.Remove(income);
+                Incomes.Remove(income);
                 GlobalData.Instance.Incomes.Remove(income);
             }
         }
@@ -105,9 +101,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteBankAccount(BankAccount bankAccount)
         {
-            if (_bankAccounts.Contains(bankAccount))
+            if (BankAccounts.Contains(bankAccount))
             {
-                _bankAccounts.Remove(bankAccount);
+                BankAccounts.Remove(bankAccount);
                 GlobalData.Instance.BankAccounts.Remove(bankAccount);
             }
         }
@@ -115,34 +111,37 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenses()
         {
-            foreach (var expense in _selectedExpenses)
+            if (SelectedExpenses == null)
+                { return; }
+
+            foreach (var expense in SelectedExpenses.ToList())
             {
                 DeleteExpense(expense);
             }
-
-            RefreshExpenses();
         }
 
         [RelayCommand]
         private void DeleteSelectedIncomes()
         {
-            foreach (var income in _selectedIncomes)
+            if (SelectedIncomes == null)
+            { return; }
+
+            foreach (var income in SelectedIncomes.ToList())
             {
                 DeleteIncome(income);
             }
-
-            RefreshIncomes();
         }
 
         [RelayCommand]
         private void DeleteSelectedBankAccounts()
         {
-            foreach (var bankAccount in _selectedBankAccounts)
+            if (SelectedBankAccounts == null)
+            { return; }
+
+            foreach (var bankAccount in SelectedBankAccounts.ToList())
             {
                 DeleteBankAccount(bankAccount);
             }
-
-            RefreshBankAccounts();
         }
 
         [RelayCommand]
@@ -171,12 +170,19 @@ namespace BalanceBuddyDesktop.ViewModels
                 DateTime minDate = SelectedExpenseDates.Min();
                 DateTime maxDate = SelectedExpenseDates.Max();
 
-                Expenses = new ObservableCollection<Expense>(
-                    GlobalData.Instance.Expenses.Where(expense => expense.Date >= minDate && expense.Date <= maxDate));
+                Expenses.Clear();
+                foreach (var expense in GlobalData.Instance.Expenses.Where(e => e.Date >= minDate && e.Date <= maxDate))
+                {
+                    Expenses.Add(expense);
+                }
             }
             else
             {
-                Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
+                Expenses.Clear();
+                foreach (var expense in GlobalData.Instance.Expenses)
+                {
+                    Expenses.Add(expense);
+                }
             }
         }
 
@@ -188,12 +194,19 @@ namespace BalanceBuddyDesktop.ViewModels
                 DateTime minDate = SelectedIncomeDates.Min();
                 DateTime maxDate = SelectedIncomeDates.Max();
 
-                Incomes = new ObservableCollection<Income>(
-                    GlobalData.Instance.Incomes.Where(income => income.Date >= minDate && income.Date <= maxDate));
+                Incomes.Clear();
+                foreach (var income in GlobalData.Instance.Incomes.Where(i => i.Date >= minDate && i.Date <= maxDate))
+                {
+                    Incomes.Add(income);
+                }
             }
             else
             {
-                Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+                Incomes.Clear();
+                foreach (var income in GlobalData.Instance.Incomes)
+                {
+                    Incomes.Add(income);
+                }
             }
         }
 

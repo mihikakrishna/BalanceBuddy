@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using BalanceBuddyDesktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -39,7 +40,6 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
                 ExpenseCategories.Add(NewExpenseCategory);
-                RefreshExpenseCategories();
                 NewExpenseCategory = new ExpenseCategory();
             }
         }
@@ -50,8 +50,7 @@ namespace BalanceBuddyDesktop.ViewModels
             if (!string.IsNullOrWhiteSpace(NewIncomeCategory.Name))
             {
                 GlobalData.Instance.IncomeCategories.Add(NewIncomeCategory);
-                IncomeCategories.Add(new IncomeCategory());
-                RefreshIncomeCategories();
+                IncomeCategories.Add(NewIncomeCategory);
                 NewIncomeCategory = new IncomeCategory();
             }
         }
@@ -80,23 +79,25 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteSelectedExpenseCategories()
         {
-            foreach (var expenseCategory in _selectedExpenseCategories)
+            if (SelectedExpenseCategories == null)
+            { return; }
+
+            foreach (var expenseCategory in SelectedExpenseCategories.ToList())
             {
                 DeleteExpenseCategory(expenseCategory);
             }
-
-            RefreshExpenseCategories();
         }
 
         [RelayCommand]
         private void DeleteSelectedIncomeCategories()
         {
-            foreach (var incomeCategory in _selectedIncomeCategories)
+            if (SelectedIncomeCategories == null)
+            { return; }
+
+            foreach (var incomeCategory in SelectedIncomeCategories.ToList())
             {
                 DeleteIncomeCategory(incomeCategory);
             }
-
-            RefreshIncomeCategories();
         }
 
         [RelayCommand]
