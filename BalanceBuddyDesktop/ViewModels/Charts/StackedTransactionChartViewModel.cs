@@ -1,17 +1,30 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data.Entity.Migrations.Model;
 using System.Linq;
+using Avalonia.Media;
 using BalanceBuddyDesktop.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 
+
 namespace BalanceBuddyDesktop.ViewModels.Charts
 {
-    public class StackedTransactionChartViewModel
+    public partial class StackedTransactionChartViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ISeries[] Series { get; set; }
+        [ObservableProperty]
+        private ObservableCollection<int> _availableYears  = new ObservableCollection<int>();
+
+        [ObservableProperty]
+        private int _selectedYear = new();
+
+        [ObservableProperty]
+        private ISeries[] _series = new ISeries[] { };
 
         public Axis[] XAxes { get; set; } = new[]
         {
@@ -33,9 +46,30 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
             }
         };
 
+
         public StackedTransactionChartViewModel()
         {
+            LoadAvailableYears();
+            SelectedYear = DateTime.Now.Year;
+            UpdateSeries();
+        }
+
+        private void LoadAvailableYears()
+        {
+            var expenseYears = GlobalData.Instance.Expenses.Select(e => e.Date.Year);
+            var incomeYears = GlobalData.Instance.Incomes.Select(i => i.Date.Year);
+
+            var allYears = expenseYears.Concat(incomeYears).Distinct().OrderBy(y => y);
+            foreach (var year in allYears)
+            {
+                AvailableYears.Add(year);
+            }
+        }
+
+        public void UpdateSeries()
+        {
             var monthlyExpenses = GlobalData.Instance.Expenses
+                .Where(e => e.Date.Year == SelectedYear)
                 .GroupBy(e => new { e.Date.Year, e.Date.Month })
                 .Select(g => new
                 {
@@ -45,6 +79,7 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
                 .OrderBy(m => m.Date);
 
             var monthlyIncome = GlobalData.Instance.Incomes
+                .Where(i => i.Date.Year == SelectedYear)
                 .GroupBy(i => new { i.Date.Year, i.Date.Month })
                 .Select(g => new
                 {
@@ -53,42 +88,25 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
                 })
                 .OrderBy(m => m.Date);
 
-
-            if (!monthlyIncome.Any() && !monthlyExpenses.Any())
+            Series = new ISeries[]
             {
-                Series = new ISeries[]
-                {
-                    new ColumnSeries<DateTimePoint>
-                    {
-                        Values = new [] { new DateTimePoint(DateTime.Now, 0) },
-                        Name = "No data to show",
-                        MaxBarWidth = 0,
-                        IsVisibleAtLegend = false
-                    }
-                };
-            }
-            else
+            new ColumnSeries<DateTimePoint>
             {
-                Series = new ISeries[]
-                {
-                    new ColumnSeries<DateTimePoint>
-                    {
-                        Values = monthlyIncome.Select(x => new DateTimePoint(x.Date, (double)x.Total)).ToArray(),
-                        Name = "Income",
-                        Stroke = null,
-                        IgnoresBarPosition = true,
-                        MaxBarWidth = 60
-                    },
-                    new ColumnSeries<DateTimePoint>
-                    {
-                        Values = monthlyExpenses.Select(x => new DateTimePoint(x.Date, (double)x.Total)).ToArray(),
-                        Name = "Expenses",
-                        Stroke = null,
-                        IgnoresBarPosition = true,
-                        MaxBarWidth = 30
-                    }
-                };
+                Values = monthlyIncome.Select(x => new DateTimePoint(x.Date, (double)x.Total)).ToArray(),
+                Name = "Income",
+                MaxBarWidth = 60,
+                IgnoresBarPosition = true,
+                Fill = new SolidColorPaint(SKColors.SkyBlue)
+            },
+            new ColumnSeries<DateTimePoint>
+            {
+                Values = monthlyExpenses.Select(x => new DateTimePoint(x.Date, (double)x.Total)).ToArray(),
+                Name = "Expenses",
+                MaxBarWidth = 30,
+                IgnoresBarPosition = true,
+                Fill = new SolidColorPaint(SKColors.Coral)
             }
+            };
         }
     }
 }

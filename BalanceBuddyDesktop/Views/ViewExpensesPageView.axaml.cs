@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using BalanceBuddyDesktop.ViewModels;
 
 namespace BalanceBuddyDesktop.Views
 {
@@ -8,5 +9,14 @@ namespace BalanceBuddyDesktop.Views
         {
             InitializeComponent();
         }
+
+        private void OnYearSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext is ViewExpensesPageViewModel viewModel)
+            {
+                viewModel.StackedTransactionChartViewModel.UpdateSeries();
+            }
+        }
+
     }
 }
