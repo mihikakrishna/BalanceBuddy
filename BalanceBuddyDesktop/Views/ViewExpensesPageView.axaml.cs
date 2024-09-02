@@ -17,6 +17,5 @@ namespace BalanceBuddyDesktop.Views
                 viewModel.StackedTransactionChartViewModel.UpdateSeries();
             }
         }
-
     }
 }

@@ -35,11 +35,26 @@
 			</Grid>
 		</TabItem>
 		<TabItem Header="Expenses By Category">
-			<lvc:PieChart
-				DataContext="{Binding ExpenseByCategoryChartViewModel}"
-				Series="{Binding Series}"
-				Title="{Binding Title}">
-			</lvc:PieChart>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!-- DatePicker for selecting the month and year -->
+				<DatePicker Grid.Row="0"
+							SelectedDate="{Binding ExpenseByCategoryChartViewModel.SelectedMonth, Mode=TwoWay}"
+							Width="300" Margin="10"
+							DayVisible="False"
+							MonthFormat="MMM"/>
+
+				<!-- Pie chart displaying expenses by category -->
+				<lvc:PieChart Grid.Row="1"
+							  DataContext="{Binding ExpenseByCategoryChartViewModel}"
+							  Series="{Binding Series}"
+							  Title="{Binding Title}">
+				</lvc:PieChart>
+			</Grid>
 		</TabItem>
 		<TabItem Header="Bank Accounts By Balance">
 			<lvc:PieChart
