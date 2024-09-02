@@ -14,7 +14,6 @@ public class GlobalData
                 if (_instance == null)
                 {
                     _instance = new UserData();
-                    // Initialize with default or saved data
                 }
                 return _instance;
             }
