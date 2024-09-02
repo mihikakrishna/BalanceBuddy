@@ -18,8 +18,10 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\BankOfAmericaLogo.png" />
+    <None Remove="Assets\Images\logo - Copy.png" />
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\WellsFargoLogo.png" />
+    <None Remove="Assets\logo.ico" />
   </ItemGroup>
 
 
