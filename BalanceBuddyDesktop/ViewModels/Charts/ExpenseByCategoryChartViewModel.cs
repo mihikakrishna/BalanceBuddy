@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using BalanceBuddyDesktop.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -8,9 +11,13 @@ using SkiaSharp;
 
 namespace BalanceBuddyDesktop.ViewModels.Charts
 {
-    public class ExpenseByCategoryChartViewModel
+    public partial class ExpenseByCategoryChartViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        public ISeries[] Series { get; set; }
+        [ObservableProperty]
+        private DateTimeOffset? _selectedMonth;
+
+        [ObservableProperty]
+        private ISeries[] _series = Array.Empty<ISeries>();
 
         public LabelVisual Title { get; set; } =
             new LabelVisual
@@ -23,20 +30,51 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
 
         public ExpenseByCategoryChartViewModel()
         {
-            var expenses = GlobalData.Instance.Expenses;
-            var totalByCategory = expenses
-                .GroupBy(e => e.Category.Name)
-                .Select(group => new
-                {
-                    CategoryName = group.Key,
-                    TotalAmount = group.Sum(e => e.Amount)
-                });
+            _selectedMonth = DateTimeOffset.Now;
+            UpdateSeries();
+        }
 
-            Series = totalByCategory.Select(category => new PieSeries<decimal>
+        partial void OnSelectedMonthChanged(DateTimeOffset? value)
+        {
+            UpdateSeries();
+        }
+
+        public void UpdateSeries()
+        {
+            if (SelectedMonth.HasValue)
             {
-                Values = new decimal[] { category.TotalAmount },
-                Name = category.CategoryName
-            }).ToArray();
+                var selectedDate = SelectedMonth.Value.DateTime;
+                var month = selectedDate.Month;
+                var year = selectedDate.Year;
+
+                if (GlobalData.Instance?.Expenses != null)
+                {
+                    var expenses = GlobalData.Instance.Expenses
+                        .Where(e => e.Date.Year == year && e.Date.Month == month);
+
+                    var totalByCategory = expenses
+                        .GroupBy(e => e.Category.Name)
+                        .Select(group => new
+                        {
+                            CategoryName = group.Key,
+                            TotalAmount = group.Sum(e => e.Amount)
+                        });
+
+                    Series = totalByCategory.Select(category => new PieSeries<decimal>
+                    {
+                        Values = new decimal[] { category.TotalAmount },
+                        Name = category.CategoryName
+                    }).ToArray();
+                }
+                else
+                {
+                    Series = Array.Empty<ISeries>();
+                }
+            }
+            else
+            {
+                Series = Array.Empty<ISeries>();
+            }
         }
     }
 }
