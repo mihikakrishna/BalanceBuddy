@@ -12,10 +12,27 @@
 	</UserControl.DataContext>
 	<TabControl Margin="5">
 		<TabItem Header="Income vs Expenses">
-			<lvc:CartesianChart DataContext="{Binding StackedTransactionChartViewModel}"
-								Series="{Binding Series}"
-								XAxes ="{Binding XAxes}">
-			</lvc:CartesianChart>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!-- ComboBox for selecting the year -->
+				<ComboBox Grid.Row="0"
+						  ItemsSource="{Binding StackedTransactionChartViewModel.AvailableYears}"
+						  SelectedItem="{Binding StackedTransactionChartViewModel.SelectedYear, Mode=TwoWay}"
+						  Width="200" Margin="10"
+						  SelectionChanged="OnYearSelectionChanged"/>
+
+				<!-- Chart to display Income vs Expenses -->
+				<lvc:CartesianChart Grid.Row="1"
+									DataContext="{Binding StackedTransactionChartViewModel}"
+									Series="{Binding Series}"
+									XAxes="{Binding XAxes}"
+									YAxes="{Binding YAxes}">
+				</lvc:CartesianChart>
+			</Grid>
 		</TabItem>
 		<TabItem Header="Expenses By Category">
 			<lvc:PieChart
