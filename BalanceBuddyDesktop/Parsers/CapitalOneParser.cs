@@ -11,17 +11,17 @@ namespace BalanceBuddyDesktop.Parsers;
 
 public class CapitalOneStatementRecord
 {
-    [Index(1)]
-    public string Description { get; set; }
-
-    [Index(2)]
+    [Index(0)]
     public DateTime Date { get; set; }
 
     [Index(3)]
-    public string TransactionType { get; set; }
+    public string Description { get; set; }
 
-    [Index(4)]
-    public decimal Amount { get; set; }
+    [Index(5)]
+    public decimal? Debit { get; set; }
+
+    [Index(6)]
+    public decimal? Credit { get; set; }
 }
 
 public class CapitalOneParser : IBankStatementParser
@@ -39,21 +39,21 @@ public class CapitalOneParser : IBankStatementParser
         var records = csv.GetRecords<CapitalOneStatementRecord>();
         foreach (var record in records)
         {
-            if (record.TransactionType.Equals("Debit"))
+            if (record.Debit.HasValue && record.Debit >= 0)
             {
                 GlobalData.Instance.Expenses.Add(new Expense
                 {
-                    Amount = record.Amount,
+                    Amount = record.Debit.Value,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()
                 });
             }
-            else
+            else if (record.Credit.HasValue && record.Credit > 0)
             {
                 GlobalData.Instance.Incomes.Add(new Income
                 {
-                    Amount = record.Amount,
+                    Amount = record.Credit.Value,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.IncomeCategories.FirstOrDefault()
