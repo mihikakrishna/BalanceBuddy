@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BalanceBuddyDesktop.Parsers;
 
-public class CapitalOneStatementRecord
+public class CapitalOneCreditStatementRecord
 {
     [Index(0)]
     public DateTime Date { get; set; }
@@ -24,7 +24,7 @@ public class CapitalOneStatementRecord
     public decimal? Credit { get; set; }
 }
 
-public class CapitalOneParser : IBankStatementParser
+public class CapitalOneCreditParser : IBankStatementParser
 {
     public void ParseStatement(Stream csvStream)
     {
@@ -36,7 +36,7 @@ public class CapitalOneParser : IBankStatementParser
             IgnoreBlankLines = true
         });
 
-        var records = csv.GetRecords<CapitalOneStatementRecord>();
+        var records = csv.GetRecords<CapitalOneCreditStatementRecord>();
         foreach (var record in records)
         {
             if (record.Debit.HasValue && record.Debit >= 0)

@@ -33,8 +33,14 @@
 			</ComboBoxItem>
 			<ComboBoxItem>
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-					<Image Source="/Assets/Images/CapitalOneLogo.jpg" Height="60" Width="60"/>
-					<TextBlock Text=" Capital One" VerticalAlignment="Center" Margin="10"/>
+					<Image Source="/Assets/Images/CapitalOneCreditLogo.jpg" Height="60" Width="60"/>
+					<TextBlock Text=" Capital One Credit Account" VerticalAlignment="Center" Margin="10"/>
+				</StackPanel>
+			</ComboBoxItem>
+			<ComboBoxItem>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<Image Source="/Assets/Images/CapitalOneSavingsLogo.jpg" Height="60" Width="60"/>
+					<TextBlock Text=" Capital One Savings Account" VerticalAlignment="Center" Margin="10"/>
 				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>

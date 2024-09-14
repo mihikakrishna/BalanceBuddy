@@ -12,8 +12,10 @@ namespace BalanceBuddyDesktop.Parsers
                     return new WellsFargoParser();
                 case "American Express":
                     return new AmericanExpressParser();
-                case "Capital One":
-                    return new CapitalOneParser();
+                case "Capital One Credit Account":
+                    return new CapitalOneCreditParser();
+                case "Capital One Savings Account":
+                    return new CapitalOneSavingsParser();
                 case "Bank of America":
                     return new BankOfAmericaParser();
                 default:
