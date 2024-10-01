@@ -86,7 +86,8 @@
 					<SplitView.Content>
 						<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
-								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button Content="SAVE"  Foreground="#eff2e1" Background="DarkOliveGreen"/>
+								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Foreground="#eff2e1" Background="DarkRed"/>
 								<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="exportExpensesButton" Content="EXPORT" Click="ExportExpensesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
@@ -205,7 +206,8 @@
 					<SplitView.Content>
 						<StackPanel HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
-								<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button Content="SAVE"  Foreground="#eff2e1" Background="DarkOliveGreen"/>
+								<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Foreground="#eff2e1" Background="DarkRed"/>
 								<Button x:Name="refreshIncomesButton" Content="REFRESH" Command="{Binding RefreshIncomesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="exportIncomesButton" Content="EXPORT" Click="ExportIncomesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
@@ -303,7 +305,8 @@
 					<SplitView.Content>
 						<StackPanel HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
-								<Button x:Name="deleteBankAccountsButton" Content="DELETE" Command="{Binding DeleteSelectedBankAccountsCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
+								<Button Content="SAVE"  Foreground="#eff2e1" Background="DarkOliveGreen"/>
+								<Button x:Name="deleteBankAccountsButton" Content="DELETE" Command="{Binding DeleteSelectedBankAccountsCommand}" Foreground="#eff2e1" Background="DarkRed"/>
 								<Button x:Name="refreshBankAccountsButton" Content="REFRESH" Command="{Binding RefreshBankAccountsCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="exportBankAccountsButton" Content="EXPORT" Click="ExportBankAccountsButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
