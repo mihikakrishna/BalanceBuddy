@@ -68,6 +68,7 @@ namespace BalanceBuddyDesktop.ViewModels
             GlobalData.Instance.Expenses.Add(_newExpense);
             Expenses.Insert(0, _newExpense);
             NewExpense = new Expense();
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
@@ -76,6 +77,7 @@ namespace BalanceBuddyDesktop.ViewModels
             GlobalData.Instance.Incomes.Add(_newIncome);
             Incomes.Insert(0, _newIncome);
             NewIncome = new Income();
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
@@ -84,6 +86,7 @@ namespace BalanceBuddyDesktop.ViewModels
             GlobalData.Instance.BankAccounts.Add(_newBankAccount);
             BankAccounts.Insert(0, _newBankAccount);
             NewBankAccount = new BankAccount();
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
@@ -128,6 +131,7 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteExpense(expense);
             }
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
@@ -142,6 +146,7 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteIncome(income);
             }
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
@@ -156,6 +161,7 @@ namespace BalanceBuddyDesktop.ViewModels
             {
                 DeleteBankAccount(bankAccount);
             }
+            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
