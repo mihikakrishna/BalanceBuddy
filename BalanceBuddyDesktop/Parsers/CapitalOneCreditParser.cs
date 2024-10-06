@@ -11,7 +11,7 @@ namespace BalanceBuddyDesktop.Parsers;
 
 public class CapitalOneCreditStatementRecord
 {
-    [Index(0)]
+    [Index(1)]
     public DateTime Date { get; set; }
 
     [Index(3)]

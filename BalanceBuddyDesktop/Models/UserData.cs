@@ -10,6 +10,8 @@ public class UserData
     public List<ExpenseCategory> ExpenseCategories { get; set; }
     public List<IncomeCategory> IncomeCategories { get; set; }
 
+    public bool HasUnsavedChanges { get; set; }
+
     public UserData()
     {
         BankAccounts = [];Expenses = [];Incomes = [];
@@ -28,5 +30,6 @@ public class UserData
             new IncomeCategory {Name = "Other"},
             new IncomeCategory {Name = "Job"}
         ];
+        HasUnsavedChanges = false;
     }
 }

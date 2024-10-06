@@ -7,6 +7,11 @@ using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using BalanceBuddyDesktop.ViewModels;
 using BalanceBuddyDesktop.Views;
+using System.ComponentModel;
+using Avalonia.Controls;
+using MsBox.Avalonia;  // Use MsBox instead of MessageBox.Avalonia
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace BalanceBuddyDesktop
 {
@@ -36,15 +41,47 @@ namespace BalanceBuddyDesktop
                     DataContext = new MainWindowViewModel(),
                 };
 
-                desktop.Exit += OnExit;
+                desktop.MainWindow.Closing += OnMainWindowClosing;
             }
 
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void OnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+        private async void OnMainWindowClosing(object? sender, CancelEventArgs e)
         {
-            _databaseService.SaveUserData(GlobalData.Instance);
+            e.Cancel = true;
+
+            if (GlobalData.Instance.HasUnsavedChanges)
+            {
+                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Unsaved Changes",
+                    ContentMessage = "You have unsaved changes. Do you want to save before exiting?",
+                    ButtonDefinitions = ButtonEnum.YesNoCancel,
+                    Icon = Icon.Warning,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                });
+
+                var result = await messageBoxStandardWindow.ShowAsync();
+
+                if (result == ButtonResult.Yes)
+                {
+                    _databaseService.SaveUserData(GlobalData.Instance);
+                    GlobalData.Instance.HasUnsavedChanges = false;
+                    e.Cancel = false;
+                }
+                else if (result == ButtonResult.No)
+                {
+                    GlobalData.Instance.HasUnsavedChanges = false;
+                    e.Cancel = false;
+                }
+            }
+            else
+            {
+                e.Cancel = false;
+            }
         }
+
+
     }
 }
