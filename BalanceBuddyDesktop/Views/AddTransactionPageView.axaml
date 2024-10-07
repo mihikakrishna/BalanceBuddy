@@ -319,8 +319,8 @@
 									  Background="#eff2e1"
 									  Height="600">
 								<DataGrid.Columns>
-									<DataGridTextColumn Header="Amount" Binding="{Binding Name}"/>
-									<DataGridTextColumn Header="Category" Binding="{Binding Balance}"/>
+									<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+									<DataGridTextColumn Header="Balance" Binding="{Binding Balance}"/>
 									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
 								</DataGrid.Columns>
 							</DataGrid>
