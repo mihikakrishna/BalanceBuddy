@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         x:Class="BalanceBuddyDesktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/logo.ico"
+        Icon="avares://BalanceBuddyDesktop/Assets/logo.ico"
         Title="BalanceBuddyDesktop">
 
     <Design.DataContext>

@@ -9,7 +9,7 @@ using BalanceBuddyDesktop.ViewModels;
 using BalanceBuddyDesktop.Views;
 using System.ComponentModel;
 using Avalonia.Controls;
-using MsBox.Avalonia;  // Use MsBox instead of MessageBox.Avalonia
+using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 

@@ -6,6 +6,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\icon.ico" />
     <None Remove="Assets\Images\BankOfAmericaLogo.png" />
     <None Remove="Assets\Images\logo - Copy.png" />
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\WellsFargoLogo.png" />
-    <None Remove="Assets\logo.ico" />
   </ItemGroup>
 
 
@@ -62,4 +63,16 @@
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\ParseStatementPageView.axaml" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="Assets\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\logo.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
