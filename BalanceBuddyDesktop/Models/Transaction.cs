@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,23 +8,92 @@ using BalanceBuddyDesktop.Models;
 
 namespace BalanceBuddyDesktop.Models
 {
-    public abstract class Transaction
+    public abstract class Transaction : INotifyPropertyChanged
     {
         public string Id { get; set; }
         public bool IsSelected { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime Date { get; set; }
-        public string FormattedDate => Date.ToString("d");
-        public string Description { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private DateTime _date;
+        public DateTime Date
+        {
+            get => _date;
+            set
+            {
+                if (_date != value)
+                {
+                    _date = value;
+                    OnPropertyChanged(nameof(Date));
+                }
+            }
+        }
+
+        private decimal _amount;
+        public decimal Amount
+        {
+            get => _amount;
+            set
+            {
+                if (_amount != value)
+                {
+                    _amount = value;
+                    OnPropertyChanged(nameof(Amount));
+                }
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
 
 public class Expense : Transaction
 {
-    public ExpenseCategory Category { get; set; }
+    private ExpenseCategory _category;
+    public ExpenseCategory Category
+    {
+        get => _category;
+        set
+        {
+            if (_category != value)
+            {
+                _category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+    }
 }
 
 public class Income : Transaction
 {
-    public IncomeCategory Category { get; set; }
+    private IncomeCategory _category;
+    public IncomeCategory Category
+    {
+        get => _category;
+        set
+        {
+            if (_category != value)
+            {
+                _category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+    }
 }

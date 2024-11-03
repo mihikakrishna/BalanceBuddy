@@ -319,9 +319,13 @@
 									  Background="#eff2e1"
 									  Height="600">
 								<DataGrid.Columns>
-									<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-									<DataGridTextColumn Header="Balance" Binding="{Binding Balance}"/>
-									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+									<DataGridTextColumn Header="Name"
+														Binding="{Binding Name, Mode=TwoWay}"/>
+									<DataGridTextColumn Header="Balance"
+														Binding="{Binding Balance, Mode=TwoWay, StringFormat='F2'}"/>
+									<DataGridTextColumn Header="Description"
+														Binding="{Binding Description, Mode=TwoWay}"
+														Width="*"/>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>

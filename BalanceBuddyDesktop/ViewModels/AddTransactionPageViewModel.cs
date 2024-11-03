@@ -54,13 +54,52 @@ namespace BalanceBuddyDesktop.ViewModels
         {
             Expenses = new ObservableCollection<Expense>(
                 GlobalData.Instance.Expenses.OrderByDescending(e => e.Date));
-
             Incomes = new ObservableCollection<Income>(
                 GlobalData.Instance.Incomes.OrderByDescending(i => i.Date));
-
             BankAccounts = new ObservableCollection<BankAccount>(
                 GlobalData.Instance.BankAccounts);
+
+            SubscribeToCollection(Expenses);
+            SubscribeToCollection(Incomes);
+            SubscribeToCollection(BankAccounts);
+
+            Expenses.CollectionChanged += (s, e) => HandleCollectionChanged(e, Expenses);
+            Incomes.CollectionChanged += (s, e) => HandleCollectionChanged(e, Incomes);
+            BankAccounts.CollectionChanged += (s, e) => HandleCollectionChanged(e, BankAccounts);
         }
+
+        private void SubscribeToCollection<T>(ObservableCollection<T> collection) where T : INotifyPropertyChanged
+        {
+            foreach (var item in collection)
+            {
+                item.PropertyChanged += Item_PropertyChanged;
+            }
+        }
+
+        private void HandleCollectionChanged<T>(System.Collections.Specialized.NotifyCollectionChangedEventArgs e, ObservableCollection<T> collection) where T : INotifyPropertyChanged
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var item in e.NewItems.Cast<INotifyPropertyChanged>())
+                {
+                    item.PropertyChanged += Item_PropertyChanged;
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (var item in e.OldItems.Cast<INotifyPropertyChanged>())
+                {
+                    item.PropertyChanged -= Item_PropertyChanged;
+                }
+            }
+        }
+
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            GlobalData.Instance.HasUnsavedChanges = true;
+        }
+
 
         [RelayCommand]
         private void AddExpense()
