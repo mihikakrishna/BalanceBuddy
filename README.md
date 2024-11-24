@@ -29,11 +29,15 @@ MVVM Pattern: Used to separate the application's UI from its logic, making the a
 
 ### Clone the Repository:
 
-``` bash git clone https://github.com/username/BalanceBuddyDesktop.git```
+```bash 
+git clone https://github.com/username/BalanceBuddyDesktop.git
+```
 
 ### Navigate to the Project Directory:
 
-``` bash cd BalanceBuddyDesktop```
+```bash 
+cd BalanceBuddyDesktop
+```
 
 ### Build the Project:
 Open the project in Visual Studio or another IDE that supports .NET projects and build the solution.
