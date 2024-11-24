@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Avalonia.Controls;
 using BalanceBuddyDesktop.Models;
+using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
@@ -49,6 +54,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<DateTime> _selectedIncomeDates = new ObservableCollection<DateTime>();
+
+        private readonly DatabaseService _databaseService = DatabaseService.Instance;
 
         public AddTransactionPageViewModel()
         {
@@ -126,6 +133,21 @@ namespace BalanceBuddyDesktop.ViewModels
             BankAccounts.Insert(0, _newBankAccount);
             NewBankAccount = new BankAccount();
             GlobalData.Instance.HasUnsavedChanges = true;
+        }
+
+        [RelayCommand]
+        public async void SaveAll()
+        {
+            _databaseService.SaveUserData(GlobalData.Instance);
+            GlobalData.Instance.HasUnsavedChanges = false;
+            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+            {
+                ContentTitle = "Save All",
+                ContentMessage = "Your changes have been saved successfully!",
+                Icon = Icon.Success,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            });
+            var result = await messageBoxStandardWindow.ShowAsync();
         }
 
         [RelayCommand]
