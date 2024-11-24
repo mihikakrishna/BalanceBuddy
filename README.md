@@ -3,15 +3,18 @@
 BalanceBuddyDesktop is a financial management application that helps users manage their expenses, incomes, and bank accounts with ease. 
 It's built using Avalonia and C# for cross-platform functionality, along with the MVVM (Model-View-ViewModel) design pattern.
 ## Features
-Auto-parse your bank statements - just feed a CSV of your statement to the app.
+### Auto-parse your bank statements - just feed a CSV of your statement to the app.
 ![alt text](README_images/image.png)
 ![alt text](README_images/image-1.png)
-Visualize trends - view trends in spending and income
+
+### Visualize trends - view trends in spending and income
 ![alt text](README_images/image-2.png)
 ![alt text](README_images/image-3.png)
-Maintain a spreadsheet of your transactions
+
+### Maintain a spreadsheet of your transactions
 ![alt text](README_images/image-4.png)
-Export selected transactions to CSVs
+
+### Export selected transactions to CSVs
 ![alt text](README_images/image-5.png)
 
 ## Technologies Used
