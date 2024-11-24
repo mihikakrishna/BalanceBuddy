@@ -17,7 +17,7 @@ namespace BalanceBuddyDesktop
 {
     public partial class App : Application
     {
-        private readonly DatabaseService _databaseService = new DatabaseService();
+        private readonly DatabaseService _databaseService = DatabaseService.Instance;
 
         public override void Initialize()
         {
@@ -26,8 +26,6 @@ namespace BalanceBuddyDesktop
 
         public override void OnFrameworkInitializationCompleted()
         {
-            _databaseService.SetupDatabase();
-
             _databaseService.LoadUserData(GlobalData.Instance);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

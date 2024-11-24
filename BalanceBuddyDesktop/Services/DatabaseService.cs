@@ -10,6 +10,9 @@ namespace BalanceBuddyDesktop.Services;
 
 public class DatabaseService
 {
+    private static DatabaseService instance = null;
+    private static readonly object padlock = new object();
+
     private const string ConnectionString = "Data Source=balancebuddy.db;Version=3;";
 
     public void CreateDatabase()
@@ -77,8 +80,6 @@ public class DatabaseService
         ExecuteNonQuery(createIncomeCategoriesTable, connection);
     }
 
-
-    // Helper method to execute non-query commands
     private void ExecuteNonQuery(string commandText, SQLiteConnection connection)
     {
         using var command = new SQLiteCommand(commandText, connection);
@@ -116,11 +117,26 @@ public class DatabaseService
         }
     }
 
-    public void SetupDatabase()
+    private DatabaseService()
     {
         CreateDatabase();
         CreateTables();
         InitializeCategories();
+    }
+
+    public static DatabaseService Instance
+    {
+        get
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new DatabaseService();
+                }
+                return instance;
+            }
+        }
     }
 
     // Method to load data from the database into UserData
