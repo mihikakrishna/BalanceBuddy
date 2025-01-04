@@ -98,7 +98,9 @@ namespace BalanceBuddyDesktop.Views
                     var date = expense.Date.ToString("yyyy-MM-dd");
                     var category = expense.Category;
                     var amount = expense.Amount.ToString("F2");
-                    var description = expense.Description.Replace(",", ";");
+                    var description = "";
+                    if (expense.Description != null)
+                        expense.Description.Replace(",", ";");
 
                     var line = $"{date},{category},{amount},{description}";
                     await streamWriter.WriteLineAsync(line);
@@ -131,7 +133,9 @@ namespace BalanceBuddyDesktop.Views
                     var date = income.Date.ToString("yyyy-MM-dd");
                     var category = income.Category;
                     var amount = income.Amount.ToString("F2");
-                    var description = income.Description.Replace(",", ";");
+                    var description = "";
+                    if(income.Description != null)
+                        description = income.Description.Replace(",", ";");
 
                     var line = $"{date},{category},{amount},{description}";
                     await streamWriter.WriteLineAsync(line);
@@ -163,7 +167,9 @@ namespace BalanceBuddyDesktop.Views
                 {
                     var name = bankAccount.Name;
                     var balance = bankAccount.Balance.ToString("F2");
-                    var description = bankAccount.Description.Replace(",", ";");
+                    var description = "";
+                    if (bankAccount.Description != null)
+                        description = bankAccount.Description.Replace(",", ";");
 
                     var line = $"{name},{balance},{description}";
                     await streamWriter.WriteLineAsync(line);
