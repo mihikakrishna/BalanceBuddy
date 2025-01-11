@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using BalanceBuddyDesktop.Models;
+using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -28,7 +29,6 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private IList<IncomeCategory> _selectedIncomeCategories;
 
-
         public SettingsPageViewModel()
         {
         }
@@ -36,13 +36,22 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void AddExpenseCategory()
         {
-            if (!string.IsNullOrWhiteSpace(NewExpenseCategory.Name))
+            if (string.IsNullOrWhiteSpace(NewExpenseCategory.Name))
             {
-                GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
-                ExpenseCategories.Add(NewExpenseCategory);
-                NewExpenseCategory = new ExpenseCategory();
+                return;
             }
+
+            if (NewExpenseCategory.Budget.HasValue && NewExpenseCategory.Budget < 0)
+            {
+                return;
+            }
+
+            GlobalData.Instance.ExpenseCategories.Add(NewExpenseCategory);
+            ExpenseCategories.Add(NewExpenseCategory);
+            NewExpenseCategory = new ExpenseCategory();
         }
+
+
 
         [RelayCommand]
         private void AddIncomeCategory()

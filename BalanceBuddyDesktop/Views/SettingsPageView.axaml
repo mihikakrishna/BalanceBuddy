@@ -39,6 +39,11 @@
                                              Text="{Binding NewExpenseCategory.Name, Mode=TwoWay}"
                                              Watermark="Name"
                                              HorizontalAlignment="Stretch"/>
+									<TextBlock Text="Monthly Budget ($):" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+									<TextBox Grid.Row="1" Grid.Column="1"
+                                             Text="{Binding NewExpenseCategory.Budget, Mode=TwoWay}"
+											 Watermark="ex) 10.50"
+                                             HorizontalAlignment="Stretch"/>
 									<Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                             Content="Add"
                                             Command="{Binding AddExpenseCategoryCommand}"
@@ -66,6 +71,9 @@
                                       Height="600">
 								<DataGrid.Columns>
 									<DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+								</DataGrid.Columns>
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="Budget" Binding="{Binding Budget}" Width="*"/>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
