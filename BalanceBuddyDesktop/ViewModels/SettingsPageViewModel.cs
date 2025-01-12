@@ -7,9 +7,9 @@ using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
 
 namespace BalanceBuddyDesktop.ViewModels
 {

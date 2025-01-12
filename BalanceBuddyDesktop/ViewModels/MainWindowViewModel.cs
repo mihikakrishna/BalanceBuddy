@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media;
+using BalanceBuddyDesktop.Models;
+using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -43,6 +47,35 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         IsPaneOpen = !IsPaneOpen;
     }
+
+    [RelayCommand]
+    private async Task ExportDatabaseAsync()
+    {
+        var mainWindow = App.Current?.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop
+                            ? desktop.MainWindow
+                            : null;
+        if (mainWindow != null)
+        {
+            await DatabaseService.Instance.ExportDatabaseAsync(mainWindow);
+        }
+    }
+
+    [RelayCommand]
+    private async Task ImportDatabaseAsync()
+    {
+        var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+        var mainWindow = desktop?.MainWindow;
+
+        if (mainWindow != null)
+        {
+            await DatabaseService.Instance.ImportDatabaseAsync(mainWindow);
+
+            DatabaseService.Instance.LoadUserData(GlobalData.Instance);
+
+            mainWindow.DataContext = new MainWindowViewModel();
+        }
+    }
+
 }
 
 public class ListItemTemplate

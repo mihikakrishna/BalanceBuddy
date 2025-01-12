@@ -1,8 +1,14 @@
 ﻿using System;
-
-using System.Linq;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 using BalanceBuddyDesktop.Models;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 
 namespace BalanceBuddyDesktop.Services;
 
@@ -326,5 +332,90 @@ public class DatabaseService
         command.Parameters.AddWithValue("@Name", categoryName);
         var result = command.ExecuteScalar();
         return result != null ? Convert.ToInt32(result) : 0;
+    }
+
+    public async Task ExportDatabaseAsync(Window parent)
+    {
+        var saveFileDialog = new SaveFileDialog
+        {
+            Title = "Export Database",
+            InitialFileName = "balancebuddy_backup.db",
+            Filters = new List<FileDialogFilter>
+        {
+            new FileDialogFilter { Name = "SQLite Database", Extensions = { "db" } }
+        }
+        };
+
+        string destinationPath = await saveFileDialog.ShowAsync(parent);
+        if (!string.IsNullOrWhiteSpace(destinationPath))
+        {
+            try
+            {
+                File.Copy("balancebuddy.db", destinationPath, overwrite: true);
+
+                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Export Successful",
+                    ContentMessage = $"Your database has been exported successfully to:\n{destinationPath}",
+                    Icon = Icon.Success,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                });
+                await messageBoxStandardWindow.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Export Failed",
+                    ContentMessage = $"An error occurred during export:\n{ex.Message}",
+                    Icon = Icon.Error,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                });
+                await messageBoxStandardWindow.ShowAsync();
+            }
+        }
+    }
+
+    public async Task ImportDatabaseAsync(Window parent)
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Title = "Import Database",
+            AllowMultiple = false,
+            Filters = new List<FileDialogFilter>
+        {
+            new FileDialogFilter { Name = "SQLite Database", Extensions = { "db" } }
+        }
+        };
+
+        string[] result = await openFileDialog.ShowAsync(parent);
+        if (result != null && result.Length > 0)
+        {
+            string selectedFilePath = result[0];
+            try
+            {
+                File.Copy(selectedFilePath, "balancebuddy.db", overwrite: true);
+
+                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Import Successful",
+                    ContentMessage = $"Your database has been imported successfully from:\n{selectedFilePath}",
+                    Icon = Icon.Success,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                });
+                await messageBoxStandardWindow.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+                {
+                    ContentTitle = "Import Failed",
+                    ContentMessage = $"An error occurred during import:\n{ex.Message}",
+                    Icon = Icon.Error,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                });
+                await messageBoxStandardWindow.ShowAsync();
+            }
+        }
     }
 }
