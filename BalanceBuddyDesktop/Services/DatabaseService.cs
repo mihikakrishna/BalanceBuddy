@@ -56,12 +56,14 @@ public class DatabaseService
                 FOREIGN KEY (CategoryId) REFERENCES IncomeCategories(Id)
             );";
 
-        // Create ExpenseCategories Table
+        // Create ExpenseCategories Table with Budget column
         string createExpenseCategoriesTable = @"
             CREATE TABLE IF NOT EXISTS ExpenseCategories (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Name TEXT NOT NULL
+                Name TEXT NOT NULL,
+                Budget REAL
             );";
+
 
         // Create IncomeCategories Table
         string createIncomeCategoriesTable = @"
@@ -157,11 +159,24 @@ public class DatabaseService
         {
             while (reader.Read())
             {
-                userData.ExpenseCategories.Add(new ExpenseCategory
+                var expenseCategory = new ExpenseCategory
                 {
                     Id = Convert.ToInt32(reader["Id"]),
                     Name = reader["Name"].ToString()
-                });
+                };
+
+                // Check if the Budget field is not null in the database.
+                int budgetOrdinal = reader.GetOrdinal("Budget");
+                if (!reader.IsDBNull(budgetOrdinal))
+                {
+                    expenseCategory.Budget = reader.GetDecimal(budgetOrdinal);
+                }
+                else
+                {
+                    expenseCategory.Budget = null;
+                }
+
+                userData.ExpenseCategories.Add(expenseCategory);
             }
         }
 
@@ -247,8 +262,9 @@ public class DatabaseService
         // Save ExpenseCategories
         foreach (var category in userData.ExpenseCategories)
         {
-            var command = new SQLiteCommand("INSERT INTO ExpenseCategories (Name) VALUES (@Name)", connection);
+            var command = new SQLiteCommand("INSERT INTO ExpenseCategories (Name, Budget) VALUES (@Name, @Budget)", connection);
             command.Parameters.AddWithValue("@Name", category.Name);
+            command.Parameters.AddWithValue("@Budget", category.Budget);
             command.ExecuteNonQuery();
         }
 
