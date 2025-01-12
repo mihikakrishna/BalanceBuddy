@@ -136,21 +136,6 @@ namespace BalanceBuddyDesktop.ViewModels
         }
 
         [RelayCommand]
-        public async void SaveAll()
-        {
-            _databaseService.SaveUserData(GlobalData.Instance);
-            GlobalData.Instance.HasUnsavedChanges = false;
-            var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
-            {
-                ContentTitle = "Save All",
-                ContentMessage = "Your changes have been saved successfully!",
-                Icon = Icon.Success,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            });
-            var result = await messageBoxStandardWindow.ShowAsync();
-        }
-
-        [RelayCommand]
         private void DeleteExpense(Expense expense)
         {
             if (Expenses.Contains(expense))
