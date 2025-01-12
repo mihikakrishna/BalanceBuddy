@@ -10,6 +10,9 @@ using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 
 
 namespace BalanceBuddyDesktop.ViewModels;
@@ -56,6 +59,7 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
                             : null;
         if (mainWindow != null)
         {
+            SaveAll();
             await DatabaseService.Instance.ExportDatabaseAsync(mainWindow);
         }
     }
@@ -69,13 +73,25 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         if (mainWindow != null)
         {
             await DatabaseService.Instance.ImportDatabaseAsync(mainWindow);
-
             DatabaseService.Instance.LoadUserData(GlobalData.Instance);
-
             mainWindow.DataContext = new MainWindowViewModel();
         }
     }
 
+    [RelayCommand]
+    public async void SaveAll()
+    {
+        DatabaseService.Instance.SaveUserData(GlobalData.Instance);
+        GlobalData.Instance.HasUnsavedChanges = false;
+        var messageBoxStandardWindow = MessageBoxManager.GetMessageBoxStandard(new MessageBoxStandardParams
+        {
+            ContentTitle = "Save All",
+            ContentMessage = "Your changes have been saved successfully!",
+            Icon = Icon.Success,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner
+        });
+        var result = await messageBoxStandardWindow.ShowAsync();
+    }
 }
 
 public class ListItemTemplate
