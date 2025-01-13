@@ -40,7 +40,7 @@
 			<ComboBoxItem>
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 					<Image Source="/Assets/Images/CapitalOneSavingsLogo.jpg" Height="60" Width="60"/>
-					<TextBlock Text=" Capital One Savings Account" VerticalAlignment="Center" Margin="10"/>
+					<TextBlock Text=" Capital One Debit/Savings Account" VerticalAlignment="Center" Margin="10"/>
 				</StackPanel>
 			</ComboBoxItem>
 			<ComboBoxItem>
