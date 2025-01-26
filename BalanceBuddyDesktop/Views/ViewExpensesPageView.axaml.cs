@@ -15,6 +15,7 @@ namespace BalanceBuddyDesktop.Views
             if (DataContext is ViewExpensesPageViewModel viewModel)
             {
                 viewModel.StackedTransactionChartViewModel.UpdateSeries();
+                viewModel.ExpenseBudgetChartViewModel.UpdateSeries();
             }
         }
     }

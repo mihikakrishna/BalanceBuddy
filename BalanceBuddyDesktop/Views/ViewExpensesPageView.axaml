@@ -63,5 +63,28 @@
 				Title="{Binding Title}">
 			</lvc:PieChart>
 		</TabItem>
+		<TabItem Header="Expenses vs Budget">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<!-- ComboBox for selecting the year -->
+				<ComboBox Grid.Row="0"
+						  ItemsSource="{Binding ExpenseBudgetChartViewModel.AvailableYears}"
+						  SelectedItem="{Binding ExpenseBudgetChartViewModel.SelectedYear, Mode=TwoWay}"
+						  Width="200" Margin="10"
+						  SelectionChanged="OnYearSelectionChanged"/>
+
+				<!-- Chart to display Income vs Expenses -->
+				<lvc:CartesianChart Grid.Row="1"
+									DataContext="{Binding ExpenseBudgetChartViewModel}"
+									Series="{Binding Series}"
+									XAxes="{Binding XAxes}"
+									YAxes="{Binding YAxes}">
+				</lvc:CartesianChart>
+			</Grid>
+		</TabItem>
 	</TabControl>
 </UserControl>

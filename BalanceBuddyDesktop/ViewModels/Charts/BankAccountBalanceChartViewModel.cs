@@ -23,7 +23,7 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
 
         public BankAccountBalanceChartViewModel()
         {
-            var bankAccounts = GlobalData.Instance.BankAccounts; // Assuming GlobalData contains a list of bank accounts
+            var bankAccounts = GlobalData.Instance.BankAccounts;
             var totalByAccount = bankAccounts
                 .Select(account => new
                 {
