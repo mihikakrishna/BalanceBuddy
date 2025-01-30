@@ -47,7 +47,8 @@ public class DatabaseService
                 Date TEXT NOT NULL,
                 CategoryId INTEGER,
                 Description TEXT,
-                IsSelected BOOLEAN,  -- Make IsSelected nullable or remove it if not needed
+                IsSelected BOOLEAN,
+                BankIconPath TEXT,
                 FOREIGN KEY (CategoryId) REFERENCES ExpenseCategories(Id)
             );";
 
@@ -59,6 +60,7 @@ public class DatabaseService
                 Date TEXT NOT NULL,
                 CategoryId INTEGER,
                 Description TEXT,
+                BankIconPath TEXT,
                 FOREIGN KEY (CategoryId) REFERENCES IncomeCategories(Id)
             );";
 
@@ -229,7 +231,8 @@ public class DatabaseService
                     Amount = Convert.ToDecimal(reader["Amount"]),
                     Date = DateTime.Parse(reader["Date"].ToString()),
                     Category = userData.ExpenseCategories.FirstOrDefault(c => c.Id == Convert.ToInt32(reader["CategoryId"])),
-                    Description = reader["Description"].ToString()
+                    Description = reader["Description"].ToString(),
+                    BankIconPath = reader["BankIconPath"]?.ToString()
                 });
             }
         }
@@ -246,7 +249,8 @@ public class DatabaseService
                     Amount = Convert.ToDecimal(reader["Amount"]),
                     Date = DateTime.Parse(reader["Date"].ToString()),
                     Category = userData.IncomeCategories.FirstOrDefault(c => c.Id == Convert.ToInt32(reader["CategoryId"])),
-                    Description = reader["Description"].ToString()
+                    Description = reader["Description"].ToString(),
+                    BankIconPath = reader["BankIconPath"]?.ToString()
                 });
             }
         }
@@ -292,29 +296,42 @@ public class DatabaseService
             command.ExecuteNonQuery();
         }
 
-        // Save Expenses, excluding IsSelected field
+        // Save Expenses
         foreach (var expense in userData.Expenses)
         {
             var categoryId = GetCategoryId(expense.Category.Name, connection, "ExpenseCategories");
-            var command = new SQLiteCommand("INSERT INTO Expenses (Amount, Date, CategoryId, Description) VALUES (@Amount, @Date, @CategoryId, @Description)", connection);
+            var command = new SQLiteCommand(
+                "INSERT INTO Expenses (Amount, Date, CategoryId, Description, BankIconPath) " +
+                "VALUES (@Amount, @Date, @CategoryId, @Description, @BankIconPath)",
+                connection);
+
             command.Parameters.AddWithValue("@Amount", expense.Amount);
             command.Parameters.AddWithValue("@Date", expense.Date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@CategoryId", categoryId);
-            command.Parameters.AddWithValue("@Description", expense.Description);
+            command.Parameters.AddWithValue("@Description", expense.Description ?? "");
+            command.Parameters.AddWithValue("@BankIconPath", expense.BankIconPath ?? "");
+
             command.ExecuteNonQuery();
         }
 
-        // Save Incomes similarly
+        // Save Incomes
         foreach (var income in userData.Incomes)
         {
             var categoryId = GetCategoryId(income.Category.Name, connection, "IncomeCategories");
-            var command = new SQLiteCommand("INSERT INTO Incomes (Amount, Date, CategoryId, Description) VALUES (@Amount, @Date, @CategoryId, @Description)", connection);
+            var command = new SQLiteCommand(
+                "INSERT INTO Incomes (Amount, Date, CategoryId, Description, BankIconPath) " +
+                "VALUES (@Amount, @Date, @CategoryId, @Description, @BankIconPath)",
+                connection);
+
             command.Parameters.AddWithValue("@Amount", income.Amount);
             command.Parameters.AddWithValue("@Date", income.Date.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue("@CategoryId", categoryId);
-            command.Parameters.AddWithValue("@Description", income.Description);
+            command.Parameters.AddWithValue("@Description", income.Description ?? "");
+            command.Parameters.AddWithValue("@BankIconPath", income.BankIconPath ?? "");
+
             command.ExecuteNonQuery();
         }
+
     }
 
     private string GetCategoryName(int categoryId, SQLiteConnection connection, string tableName)
