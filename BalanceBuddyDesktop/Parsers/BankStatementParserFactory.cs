@@ -14,7 +14,7 @@ namespace BalanceBuddyDesktop.Parsers
                     return new BankOfAmericaParser();
                 case "Capital One Credit Account":
                     return new CapitalOneCreditParser();
-                case "Capital One Savings Account":
+                case "Capital One Debit/Savings Account":
                     return new CapitalOneSavingsParser();
                 case "Chase":
                     return new ChaseParser();

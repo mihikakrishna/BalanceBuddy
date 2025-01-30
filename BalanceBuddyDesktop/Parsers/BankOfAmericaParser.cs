@@ -43,7 +43,8 @@ public class BankOfAmericaParser : IBankStatementParser
                     Amount = -record.Amount,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()
+                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(),
+                    BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/BankOfAmericaLogo.png"
                 });
             }
             else
@@ -53,7 +54,8 @@ public class BankOfAmericaParser : IBankStatementParser
                     Amount = record.Amount,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault()
+                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(),
+                    BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/BankOfAmericaLogo.png"
                 });
             }
         }

@@ -46,7 +46,8 @@ public class CapitalOneCreditParser : IBankStatementParser
                     Amount = record.Debit.Value,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault()
+                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(),
+                    BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
                 });
             }
             else if (record.Credit.HasValue && record.Credit > 0)
@@ -56,7 +57,8 @@ public class CapitalOneCreditParser : IBankStatementParser
                     Amount = record.Credit.Value,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault()
+                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(),
+                    BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
                 });
             }
         }

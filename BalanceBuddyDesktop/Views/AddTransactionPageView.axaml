@@ -102,6 +102,16 @@
 									  Background="#eff2e1"
 									  Height="600">
 								<DataGrid.Columns>
+									<DataGridTemplateColumn Header="" MaxWidth="50">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Image Source="{Binding BankIcon}"
+													   Width="30"
+													   Height="30"
+													   Stretch="Uniform"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 									<DataGridTemplateColumn Header="Category">
 										<DataGridTemplateColumn.CellTemplate>
@@ -221,6 +231,16 @@
 									  Background="#eff2e1"
 									  Height="600">
 								<DataGrid.Columns>
+									<DataGridTemplateColumn Header="" MaxWidth="50">
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Image Source="{Binding BankIcon}"
+													   Width="30"
+													   Height="30"
+													   Stretch="Uniform"/>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
 									<DataGridTemplateColumn Header="Category">
 										<DataGridTemplateColumn.CellTemplate>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using BalanceBuddyDesktop.Models;
+using Avalonia.Media.Imaging;
 
 namespace BalanceBuddyDesktop.Models
 {
@@ -53,42 +53,90 @@ namespace BalanceBuddyDesktop.Models
             }
         }
 
+        private string _bankIconPath;
+        public string BankIconPath
+        {
+            get => _bankIconPath;
+            set
+            {
+                if (_bankIconPath != value)
+                {
+                    _bankIconPath = value;
+                    OnPropertyChanged(nameof(BankIconPath));
+                    LoadBankIcon();
+                }
+            }
+        }
+
+        private Bitmap _bankIcon;
+        public Bitmap BankIcon
+        {
+            get => _bankIcon;
+            set
+            {
+                if (_bankIcon != value)
+                {
+                    _bankIcon = value;
+                    OnPropertyChanged(nameof(BankIcon));
+                }
+            }
+        }
+
+        private void LoadBankIcon()
+        {
+            if (string.IsNullOrWhiteSpace(_bankIconPath))
+            {
+                BankIcon = null;
+                return;
+            }
+
+            try
+            {
+                var resourceUri = new Uri(_bankIconPath);
+                BankIcon = ImageHelper.LoadFromResource(resourceUri);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to load icon from {_bankIconPath}: {ex.Message}");
+                BankIcon = null;
+            }
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-}
-
-public class Expense : Transaction
-{
-    private ExpenseCategory _category;
-    public ExpenseCategory Category
+    public class Expense : Transaction
     {
-        get => _category;
-        set
+        private ExpenseCategory _category;
+        public ExpenseCategory Category
         {
-            if (_category != value)
+            get => _category;
+            set
             {
-                _category = value;
-                OnPropertyChanged(nameof(Category));
+                if (_category != value)
+                {
+                    _category = value;
+                    OnPropertyChanged(nameof(Category));
+                }
             }
         }
     }
-}
 
-public class Income : Transaction
-{
-    private IncomeCategory _category;
-    public IncomeCategory Category
+    public class Income : Transaction
     {
-        get => _category;
-        set
+        private IncomeCategory _category;
+        public IncomeCategory Category
         {
-            if (_category != value)
+            get => _category;
+            set
             {
-                _category = value;
-                OnPropertyChanged(nameof(Category));
+                if (_category != value)
+                {
+                    _category = value;
+                    OnPropertyChanged(nameof(Category));
+                }
             }
         }
     }
