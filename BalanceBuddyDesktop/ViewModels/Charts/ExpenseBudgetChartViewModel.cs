@@ -94,9 +94,10 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
                         .Where(e => e.Category == category && e.Date.Year == SelectedYear && e.Date.Month == month)
                         .Sum(e => e.Amount);
 
-                    var percentage = category.Budget.HasValue && category.Budget.Value > 0
-                        ? (double)(totalSpent / category.Budget.Value)
-                        : (totalSpent > 0 ? 1 : 0);
+                    double percentage = (category.Budget.HasValue && category.Budget.Value > 0)
+                    ? (double)(totalSpent / category.Budget.Value)
+                    : 0;
+
 
                     heatmapValues.Add(new double[]
                     {
