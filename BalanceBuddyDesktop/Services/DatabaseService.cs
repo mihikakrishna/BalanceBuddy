@@ -299,6 +299,11 @@ public class DatabaseService
         // Save Expenses
         foreach (var expense in userData.Expenses)
         {
+            if (expense.Category == null)
+            {
+                expense.Category = userData.ExpenseCategories.FirstOrDefault();
+            }
+
             var categoryId = GetCategoryId(expense.Category.Name, connection, "ExpenseCategories");
             var command = new SQLiteCommand(
                 "INSERT INTO Expenses (Amount, Date, CategoryId, Description, BankIconPath) " +
@@ -317,6 +322,11 @@ public class DatabaseService
         // Save Incomes
         foreach (var income in userData.Incomes)
         {
+            if (income.Category == null)
+            {
+                income.Category = userData.IncomeCategories.FirstOrDefault();
+            }
+
             var categoryId = GetCategoryId(income.Category.Name, connection, "IncomeCategories");
             var command = new SQLiteCommand(
                 "INSERT INTO Incomes (Amount, Date, CategoryId, Description, BankIconPath) " +
