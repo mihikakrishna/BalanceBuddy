@@ -91,16 +91,17 @@
 								<Button x:Name="exportExpensesButton" Content="EXPORT" Click="ExportExpensesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
 							<DataGrid ItemsSource="{Binding Expenses, Mode=TwoWay}"
-									  CanUserReorderColumns="True"
-									  CanUserResizeColumns="True"
-									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
-									  AutoGenerateColumns="False"
-									  SelectionMode="Extended"
-									  Name="ExpenseDataGrid"
-									  Background="#eff2e1"
-									  Height="600">
+								  CanUserReorderColumns="True"
+								  CanUserResizeColumns="True"
+								  CanUserSortColumns="True"
+								  GridLinesVisibility="Horizontal"
+								  BorderThickness="1"
+								  BorderBrush="Gray"
+								  AutoGenerateColumns="False"
+								  SelectionMode="Extended"
+								  Name="ExpenseDataGrid"
+								  Background="#eff2e1"
+								  Height="600">
 								<DataGrid.Columns>
 									<DataGridTemplateColumn Header="" MaxWidth="50">
 										<DataGridTemplateColumn.CellTemplate>
@@ -223,8 +224,9 @@
 									  CanUserReorderColumns="True"
 									  CanUserResizeColumns="True"
 									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
+									  GridLinesVisibility="Horizontal"
+									  BorderThickness="1"
+									  BorderBrush="Gray"
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="IncomeDataGrid"
@@ -331,8 +333,9 @@
 									  CanUserReorderColumns="True"
 									  CanUserResizeColumns="True"
 									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
+									  GridLinesVisibility="Horizontal"
+									  BorderThickness="1"
+									  BorderBrush="Gray"
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="BankAccountDataGrid"
