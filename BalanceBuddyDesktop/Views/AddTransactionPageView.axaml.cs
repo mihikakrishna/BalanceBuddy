@@ -1,6 +1,8 @@
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -11,6 +13,10 @@ namespace BalanceBuddyDesktop.Views
 {
     public partial class AddTransactionPageView : UserControl
     {
+        private bool _expenseSortAscending = true;
+        private bool _incomeSortAscending = true;
+        private bool _bankAccountSortAscending = true;
+
         public AddTransactionPageView()
         {
             InitializeComponent();
@@ -19,6 +25,68 @@ namespace BalanceBuddyDesktop.Views
             BankAccountDataGrid.SelectionChanged += BankAccountDataGrid_SelectionChanged;
             ExpenseFilterCalendar.SelectedDatesChanged += OnSelectedExpenseDatesChanged;
             IncomeFilterCalendar.SelectedDatesChanged += OnSelectedIncomeDatesChanged;
+
+            ExpenseDataGrid.Sorting += ExpenseDataGrid_Sorting;
+            IncomeDataGrid.Sorting += IncomeDataGrid_Sorting;
+            BankAccountDataGrid.Sorting += BankAccountDataGrid_Sorting;
+        }
+
+        private void HandleSorting<T>(
+                DataGridColumnEventArgs e,
+                ObservableCollection<T> currentCollection,
+                Action<ObservableCollection<T>> updateCollection,
+                ref bool sortAscending)
+        {
+            e.Handled = true;
+            string sortMember = e.Column.SortMemberPath;
+            if (string.IsNullOrEmpty(sortMember))
+            {
+                sortMember = e.Column.Header?.ToString();
+            }
+            if (string.IsNullOrEmpty(sortMember))
+            {
+                return;
+            }
+            sortAscending = !sortAscending;
+            updateCollection(SortCollection(currentCollection, sortMember, sortAscending));
+        }
+
+        private ObservableCollection<T> SortCollection<T>(
+            ObservableCollection<T> collection, string propertyName, bool ascending)
+        {
+            PropertyInfo prop = typeof(T).GetProperty(propertyName);
+            if (prop == null)
+            {
+                return new ObservableCollection<T>(collection);
+            }
+            var sorted = ascending
+                ? collection.OrderBy(item => prop.GetValue(item))
+                : collection.OrderByDescending(item => prop.GetValue(item));
+            return new ObservableCollection<T>(sorted);
+        }
+
+        private void ExpenseDataGrid_Sorting(object sender, DataGridColumnEventArgs e)
+        {
+            if (DataContext is AddTransactionPageViewModel viewModel)
+            {
+                HandleSorting<Expense>(e, viewModel.Expenses, sorted => viewModel.Expenses = sorted, ref _expenseSortAscending);
+            }
+        }
+
+        private void IncomeDataGrid_Sorting(object sender, DataGridColumnEventArgs e)
+        {
+            if (DataContext is AddTransactionPageViewModel viewModel)
+            {
+                HandleSorting<Income>(e, viewModel.Incomes, sorted => viewModel.Incomes = sorted, ref _incomeSortAscending);
+            }
+        }
+
+        private void BankAccountDataGrid_Sorting(object sender, DataGridColumnEventArgs e)
+        {
+            if (DataContext is AddTransactionPageViewModel viewModel)
+            {
+                HandleSorting<BankAccount>(e, viewModel.BankAccounts, sorted => viewModel.BankAccounts = sorted, ref _bankAccountSortAscending);
+            }
         }
 
         private void ExpenseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,7 +202,7 @@ namespace BalanceBuddyDesktop.Views
                     var category = income.Category;
                     var amount = income.Amount.ToString("F2");
                     var description = "";
-                    if(income.Description != null)
+                    if (income.Description != null)
                         description = income.Description.Replace(",", ";");
 
                     var line = $"{date},{category},{amount},{description}";
