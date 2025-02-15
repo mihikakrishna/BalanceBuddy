@@ -33,6 +33,18 @@
 					</MenuItem.Icon>
 				</MenuItem>
 			</MenuItem>
+			<MenuItem Header="_Edit">
+				<MenuItem Header="_Undo">
+					<MenuItem.Icon>
+						<PathIcon Data="{StaticResource arrow_curve_left_regular}" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Redo">
+					<MenuItem.Icon>
+						<PathIcon Data="{StaticResource arrow_curve_right_regular}" />
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
 		</Menu>
 
 		<!-- Main Content -->
