@@ -21,13 +21,11 @@ namespace BalanceBuddyDesktop.Services
 
             _undoStack.Push(new TransactionOperation
             {
-                // To undo an add, remove the expense.
                 Undo = () =>
                 {
                     GlobalData.Instance.Expenses.Remove(expense);
                     GlobalData.Instance.HasUnsavedChanges = true;
                 },
-                // To redo, add it back.
                 Redo = () =>
                 {
                     GlobalData.Instance.Expenses.Add(expense);
@@ -90,13 +88,11 @@ namespace BalanceBuddyDesktop.Services
 
                 _undoStack.Push(new TransactionOperation
                 {
-                    // Undoing a delete means re-adding the expense.
                     Undo = () =>
                     {
                         GlobalData.Instance.Expenses.Add(expense);
                         GlobalData.Instance.HasUnsavedChanges = true;
                     },
-                    // Redo the delete.
                     Redo = () =>
                     {
                         GlobalData.Instance.Expenses.Remove(expense);
@@ -198,7 +194,6 @@ namespace BalanceBuddyDesktop.Services
             }
         }
 
-        // Optionally, add a method to clear history.
         public static void ClearHistory()
         {
             _undoStack.Clear();
