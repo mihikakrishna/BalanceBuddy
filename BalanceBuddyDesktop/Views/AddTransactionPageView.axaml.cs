@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -244,6 +245,50 @@ namespace BalanceBuddyDesktop.Views
                 }
             }
         }
-
+        private void DeleteExpenseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Expense expense)
+            {
+                if (DataContext is AddTransactionPageViewModel viewModel)
+                {
+                    if (viewModel.SelectedExpenses == null)
+                        viewModel.SelectedExpenses = new List<Expense>();
+                    if (!viewModel.SelectedExpenses.Contains(expense))
+                        viewModel.SelectedExpenses.Add(expense);
+                    if (viewModel.DeleteSelectedExpensesCommand.CanExecute(null))
+                        viewModel.DeleteSelectedExpensesCommand.Execute(null);
+                }
+            }
+        }
+        private void DeleteIncomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Income income)
+            {
+                if (DataContext is AddTransactionPageViewModel viewModel)
+                {
+                    if (viewModel.SelectedIncomes == null)
+                        viewModel.SelectedIncomes = new List<Income>();
+                    if (!viewModel.SelectedIncomes.Contains(income))
+                        viewModel.SelectedIncomes.Add(income);
+                    if (viewModel.DeleteSelectedIncomesCommand.CanExecute(null))
+                        viewModel.DeleteSelectedIncomesCommand.Execute(null);
+                }
+            }
+        }
+        private void DeleteBankAccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is BankAccount bankAccount)
+            {
+                if (DataContext is AddTransactionPageViewModel viewModel)
+                {
+                    if (viewModel.SelectedBankAccounts == null)
+                        viewModel.SelectedBankAccounts = new List<BankAccount>();
+                    if (!viewModel.SelectedBankAccounts.Contains(bankAccount))
+                        viewModel.SelectedBankAccounts.Add(bankAccount);
+                    if (viewModel.DeleteSelectedBankAccountsCommand.CanExecute(null))
+                        viewModel.DeleteSelectedBankAccountsCommand.Execute(null);
+                }
+            }
+        }
     }
 }
