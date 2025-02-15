@@ -6,6 +6,7 @@ using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using BalanceBuddyDesktop.Models;
 using System.Linq;
+using BalanceBuddyDesktop.Services;
 
 namespace BalanceBuddyDesktop.Parsers;
 
@@ -38,25 +39,27 @@ public class BankOfAmericaParser : IBankStatementParser
         {
             if (record.Amount <= 0)
             {
-                GlobalData.Instance.Expenses.Add(new Expense
+                var expense = new Expense
                 {
                     Amount = -record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/BankOfAmericaLogo.png"
-                });
+                };
+                TransactionService.AddExpense(expense);
             }
             else
             {
-                GlobalData.Instance.Incomes.Add(new Income
+                var income = new Income
                 {
                     Amount = record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/BankOfAmericaLogo.png"
-                });
+                };
+                TransactionService.AddIncome(income);
             }
         }
     }

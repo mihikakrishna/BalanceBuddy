@@ -123,57 +123,54 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void AddExpense()
         {
-            GlobalData.Instance.Expenses.Add(_newExpense);
-            Expenses.Insert(0, _newExpense);
+            TransactionService.AddExpense(NewExpense);
+            Expenses.Insert(0, NewExpense);
             NewExpense = new Expense();
-            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
         private void AddIncome()
         {
-            GlobalData.Instance.Incomes.Add(_newIncome);
-            Incomes.Insert(0, _newIncome);
+            TransactionService.AddIncome(NewIncome);
+            Incomes.Insert(0, NewIncome);
             NewIncome = new Income();
-            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
         private void AddBankAccount()
         {
-            GlobalData.Instance.BankAccounts.Add(_newBankAccount);
-            BankAccounts.Insert(0, _newBankAccount);
+            TransactionService.AddBankAccount(NewBankAccount);
+            BankAccounts.Insert(0, NewBankAccount);
             NewBankAccount = new BankAccount();
-            GlobalData.Instance.HasUnsavedChanges = true;
         }
 
         [RelayCommand]
         private void DeleteExpense(Expense expense)
         {
+            TransactionService.DeleteExpense(expense);
             if (Expenses.Contains(expense))
             {
                 Expenses.Remove(expense);
-                GlobalData.Instance.Expenses.Remove(expense);
             }
         }
 
         [RelayCommand]
         private void DeleteIncome(Income income)
         {
+            TransactionService.DeleteIncome(income);
             if (Incomes.Contains(income))
             {
                 Incomes.Remove(income);
-                GlobalData.Instance.Incomes.Remove(income);
             }
         }
 
         [RelayCommand]
         private void DeleteBankAccount(BankAccount bankAccount)
         {
+            TransactionService.DeleteBankAccount(bankAccount);
             if (BankAccounts.Contains(bankAccount))
             {
                 BankAccounts.Remove(bankAccount);
-                GlobalData.Instance.BankAccounts.Remove(bankAccount);
             }
         }
 
@@ -187,7 +184,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
             foreach (var expense in SelectedExpenses.ToList())
             {
-                DeleteExpense(expense);
+                TransactionService.DeleteExpense(expense);
+                Expenses.Remove(expense);
             }
             GlobalData.Instance.HasUnsavedChanges = true;
         }
@@ -202,7 +200,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
             foreach (var income in SelectedIncomes.ToList())
             {
-                DeleteIncome(income);
+                TransactionService.DeleteIncome(income);
+                Incomes.Remove(income);
             }
             GlobalData.Instance.HasUnsavedChanges = true;
         }
@@ -217,7 +216,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
             foreach (var bankAccount in SelectedBankAccounts.ToList())
             {
-                DeleteBankAccount(bankAccount);
+                TransactionService.DeleteBankAccount(bankAccount);
+                BankAccounts.Remove(bankAccount);
             }
             GlobalData.Instance.HasUnsavedChanges = true;
         }

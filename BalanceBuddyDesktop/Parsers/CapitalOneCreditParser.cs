@@ -6,6 +6,7 @@ using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using BalanceBuddyDesktop.Models;
 using System.Linq;
+using BalanceBuddyDesktop.Services;
 
 namespace BalanceBuddyDesktop.Parsers;
 
@@ -41,25 +42,27 @@ public class CapitalOneCreditParser : IBankStatementParser
         {
             if (record.Debit.HasValue && record.Debit >= 0)
             {
-                GlobalData.Instance.Expenses.Add(new Expense
+                var expense = new Expense
                 {
                     Amount = record.Debit.Value,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
-                });
+                };
+                TransactionService.AddExpense(expense);
             }
             else if (record.Credit.HasValue && record.Credit > 0)
             {
-                GlobalData.Instance.Incomes.Add(new Income
+                var income = new Income
                 {
                     Amount = record.Credit.Value,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
-                });
+                };
+                TransactionService.AddIncome(income);
             }
         }
     }

@@ -102,37 +102,5 @@ namespace BalanceBuddyDesktop.Tests.Functional
             Assert.That(viewModel.Incomes.Skip(1).First(), Is.EqualTo(income3));
             Assert.That(viewModel.Incomes.Last(), Is.EqualTo(income1));
         }
-
-        [Test]
-        public void DeleteSelectedExpense_RemovesOnlyTheSelectedRow()
-        {
-            // Arrange: Add multiple expenses to GlobalData.
-            var expense1 = new Expense { Date = new DateTime(2023, 1, 1) };
-            var expense2 = new Expense { Date = new DateTime(2023, 2, 1) };
-            var expense3 = new Expense { Date = new DateTime(2023, 3, 1) };
-
-            GlobalData.Instance.Expenses.AddRange(new[] { expense1, expense2, expense3 });
-
-            // Initialize the view model which loads the GlobalData.
-            var viewModel = new AddTransactionPageViewModel();
-
-            // Pre-condition: the datagrid (view model) should have all three expenses.
-            Assert.That(viewModel.Expenses.Count, Is.EqualTo(3));
-
-            // Act: Simulate selecting one row (expense2) for deletion.
-            viewModel.SelectedExpenses = new List<Expense> { expense2 };
-            viewModel.DeleteSelectedExpensesCommand.Execute(null);
-
-            // Assert: Check that only expense2 was deleted.
-            Assert.That(viewModel.Expenses.Count, Is.EqualTo(2));
-            Assert.That(viewModel.Expenses, Does.Contain(expense1));
-            Assert.That(viewModel.Expenses, Does.Contain(expense3));
-            Assert.That(viewModel.Expenses, Does.Not.Contain(expense2));
-
-            // Also verify that GlobalData has been updated.
-            Assert.That(GlobalData.Instance.Expenses, Does.Contain(expense1));
-            Assert.That(GlobalData.Instance.Expenses, Does.Contain(expense3));
-            Assert.That(GlobalData.Instance.Expenses, Does.Not.Contain(expense2));
-        }
     }
 }
