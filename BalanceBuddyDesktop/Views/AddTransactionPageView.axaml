@@ -138,6 +138,17 @@
 									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Date" IsReadOnly="True" Binding="{Binding Date}"/>
 									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+									<DataGridTemplateColumn>
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Click="DeleteExpenseButton_Click"
+														Background="Transparent"
+														Foreground="White">
+													<PathIcon Data="{StaticResource delete_regular}" />
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
@@ -272,6 +283,17 @@
 									</DataGridTemplateColumn>
 									<DataGridTextColumn Header="Date" IsReadOnly="True" Binding="{Binding Date}" />
 									<DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+									<DataGridTemplateColumn>
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Click="DeleteIncomeButton_Click"
+														Background="Transparent"
+														Foreground="White">
+													<PathIcon Data="{StaticResource delete_regular}" />
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
@@ -353,6 +375,17 @@
 									<DataGridTextColumn Header="Description"
 														Binding="{Binding Description, Mode=TwoWay}"
 														Width="*"/>
+									<DataGridTemplateColumn>
+										<DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Button Click="DeleteBankAccountButton_Click"
+														Background="Transparent"
+														Foreground="White">
+													<PathIcon Data="{StaticResource delete_regular}" />
+												</Button>
+											</DataTemplate>
+										</DataGridTemplateColumn.CellTemplate>
+									</DataGridTemplateColumn>
 								</DataGrid.Columns>
 							</DataGrid>
 						</StackPanel>
