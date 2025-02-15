@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using MsBox.Avalonia;
+using System.Globalization;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
@@ -57,6 +58,14 @@ namespace BalanceBuddyDesktop.ViewModels
 
         private readonly DatabaseService _databaseService = DatabaseService.Instance;
 
+        [ObservableProperty]
+        private string _selectedMonth = DateTime.Now.ToString("MMMM");
+
+        public List<string> Months { get; } = new List<string> {
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        };
+
         public AddTransactionPageViewModel()
         {
             Expenses = new ObservableCollection<Expense>(
@@ -73,6 +82,9 @@ namespace BalanceBuddyDesktop.ViewModels
             Expenses.CollectionChanged += (s, e) => HandleCollectionChanged(e, Expenses);
             Incomes.CollectionChanged += (s, e) => HandleCollectionChanged(e, Incomes);
             BankAccounts.CollectionChanged += (s, e) => HandleCollectionChanged(e, BankAccounts);
+
+            FilterExpensesByMonth();
+            FilterIncomesByMonth();
         }
 
         private void SubscribeToCollection<T>(ObservableCollection<T> collection) where T : INotifyPropertyChanged
@@ -231,6 +243,12 @@ namespace BalanceBuddyDesktop.ViewModels
                 GlobalData.Instance.BankAccounts);
         }
 
+        partial void OnSelectedMonthChanged(string value)
+        {
+            FilterExpensesByMonth();
+            FilterIncomesByMonth();
+        }
+
         [RelayCommand]
         public void FilterExpenses()
         {
@@ -263,6 +281,43 @@ namespace BalanceBuddyDesktop.ViewModels
                     .Where(i => i.Date >= minDate && i.Date <= maxDate)
                     .OrderByDescending(i => i.Date);
 
+                Incomes = new ObservableCollection<Income>(filteredIncomes);
+            }
+            else
+            {
+                RefreshIncomes();
+            }
+        }
+
+        [RelayCommand]
+        public void FilterExpensesByMonth()
+        {
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                var filteredExpenses = GlobalData.Instance.Expenses
+                    .Where(e => e.Date.Month == month && e.Date.Year == currentYear)
+                    .OrderByDescending(e => e.Date);
+                Expenses = new ObservableCollection<Expense>(filteredExpenses);
+            }
+            else
+            {
+                RefreshExpenses();
+            }
+        }
+
+
+        [RelayCommand]
+        public void FilterIncomesByMonth()
+        {
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                var filteredIncomes = GlobalData.Instance.Incomes
+                    .Where(e => e.Date.Month == month && e.Date.Year == currentYear)
+                    .OrderByDescending(e => e.Date);
                 Incomes = new ObservableCollection<Income>(filteredIncomes);
             }
             else

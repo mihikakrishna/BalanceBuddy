@@ -39,6 +39,9 @@
     <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc2" />
     <PackageReference Include="MessageBox.Avalonia" Version="3.1.6" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
@@ -74,5 +77,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+	<PropertyGroup>
+		<StartupObject>BalanceBuddyDesktop.Program</StartupObject>
+	</PropertyGroup>
 
 </Project>

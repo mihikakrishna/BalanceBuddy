@@ -74,6 +74,7 @@
 									Filter
 								</Expander.Header>
 								<StackPanel>
+									<TextBlock Text="Filter by date (hold shift to select date range):" Margin="0,10,10,10"/>
 									<Calendar x:Name="ExpenseFilterCalendar" SelectionMode="SingleRange"/>
 									<StackPanel Orientation="Horizontal">
 										<Button Content="Filter" Command="{Binding FilterExpensesCommand}"/>
@@ -86,21 +87,23 @@
 					<SplitView.Content>
 						<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
+								<ComboBox ItemsSource="{Binding Months}" SelectedItem="{Binding SelectedMonth}" Width="120" Margin="8"/>
 								<Button x:Name="deleteExpensesButton" Content="DELETE" Command="{Binding DeleteSelectedExpensesCommand}" Foreground="#eff2e1" Background="DarkRed"/>
 								<Button x:Name="refreshExpensesButton" Content="REFRESH" Command="{Binding RefreshExpensesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="exportExpensesButton" Content="EXPORT" Click="ExportExpensesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 							</StackPanel>
 							<DataGrid ItemsSource="{Binding Expenses, Mode=TwoWay}"
-									  CanUserReorderColumns="True"
-									  CanUserResizeColumns="True"
-									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
-									  AutoGenerateColumns="False"
-									  SelectionMode="Extended"
-									  Name="ExpenseDataGrid"
-									  Background="#eff2e1"
-									  Height="600">
+								  CanUserReorderColumns="True"
+								  CanUserResizeColumns="True"
+								  CanUserSortColumns="True"
+								  GridLinesVisibility="Horizontal"
+								  BorderThickness="1"
+								  BorderBrush="Gray"
+								  AutoGenerateColumns="False"
+								  SelectionMode="Extended"
+								  Name="ExpenseDataGrid"
+								  Background="#eff2e1"
+								  Height="600">
 								<DataGrid.Columns>
 									<DataGridTemplateColumn Header="" MaxWidth="50">
 										<DataGridTemplateColumn.CellTemplate>
@@ -203,6 +206,7 @@
 									Filter
 								</Expander.Header>
 								<StackPanel>
+									<TextBlock Text="Filter by date (hold shift to select date range):" Margin="0,10,10,10"/>
 									<Calendar x:Name="IncomeFilterCalendar" SelectionMode="SingleRange"/>
 									<StackPanel Orientation="Horizontal">
 										<Button Content="Filter" Command="{Binding FilterIncomesCommand}"/>
@@ -215,6 +219,7 @@
 					<SplitView.Content>
 						<StackPanel HorizontalAlignment="Left">
 							<StackPanel Orientation="Horizontal" Background="#eff2e1">
+								<ComboBox ItemsSource="{Binding Months}" SelectedItem="{Binding SelectedMonth}" Width="120" Margin="8"/>
 								<Button x:Name="deleteIncomesButton" Content="DELETE" Command="{Binding DeleteSelectedIncomesCommand}" Foreground="#eff2e1" Background="DarkRed"/>
 								<Button x:Name="refreshIncomesButton" Content="REFRESH" Command="{Binding RefreshIncomesCommand}" Background="#eff2e1" Foreground="DarkOliveGreen"/>
 								<Button x:Name="exportIncomesButton" Content="EXPORT" Click="ExportIncomesButton_Clicked" Background="#eff2e1" Foreground="DarkOliveGreen"/>
@@ -223,8 +228,9 @@
 									  CanUserReorderColumns="True"
 									  CanUserResizeColumns="True"
 									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
+									  GridLinesVisibility="Horizontal"
+									  BorderThickness="1"
+									  BorderBrush="Gray"
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="IncomeDataGrid"
@@ -331,8 +337,9 @@
 									  CanUserReorderColumns="True"
 									  CanUserResizeColumns="True"
 									  CanUserSortColumns="True"
-									  GridLinesVisibility="All"
-									  BorderThickness="1" BorderBrush="Gray"
+									  GridLinesVisibility="Horizontal"
+									  BorderThickness="1"
+									  BorderBrush="Gray"
 									  AutoGenerateColumns="False"
 									  SelectionMode="Extended"
 									  Name="BankAccountDataGrid"
