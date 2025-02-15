@@ -107,6 +107,7 @@ public class DatabaseService
         {
             string insertExpenseCategories = @"
                 INSERT INTO ExpenseCategories (Name) VALUES 
+                ('Unreviewed'),
                 ('Miscellaneous'), 
                 ('Housing'), 
                 ('Food'), 
@@ -117,6 +118,7 @@ public class DatabaseService
 
             string insertIncomeCategories = @"
                 INSERT INTO IncomeCategories (Name) VALUES 
+                ('Unreviewed'),
                 ('Other'), 
                 ('Job');";
 

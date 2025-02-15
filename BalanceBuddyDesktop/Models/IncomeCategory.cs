@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace BalanceBuddyDesktop.Models;
 
@@ -18,6 +19,9 @@ public class IncomeCategory : INotifyPropertyChanged
         get => _name;
         set
         {
+            if (string.Equals(_name, "Unreviewed", StringComparison.OrdinalIgnoreCase))
+                return;
+
             if (_name != value)
             {
                 _name = value;

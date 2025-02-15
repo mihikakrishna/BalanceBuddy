@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace BalanceBuddyDesktop.Models;
 
@@ -19,6 +20,8 @@ public class ExpenseCategory : INotifyPropertyChanged
         get => _name;
         set
         {
+            if (string.Equals(_name, "Unreviewed", StringComparison.OrdinalIgnoreCase))
+                return;
             if (_name != value)
             {
                 _name = value;
@@ -26,6 +29,7 @@ public class ExpenseCategory : INotifyPropertyChanged
             }
         }
     }
+
     private decimal? _budget;
     public decimal? Budget
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BalanceBuddyDesktop.Models;
 
 namespace BalanceBuddyDesktop.Services
@@ -16,6 +17,11 @@ namespace BalanceBuddyDesktop.Services
 
         public static void AddExpense(Expense expense)
         {
+            if (expense.Category == null)
+            {
+                expense.Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(c => c.Name == "Unreviewed");
+            }
+
             GlobalData.Instance.Expenses.Add(expense);
             GlobalData.Instance.HasUnsavedChanges = true;
 
@@ -37,6 +43,11 @@ namespace BalanceBuddyDesktop.Services
 
         public static void AddIncome(Income income)
         {
+            if (income.Category == null)
+            {
+                income.Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(c => c.Name == "Unreviewed");
+            }
+
             GlobalData.Instance.Incomes.Add(income);
             GlobalData.Instance.HasUnsavedChanges = true;
 
