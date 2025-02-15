@@ -13,6 +13,12 @@
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 
+	<Window.KeyBindings>
+		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveAllCommand}" />
+		<KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}" />
+		<KeyBinding Gesture="Ctrl+Y" Command="{Binding RedoCommand}" />
+	</Window.KeyBindings>
+
 	<DockPanel>
 		<!-- File Menu -->
 		<Menu DockPanel.Dock="Top">
