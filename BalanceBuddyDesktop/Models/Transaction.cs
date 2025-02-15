@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Avalonia.Media.Imaging;
+using BalanceBuddyDesktop.Services;
 
 namespace BalanceBuddyDesktop.Models
 {
@@ -47,8 +49,10 @@ namespace BalanceBuddyDesktop.Models
             {
                 if (_description != value)
                 {
+                    var oldValue = _description;
                     _description = value;
-                    OnPropertyChanged(nameof(Description));
+                    OnPropertyChanged();
+                    TransactionService.RecordEdit(this, nameof(Description), oldValue, value);
                 }
             }
         }
@@ -102,7 +106,7 @@ namespace BalanceBuddyDesktop.Models
             }
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

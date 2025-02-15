@@ -34,12 +34,12 @@
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_Edit">
-				<MenuItem Header="_Undo">
+				<MenuItem Header="_Undo" Command="{Binding UndoCommand}">
 					<MenuItem.Icon>
 						<PathIcon Data="{StaticResource arrow_curve_left_regular}" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="_Redo">
+				<MenuItem Header="_Redo" Command="{Binding RedoCommand}">
 					<MenuItem.Icon>
 						<PathIcon Data="{StaticResource arrow_curve_right_regular}" />
 					</MenuItem.Icon>

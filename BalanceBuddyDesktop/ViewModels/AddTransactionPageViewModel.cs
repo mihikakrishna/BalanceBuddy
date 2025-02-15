@@ -15,7 +15,11 @@ using System.Globalization;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
-    public partial class AddTransactionPageViewModel : ViewModelBase, INotifyPropertyChanged
+    public interface IRefreshable
+    {
+        void Refresh();
+    }
+    public partial class AddTransactionPageViewModel : ViewModelBase, INotifyPropertyChanged, IRefreshable
     {
         [ObservableProperty]
         private Expense _newExpense = new Expense();
@@ -220,6 +224,13 @@ namespace BalanceBuddyDesktop.ViewModels
                 BankAccounts.Remove(bankAccount);
             }
             GlobalData.Instance.HasUnsavedChanges = true;
+        }
+
+        public void Refresh()
+        {
+            RefreshExpenses();
+            RefreshIncomes();
+            RefreshBankAccounts();
         }
 
         [RelayCommand]

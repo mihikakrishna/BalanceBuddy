@@ -10,9 +10,9 @@ using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
 
 
 namespace BalanceBuddyDesktop.ViewModels;
@@ -91,6 +91,28 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         });
         var result = await messageBoxStandardWindow.ShowAsync();
+    }
+
+    [RelayCommand]
+    public void Undo()
+    {
+        TransactionService.Undo();
+        RefreshCollections();
+    }
+
+    [RelayCommand]
+    public void Redo()
+    {
+        TransactionService.Redo();
+        RefreshCollections();
+    }
+
+    private void RefreshCollections()
+    {
+        if (CurrentPage is IRefreshable refreshable)
+        {
+            refreshable.Refresh();
+        }
     }
 }
 
