@@ -30,7 +30,7 @@ namespace BalanceBuddyDesktop.ViewModels.Charts
 
         public ExpenseByCategoryChartViewModel()
         {
-            _selectedMonth = DateTimeOffset.Now;
+            _selectedMonth = DateTimeOffset.Now.AddMonths(-1);
             UpdateSeries();
         }
 
