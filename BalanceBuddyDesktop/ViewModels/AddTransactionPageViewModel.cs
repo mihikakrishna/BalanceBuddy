@@ -63,7 +63,7 @@ namespace BalanceBuddyDesktop.ViewModels
         private readonly DatabaseService _databaseService = DatabaseService.Instance;
 
         [ObservableProperty]
-        private string _selectedMonth = DateTime.Now.ToString("MMMM");
+        private string _selectedMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
 
         public List<string> Months { get; } = new List<string> {
             "January", "February", "March", "April", "May", "June",
