@@ -111,6 +111,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteExpenseCategory(ExpenseCategory expenseCategory)
         {
+            if (expenseCategory.Name == "Unreviewed")
+                return;
+
             if (ExpenseCategories.Contains(expenseCategory))
             {
                 ExpenseCategories.Remove(expenseCategory);
@@ -121,6 +124,9 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         private void DeleteIncomeCategory(IncomeCategory incomeCategory)
         {
+            if (incomeCategory.Name == "Unreviewed")
+                return;
+
             if (IncomeCategories.Contains(incomeCategory))
             {
                 IncomeCategories.Remove(incomeCategory);
