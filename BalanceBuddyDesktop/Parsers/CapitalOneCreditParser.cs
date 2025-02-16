@@ -47,7 +47,7 @@ public class CapitalOneCreditParser : IBankStatementParser
                     Amount = record.Debit.Value,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(),
+                    Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(c => c.Name == "Unreviewed"),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
                 };
                 TransactionService.AddExpense(expense);
@@ -59,7 +59,7 @@ public class CapitalOneCreditParser : IBankStatementParser
                     Amount = record.Credit.Value,
                     Date = record.Date,
                     Description = record.Description,
-                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(),
+                    Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(c => c.Name == "Unreviewed"),
                     BankIconPath = "avares://BalanceBuddyDesktop/Assets/Images/CapitalOneCreditLogo.jpg"
                 };
                 TransactionService.AddIncome(income);
