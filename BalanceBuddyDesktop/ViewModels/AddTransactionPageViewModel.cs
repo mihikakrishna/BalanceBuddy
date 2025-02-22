@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using Avalonia.Controls;
+using System.Windows.Input;
 using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MsBox.Avalonia.Dto;
-using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
-using System.Globalization;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
@@ -21,6 +18,9 @@ namespace BalanceBuddyDesktop.ViewModels
     }
     public partial class AddTransactionPageViewModel : ViewModelBase, INotifyPropertyChanged, IRefreshable
     {
+        [ObservableProperty]
+        private int _selectedTabIndex;
+
         [ObservableProperty]
         private Expense _newExpense = new Expense();
 
@@ -237,21 +237,27 @@ namespace BalanceBuddyDesktop.ViewModels
         public void RefreshExpenses()
         {
             Expenses = new ObservableCollection<Expense>(
-                GlobalData.Instance.Expenses.OrderByDescending(e => e.Date));
+                GlobalData.Instance.Expenses
+                    .OrderByDescending(e => e.Date)
+                    .ThenByDescending(e => e.Amount));
         }
 
         [RelayCommand]
         public void RefreshIncomes()
         {
             Incomes = new ObservableCollection<Income>(
-                GlobalData.Instance.Incomes.OrderByDescending(i => i.Date));
+                GlobalData.Instance.Incomes
+                    .OrderByDescending(i => i.Date)
+                    .ThenByDescending(i => i.Amount));
         }
 
         [RelayCommand]
         public void RefreshBankAccounts()
         {
             BankAccounts = new ObservableCollection<BankAccount>(
-                GlobalData.Instance.BankAccounts);
+                GlobalData.Instance.BankAccounts
+                    .OrderByDescending(b => b.Balance)
+                    .ThenByDescending(b => b.Name));
         }
 
         partial void OnSelectedMonthChanged(string value)
@@ -270,7 +276,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
                 var filteredExpenses = GlobalData.Instance.Expenses
                     .Where(e => e.Date >= minDate && e.Date <= maxDate)
-                    .OrderByDescending(e => e.Date);
+                    .OrderByDescending(e => e.Date)
+                    .ThenByDescending(e => e.Amount);
 
                 Expenses = new ObservableCollection<Expense>(filteredExpenses);
             }
@@ -290,7 +297,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
                 var filteredIncomes = GlobalData.Instance.Incomes
                     .Where(i => i.Date >= minDate && i.Date <= maxDate)
-                    .OrderByDescending(i => i.Date);
+                    .OrderByDescending(i => i.Date)
+                    .ThenByDescending(e => e.Amount);
 
                 Incomes = new ObservableCollection<Income>(filteredIncomes);
             }
@@ -336,6 +344,81 @@ namespace BalanceBuddyDesktop.ViewModels
                 RefreshIncomes();
             }
         }
+
+        public ICommand UndoCommand => new RelayCommand(() =>
+        {
+            switch (SelectedTabIndex)
+            {
+                case 0:
+                    UndoExpense();
+                    break;
+                case 1:
+                    UndoIncome();
+                    break;
+                case 2:
+                    UndoBankAccount();
+                    break;
+            }
+        });
+
+        public ICommand RedoCommand => new RelayCommand(() =>
+        {
+            switch (SelectedTabIndex)
+            {
+                case 0:
+                    RedoExpense();
+                    break;
+                case 1:
+                    RedoIncome();
+                    break;
+                case 2:
+                    RedoBankAccount();
+                    break;
+            }
+        });
+
+        [RelayCommand]
+        public void UndoExpense()
+        {
+            TransactionService.UndoExpense();
+            RefreshExpenses();
+        }
+
+        [RelayCommand]
+        public void RedoExpense()
+        {
+            TransactionService.RedoExpense();
+            RefreshExpenses();
+        }
+
+        [RelayCommand]
+        public void UndoIncome()
+        {
+            TransactionService.UndoIncome();
+            RefreshIncomes();
+        }
+
+        [RelayCommand]
+        public void RedoIncome()
+        {
+            TransactionService.RedoIncome();
+            RefreshIncomes();
+        }
+
+        [RelayCommand]
+        public void UndoBankAccount()
+        {
+            TransactionService.UndoBankAccount();
+            RefreshBankAccounts();
+        }
+
+        [RelayCommand]
+        public void RedoBankAccount()
+        {
+            TransactionService.RedoBankAccount();
+            RefreshBankAccounts();
+        }
+
 
         [RelayCommand]
         public void ClearFilters()
