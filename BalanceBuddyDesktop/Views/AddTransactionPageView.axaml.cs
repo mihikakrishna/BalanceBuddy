@@ -14,10 +14,6 @@ namespace BalanceBuddyDesktop.Views
 {
     public partial class AddTransactionPageView : UserControl
     {
-        private bool _expenseSortAscending = true;
-        private bool _incomeSortAscending = true;
-        private bool _bankAccountSortAscending = true;
-
         public AddTransactionPageView()
         {
             InitializeComponent();

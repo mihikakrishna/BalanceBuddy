@@ -66,13 +66,13 @@ namespace BalanceBuddyDesktop.ViewModels
         private string _selectedMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
 
         [ObservableProperty]
-        private bool _expenseSortAscending = true;
+        private bool _expenseSortAscending = false;
 
         [ObservableProperty]
-        private bool _incomeSortAscending = true;
+        private bool _incomeSortAscending = false;
 
         [ObservableProperty]
-        private bool _bankAccountSortAscending = true;
+        private bool _bankAccountSortAscending = false;
 
         public List<string> Months { get; } = new List<string> {
             "January", "February", "March", "April", "May", "June",
@@ -496,6 +496,7 @@ namespace BalanceBuddyDesktop.ViewModels
         {
             SelectedExpenseDates.Clear();
             SelectedIncomeDates.Clear();
+            SelectedMonth = "";
             RefreshExpenses();
             RefreshIncomes();
         }
