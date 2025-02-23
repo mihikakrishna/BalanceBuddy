@@ -70,7 +70,9 @@ namespace BalanceBuddyDesktop.Views
         {
             if (DataContext is AddTransactionPageViewModel viewModel)
             {
-                HandleSorting<Expense>(e, viewModel.Expenses, sorted => viewModel.Expenses = sorted, ref _expenseSortAscending);
+                viewModel.ExpenseSortAscending = !viewModel.ExpenseSortAscending;
+                viewModel.RefreshExpenses();
+                e.Handled = true;
             }
         }
 
@@ -78,7 +80,9 @@ namespace BalanceBuddyDesktop.Views
         {
             if (DataContext is AddTransactionPageViewModel viewModel)
             {
-                HandleSorting<Income>(e, viewModel.Incomes, sorted => viewModel.Incomes = sorted, ref _incomeSortAscending);
+                viewModel.IncomeSortAscending = !viewModel.IncomeSortAscending;
+                viewModel.RefreshIncomes();
+                e.Handled = true;
             }
         }
 
@@ -86,7 +90,9 @@ namespace BalanceBuddyDesktop.Views
         {
             if (DataContext is AddTransactionPageViewModel viewModel)
             {
-                HandleSorting<BankAccount>(e, viewModel.BankAccounts, sorted => viewModel.BankAccounts = sorted, ref _bankAccountSortAscending);
+                viewModel.BankAccountSortAscending = !viewModel.BankAccountSortAscending;
+                viewModel.RefreshBankAccounts();
+                e.Handled = true;
             }
         }
 

@@ -65,6 +65,15 @@ namespace BalanceBuddyDesktop.ViewModels
         [ObservableProperty]
         private string _selectedMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
 
+        [ObservableProperty]
+        private bool _expenseSortAscending = true;
+
+        [ObservableProperty]
+        private bool _incomeSortAscending = true;
+
+        [ObservableProperty]
+        private bool _bankAccountSortAscending = true;
+
         public List<string> Months { get; } = new List<string> {
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -236,28 +245,90 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         public void RefreshExpenses()
         {
-            Expenses = new ObservableCollection<Expense>(
-                GlobalData.Instance.Expenses
-                    .OrderByDescending(e => e.Date)
-                    .ThenByDescending(e => e.Amount));
+            IEnumerable<Expense> refreshedExpenses = GlobalData.Instance.Expenses;
+
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                refreshedExpenses = refreshedExpenses.Where(e => e.Date.Month == month && e.Date.Year == currentYear);
+            }
+
+            else if (SelectedExpenseDates?.Count > 0)
+            {
+                DateTime minDate = SelectedExpenseDates.Min();
+                DateTime maxDate = SelectedExpenseDates.Max();
+                refreshedExpenses = refreshedExpenses.Where(e => e.Date >= minDate && e.Date <= maxDate);
+            }
+
+            if (ExpenseSortAscending)
+            {
+                refreshedExpenses = refreshedExpenses.OrderBy(e => e.Date).ThenBy(e => e.Amount);
+            }
+            else
+            {
+                refreshedExpenses = refreshedExpenses.OrderByDescending(e => e.Date).ThenByDescending(e => e.Amount);
+            }
+
+            UpdateCollection(Expenses, refreshedExpenses);
         }
+
 
         [RelayCommand]
         public void RefreshIncomes()
         {
-            Incomes = new ObservableCollection<Income>(
-                GlobalData.Instance.Incomes
-                    .OrderByDescending(i => i.Date)
-                    .ThenByDescending(i => i.Amount));
+            IEnumerable<Income> refreshedIncomes = GlobalData.Instance.Incomes;
+
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                refreshedIncomes = refreshedIncomes.Where(i => i.Date.Month == month && i.Date.Year == currentYear);
+            }
+            else if (SelectedIncomeDates?.Count > 0)
+            {
+                DateTime minDate = SelectedIncomeDates.Min();
+                DateTime maxDate = SelectedIncomeDates.Max();
+                refreshedIncomes = refreshedIncomes.Where(i => i.Date >= minDate && i.Date <= maxDate);
+            }
+
+            if (IncomeSortAscending)
+            {
+                refreshedIncomes = refreshedIncomes.OrderBy(i => i.Date).ThenBy(i => i.Amount);
+            }
+            else
+            {
+                refreshedIncomes = refreshedIncomes.OrderByDescending(i => i.Date).ThenByDescending(i => i.Amount);
+            }
+
+            UpdateCollection(Incomes, refreshedIncomes);
         }
 
         [RelayCommand]
         public void RefreshBankAccounts()
         {
-            BankAccounts = new ObservableCollection<BankAccount>(
-                GlobalData.Instance.BankAccounts
-                    .OrderByDescending(b => b.Balance)
-                    .ThenByDescending(b => b.Name));
+            IEnumerable<BankAccount> refreshedBankAccounts = GlobalData.Instance.BankAccounts;
+
+            if (BankAccountSortAscending)
+            {
+                refreshedBankAccounts = refreshedBankAccounts.OrderBy(b => b.Balance).ThenBy(b => b.Name);
+            }
+            else
+            {
+                refreshedBankAccounts = refreshedBankAccounts.OrderByDescending(b => b.Balance).ThenByDescending(b => b.Name);
+            }
+
+            UpdateCollection(BankAccounts, refreshedBankAccounts);
+        }
+
+
+        private void UpdateCollection<T>(ObservableCollection<T> collection, IEnumerable<T> newItems)
+        {
+            collection.Clear();
+            foreach (var item in newItems)
+            {
+                collection.Add(item);
+            }
         }
 
         partial void OnSelectedMonthChanged(string value)
