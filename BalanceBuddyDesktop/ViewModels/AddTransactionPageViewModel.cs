@@ -81,12 +81,9 @@ namespace BalanceBuddyDesktop.ViewModels
 
         public AddTransactionPageViewModel()
         {
-            Expenses = new ObservableCollection<Expense>(
-                GlobalData.Instance.Expenses.OrderByDescending(e => e.Date));
-            Incomes = new ObservableCollection<Income>(
-                GlobalData.Instance.Incomes.OrderByDescending(i => i.Date));
-            BankAccounts = new ObservableCollection<BankAccount>(
-                GlobalData.Instance.BankAccounts);
+            Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
+            Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+            BankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
 
             SubscribeToCollection(Expenses);
             SubscribeToCollection(Incomes);
@@ -98,6 +95,7 @@ namespace BalanceBuddyDesktop.ViewModels
 
             FilterExpensesByMonth();
             FilterIncomesByMonth();
+            Refresh();
         }
 
         private void SubscribeToCollection<T>(ObservableCollection<T> collection) where T : INotifyPropertyChanged
