@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using Avalonia.Controls;
+using System.Windows.Input;
 using BalanceBuddyDesktop.Models;
 using BalanceBuddyDesktop.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MsBox.Avalonia.Dto;
-using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
-using System.Globalization;
 
 namespace BalanceBuddyDesktop.ViewModels
 {
@@ -21,6 +18,9 @@ namespace BalanceBuddyDesktop.ViewModels
     }
     public partial class AddTransactionPageViewModel : ViewModelBase, INotifyPropertyChanged, IRefreshable
     {
+        [ObservableProperty]
+        private int _selectedTabIndex;
+
         [ObservableProperty]
         private Expense _newExpense = new Expense();
 
@@ -63,7 +63,16 @@ namespace BalanceBuddyDesktop.ViewModels
         private readonly DatabaseService _databaseService = DatabaseService.Instance;
 
         [ObservableProperty]
-        private string _selectedMonth = DateTime.Now.ToString("MMMM");
+        private string _selectedMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
+
+        [ObservableProperty]
+        private bool _expenseSortAscending = false;
+
+        [ObservableProperty]
+        private bool _incomeSortAscending = false;
+
+        [ObservableProperty]
+        private bool _bankAccountSortAscending = false;
 
         public List<string> Months { get; } = new List<string> {
             "January", "February", "March", "April", "May", "June",
@@ -72,12 +81,9 @@ namespace BalanceBuddyDesktop.ViewModels
 
         public AddTransactionPageViewModel()
         {
-            Expenses = new ObservableCollection<Expense>(
-                GlobalData.Instance.Expenses.OrderByDescending(e => e.Date));
-            Incomes = new ObservableCollection<Income>(
-                GlobalData.Instance.Incomes.OrderByDescending(i => i.Date));
-            BankAccounts = new ObservableCollection<BankAccount>(
-                GlobalData.Instance.BankAccounts);
+            Expenses = new ObservableCollection<Expense>(GlobalData.Instance.Expenses);
+            Incomes = new ObservableCollection<Income>(GlobalData.Instance.Incomes);
+            BankAccounts = new ObservableCollection<BankAccount>(GlobalData.Instance.BankAccounts);
 
             SubscribeToCollection(Expenses);
             SubscribeToCollection(Incomes);
@@ -89,6 +95,7 @@ namespace BalanceBuddyDesktop.ViewModels
 
             FilterExpensesByMonth();
             FilterIncomesByMonth();
+            Refresh();
         }
 
         private void SubscribeToCollection<T>(ObservableCollection<T> collection) where T : INotifyPropertyChanged
@@ -236,22 +243,90 @@ namespace BalanceBuddyDesktop.ViewModels
         [RelayCommand]
         public void RefreshExpenses()
         {
-            Expenses = new ObservableCollection<Expense>(
-                GlobalData.Instance.Expenses.OrderByDescending(e => e.Date));
+            IEnumerable<Expense> refreshedExpenses = GlobalData.Instance.Expenses;
+
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                refreshedExpenses = refreshedExpenses.Where(e => e.Date.Month == month && e.Date.Year == currentYear);
+            }
+
+            else if (SelectedExpenseDates?.Count > 0)
+            {
+                DateTime minDate = SelectedExpenseDates.Min();
+                DateTime maxDate = SelectedExpenseDates.Max();
+                refreshedExpenses = refreshedExpenses.Where(e => e.Date >= minDate && e.Date <= maxDate);
+            }
+
+            if (ExpenseSortAscending)
+            {
+                refreshedExpenses = refreshedExpenses.OrderBy(e => e.Date).ThenBy(e => e.Amount);
+            }
+            else
+            {
+                refreshedExpenses = refreshedExpenses.OrderByDescending(e => e.Date).ThenByDescending(e => e.Amount);
+            }
+
+            UpdateCollection(Expenses, refreshedExpenses);
         }
+
 
         [RelayCommand]
         public void RefreshIncomes()
         {
-            Incomes = new ObservableCollection<Income>(
-                GlobalData.Instance.Incomes.OrderByDescending(i => i.Date));
+            IEnumerable<Income> refreshedIncomes = GlobalData.Instance.Incomes;
+
+            if (!string.IsNullOrEmpty(SelectedMonth))
+            {
+                int month = DateTime.ParseExact(SelectedMonth, "MMMM", CultureInfo.InvariantCulture).Month;
+                int currentYear = DateTime.Now.Year;
+                refreshedIncomes = refreshedIncomes.Where(i => i.Date.Month == month && i.Date.Year == currentYear);
+            }
+            else if (SelectedIncomeDates?.Count > 0)
+            {
+                DateTime minDate = SelectedIncomeDates.Min();
+                DateTime maxDate = SelectedIncomeDates.Max();
+                refreshedIncomes = refreshedIncomes.Where(i => i.Date >= minDate && i.Date <= maxDate);
+            }
+
+            if (IncomeSortAscending)
+            {
+                refreshedIncomes = refreshedIncomes.OrderBy(i => i.Date).ThenBy(i => i.Amount);
+            }
+            else
+            {
+                refreshedIncomes = refreshedIncomes.OrderByDescending(i => i.Date).ThenByDescending(i => i.Amount);
+            }
+
+            UpdateCollection(Incomes, refreshedIncomes);
         }
 
         [RelayCommand]
         public void RefreshBankAccounts()
         {
-            BankAccounts = new ObservableCollection<BankAccount>(
-                GlobalData.Instance.BankAccounts);
+            IEnumerable<BankAccount> refreshedBankAccounts = GlobalData.Instance.BankAccounts;
+
+            if (BankAccountSortAscending)
+            {
+                refreshedBankAccounts = refreshedBankAccounts.OrderBy(b => b.Balance).ThenBy(b => b.Name);
+            }
+            else
+            {
+                refreshedBankAccounts = refreshedBankAccounts.OrderByDescending(b => b.Balance).ThenByDescending(b => b.Name);
+            }
+
+            UpdateCollection(BankAccounts, refreshedBankAccounts);
+        }
+
+
+        private void UpdateCollection<T>(ObservableCollection<T> collection, IEnumerable<T> newItems)
+        {
+            collection.Clear();
+            foreach (var item in newItems)
+            {
+                collection.Add(item);
+            }
         }
 
         partial void OnSelectedMonthChanged(string value)
@@ -270,7 +345,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
                 var filteredExpenses = GlobalData.Instance.Expenses
                     .Where(e => e.Date >= minDate && e.Date <= maxDate)
-                    .OrderByDescending(e => e.Date);
+                    .OrderByDescending(e => e.Date)
+                    .ThenByDescending(e => e.Amount);
 
                 Expenses = new ObservableCollection<Expense>(filteredExpenses);
             }
@@ -290,7 +366,8 @@ namespace BalanceBuddyDesktop.ViewModels
 
                 var filteredIncomes = GlobalData.Instance.Incomes
                     .Where(i => i.Date >= minDate && i.Date <= maxDate)
-                    .OrderByDescending(i => i.Date);
+                    .OrderByDescending(i => i.Date)
+                    .ThenByDescending(e => e.Amount);
 
                 Incomes = new ObservableCollection<Income>(filteredIncomes);
             }
@@ -337,11 +414,87 @@ namespace BalanceBuddyDesktop.ViewModels
             }
         }
 
+        public ICommand UndoCommand => new RelayCommand(() =>
+        {
+            switch (SelectedTabIndex)
+            {
+                case 0:
+                    UndoExpense();
+                    break;
+                case 1:
+                    UndoIncome();
+                    break;
+                case 2:
+                    UndoBankAccount();
+                    break;
+            }
+        });
+
+        public ICommand RedoCommand => new RelayCommand(() =>
+        {
+            switch (SelectedTabIndex)
+            {
+                case 0:
+                    RedoExpense();
+                    break;
+                case 1:
+                    RedoIncome();
+                    break;
+                case 2:
+                    RedoBankAccount();
+                    break;
+            }
+        });
+
+        [RelayCommand]
+        public void UndoExpense()
+        {
+            TransactionService.UndoExpense();
+            RefreshExpenses();
+        }
+
+        [RelayCommand]
+        public void RedoExpense()
+        {
+            TransactionService.RedoExpense();
+            RefreshExpenses();
+        }
+
+        [RelayCommand]
+        public void UndoIncome()
+        {
+            TransactionService.UndoIncome();
+            RefreshIncomes();
+        }
+
+        [RelayCommand]
+        public void RedoIncome()
+        {
+            TransactionService.RedoIncome();
+            RefreshIncomes();
+        }
+
+        [RelayCommand]
+        public void UndoBankAccount()
+        {
+            TransactionService.UndoBankAccount();
+            RefreshBankAccounts();
+        }
+
+        [RelayCommand]
+        public void RedoBankAccount()
+        {
+            TransactionService.RedoBankAccount();
+            RefreshBankAccounts();
+        }
+
+
         [RelayCommand]
         public void ClearFilters()
         {
             SelectedExpenseDates.Clear();
             SelectedIncomeDates.Clear();
+            SelectedMonth = "";
             RefreshExpenses();
             RefreshIncomes();
         }

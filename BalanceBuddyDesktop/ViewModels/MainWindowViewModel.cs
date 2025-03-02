@@ -92,28 +92,6 @@ public partial class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
         });
         var result = await messageBoxStandardWindow.ShowAsync();
     }
-
-    [RelayCommand]
-    public void Undo()
-    {
-        TransactionService.Undo();
-        RefreshCollections();
-    }
-
-    [RelayCommand]
-    public void Redo()
-    {
-        TransactionService.Redo();
-        RefreshCollections();
-    }
-
-    private void RefreshCollections()
-    {
-        if (CurrentPage is IRefreshable refreshable)
-        {
-            refreshable.Refresh();
-        }
-    }
 }
 
 public class ListItemTemplate

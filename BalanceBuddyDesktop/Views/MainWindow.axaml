@@ -15,8 +15,6 @@
 
 	<Window.KeyBindings>
 		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveAllCommand}" />
-		<KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}" />
-		<KeyBinding Gesture="Ctrl+Y" Command="{Binding RedoCommand}" />
 	</Window.KeyBindings>
 
 	<DockPanel>
@@ -36,18 +34,6 @@
 				<MenuItem Header="_Export Database" Command="{Binding ExportDatabaseCommand}">
 					<MenuItem.Icon>
 						<PathIcon Data="{StaticResource table_delete_regular}" />
-					</MenuItem.Icon>
-				</MenuItem>
-			</MenuItem>
-			<MenuItem Header="_Edit">
-				<MenuItem Header="_Undo" Command="{Binding UndoCommand}">
-					<MenuItem.Icon>
-						<PathIcon Data="{StaticResource arrow_curve_left_regular}" />
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="_Redo" Command="{Binding RedoCommand}">
-					<MenuItem.Icon>
-						<PathIcon Data="{StaticResource arrow_curve_right_regular}" />
 					</MenuItem.Icon>
 				</MenuItem>
 			</MenuItem>

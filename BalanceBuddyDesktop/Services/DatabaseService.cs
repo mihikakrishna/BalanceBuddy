@@ -106,19 +106,21 @@ public class DatabaseService
         if (count == 0)
         {
             string insertExpenseCategories = @"
-                INSERT INTO ExpenseCategories (Name) VALUES 
-                ('Miscellaneous'), 
-                ('Housing'), 
-                ('Food'), 
-                ('Travel'), 
-                ('Utilities'), 
-                ('Healthcare'), 
-                ('Entertainment');";
+            INSERT INTO ExpenseCategories (Name) VALUES 
+            ('Unreviewed'),
+            ('Miscellaneous'), 
+            ('Housing'), 
+            ('Food'), 
+            ('Travel'), 
+            ('Utilities'), 
+            ('Healthcare'), 
+            ('Entertainment');";
 
             string insertIncomeCategories = @"
-                INSERT INTO IncomeCategories (Name) VALUES 
-                ('Other'), 
-                ('Job');";
+            INSERT INTO IncomeCategories (Name) VALUES 
+            ('Unreviewed'),
+            ('Other'), 
+            ('Job');";
 
             ExecuteNonQuery(insertExpenseCategories, connection);
             ExecuteNonQuery(insertIncomeCategories, connection);
@@ -201,6 +203,20 @@ public class DatabaseService
                     Name = reader["Name"].ToString()
                 });
             }
+        }
+
+        // After loading ExpenseCategories from the database:
+        if (!userData.ExpenseCategories.Any(c =>
+               c.Name.Equals("Unreviewed", StringComparison.OrdinalIgnoreCase)))
+        {
+            userData.ExpenseCategories.Add(new ExpenseCategory { Name = "Unreviewed" });
+        }
+
+        // Similarly, after loading IncomeCategories:
+        if (!userData.IncomeCategories.Any(c =>
+               c.Name.Equals("Unreviewed", StringComparison.OrdinalIgnoreCase)))
+        {
+            userData.IncomeCategories.Add(new IncomeCategory { Name = "Unreviewed" });
         }
 
         // Load BankAccounts
