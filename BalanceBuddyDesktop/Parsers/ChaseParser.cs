@@ -37,11 +37,11 @@ public class ChaseParser : IBankStatementParser
         var records = csv.GetRecords<ChaseStatementRecord>();
         foreach (var record in records)
         {
-            if (record.Amount >= 0)
+            if (record.Amount < 0)
             {
                 var expense = new Expense
                 {
-                    Amount = record.Amount,
+                    Amount = -record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.ExpenseCategories.FirstOrDefault(c => c.Name == "Unreviewed"),
@@ -53,7 +53,7 @@ public class ChaseParser : IBankStatementParser
             {
                 var income = new Income
                 {
-                    Amount = -record.Amount,
+                    Amount = record.Amount,
                     Date = record.Date,
                     Description = record.Description,
                     Category = GlobalData.Instance.IncomeCategories.FirstOrDefault(c => c.Name == "Unreviewed"),
