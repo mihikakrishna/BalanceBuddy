@@ -25,12 +25,16 @@ namespace BalanceBuddyDesktop
 
         public override void OnFrameworkInitializationCompleted()
         {
-            _databaseService.LoadUserData(GlobalData.Instance);
+            // Only load data if a DB is currently open.
+            // Otherwise, skip loading and let the user Import/Create a DB in the UI.
+            if (_databaseService.HasOpenDatabase)
+            {
+                _databaseService.LoadUserData(GlobalData.Instance);
+            }
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                // Line below is needed to remove Avalonia data validation.
-                // Without this line, you will get duplicate validations from both Avalonia and CT
+                // Remove Avalonia’s default data validation to avoid double validation with MVVM Toolkit
                 BindingPlugins.DataValidators.RemoveAt(0);
 
                 desktop.MainWindow = new MainWindow
@@ -78,7 +82,5 @@ namespace BalanceBuddyDesktop
                 e.Cancel = false;
             }
         }
-
-
     }
 }
