@@ -19,9 +19,7 @@ namespace BalanceBuddyDesktop.Services
         private string _databaseFilePath;
         private string ConnectionString => $"Data Source={_databaseFilePath};Version=3;";
 
-        private DatabaseService()
-        {
-        }
+        private DatabaseService() { }
 
         public static DatabaseService Instance
         {
@@ -43,6 +41,22 @@ namespace BalanceBuddyDesktop.Services
         /// </summary>
         public bool HasOpenDatabase =>
             !string.IsNullOrEmpty(_databaseFilePath) && File.Exists(_databaseFilePath);
+
+        /// <summary>
+        /// Returns the current database file name only (not the full path).
+        /// E.g. "myDatabase.db" or "[No Database Open]" if none is open.
+        /// </summary>
+        public string CurrentDatabaseFileName
+        {
+            get
+            {
+                if (!HasOpenDatabase)
+                {
+                    return "[No Database Open]";
+                }
+                return Path.GetFileName(_databaseFilePath);
+            }
+        }
 
         /// <summary>
         /// Creates a brand-new SQLite database file at the specified path,

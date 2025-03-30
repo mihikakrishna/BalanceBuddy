@@ -1,23 +1,21 @@
-﻿namespace BalanceBuddyDesktop.Models;
+﻿using System;
 
-public class GlobalData
+namespace BalanceBuddyDesktop.Models
 {
-    private static UserData _instance;
-    private static readonly object _lock = new object();
-
-    public static UserData Instance
+    public static class GlobalData
     {
-        get
+        private static UserData _instance;
+        private static readonly object _lock = new object();
+
+        public static UserData Instance
         {
-            lock (_lock)
+            get
             {
-                if (_instance == null)
+                lock (_lock)
                 {
-                    _instance = new UserData();
+                    return _instance ??= new UserData();
                 }
-                return _instance;
             }
         }
     }
 }
-

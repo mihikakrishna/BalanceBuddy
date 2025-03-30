@@ -7,7 +7,7 @@
         x:Class="BalanceBuddyDesktop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="avares://BalanceBuddyDesktop/Assets/logo.ico"
-        Title="BalanceBuddyDesktop">
+        Title="{Binding WindowTitle}">
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
@@ -24,6 +24,11 @@
 				<MenuItem Header="_Save All" Command="{Binding SaveAllCommand}">
 					<MenuItem.Icon>
 						<PathIcon Data="{StaticResource save_regular}" />
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="_Create New Database" Command="{Binding CreateNewDatabaseCommand}">
+					<MenuItem.Icon>
+						<PathIcon Data="{StaticResource calendar_add_regular}" />
 					</MenuItem.Icon>
 				</MenuItem>
 				<MenuItem Header="_Import Database" Command="{Binding ImportDatabaseCommand}">

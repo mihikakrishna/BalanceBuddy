@@ -27,6 +27,32 @@ namespace BalanceBuddyDesktop.ViewModels
 
         [ObservableProperty]
         private ListItemTemplate _selectedListItem;
+        public MainWindowViewModel()
+        {
+            GlobalData.Instance.PropertyChanged += OnGlobalDataPropertyChanged;
+        }
+
+        // Build a property that returns “BalanceBuddy - fileName” plus a star if unsaved
+        public string WindowTitle
+        {
+            get
+            {
+                var fileName = DatabaseService.Instance.CurrentDatabaseFileName;
+                bool unsaved = GlobalData.Instance.HasUnsavedChanges;
+
+                return unsaved
+                    ? $"BalanceBuddy - {fileName} *"
+                    : $"BalanceBuddy - {fileName}";
+            }
+        }
+
+        private void OnGlobalDataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(UserData.HasUnsavedChanges))
+            {
+                OnPropertyChanged(nameof(WindowTitle));
+            }
+        }
 
         partial void OnSelectedListItemChanged(ListItemTemplate? value)
         {

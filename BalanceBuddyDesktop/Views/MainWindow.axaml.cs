@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using BalanceBuddyDesktop.ViewModels;
 
 namespace BalanceBuddyDesktop.Views
 {
@@ -7,9 +9,12 @@ namespace BalanceBuddyDesktop.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
 
-        
-
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
 }
